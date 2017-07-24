@@ -1,15 +1,41 @@
 var express = require('express');
 var consign = require('consign');
+var bodyParser = require("body-parser");
+var expressValidator = require("express-validator");
+var session = require('express-session');
 
 module.exports = function(){
     var app = express();
 
-    app.use("views", "./app/views/")
-    app.use("view engine", "ejs");
-    app.use(express.static("./app/public"))
+    app.use(express.static("./app/public"));
+    app.set("views", "./app/views/")
+    app.set("view engine", "ejs");
+    app.use(bodyParser.urlencoded({extended:true}));
+    app.use(bodyParser.json())
+    app.use(expressValidator());
+    app.use(session({
+        secret: 'controladorai',
+        name: 'myCookie',
+        resave: true,
+        saveUninitialized: true
+    }));
+
+
+    app.use(function(req, res, next){
+        var sessao = req.session;
+        
+        if(!sessao.email && req.url != "/login"){
+            res.redirect("/login");
+        }else{
+            next();
+        }
+    })
+
+
+     
 
     consign().
-    include("controllers")
+    include("./app/controllers")
     .into(app);
 
     return app;

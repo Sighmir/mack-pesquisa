@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Controladoria</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/main-login.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+	<body>
+	<div class="container">
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+        </div>
+        <div id="form-box">
+            <form action="/login/autenticar" method="post">
+                <h3 class="text-center">Já possui cadastro? Então realize seu login</h3>
+
+                <div class="form-group">
+                    <label class="sr-only" for="login">Usuário</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+                        <input type="text" name="usuario" class="form-control" placeholder="Seu login de usuário">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="sr-only" for="senha">Senha</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </div>
+                        <input type="password" name="senha" class="form-control" placeholder="Digite sua senha">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Entrar" class="btn btn-success form-control">
+                </div>
+    
+                <div class="form-group">
+                    Não é registrado? <a href="cadastro.html">Crie uma conta</a>.
+                </div>
+            </form>
+         </div>
+     </div>
+
+    </div>
+    
+
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/js/bootbox.min.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+	</body>
+</html>

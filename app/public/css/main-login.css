@@ -1,0 +1,9 @@
+
+ #form-box {
+     padding: 30px;
+     box-sizing: border-box;
+ }
+
+ #form-box input {
+     font-size: medium;
+ }
