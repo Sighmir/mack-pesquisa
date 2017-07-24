@@ -23,7 +23,7 @@ module.exports = function(){
 
     app.use(function(req, res, next){
         var sessao = req.session;
-        
+
         if(!sessao.email && req.url != "/login"){
             res.redirect("/login");
         }else{
@@ -31,11 +31,9 @@ module.exports = function(){
         }
     })
 
-
-     
-
-    consign().
-    include("./app/controllers")
+    consign()
+    .include("./app/controllers")
+    .then("./app/infra")
     .into(app);
 
     return app;

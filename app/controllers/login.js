@@ -1,7 +1,8 @@
+var bcrypt = require('bcrypt');
+
 module.exports = function(app){
     
     app.get("/login", function(req, res){
-        console.log("Chegou aqui")
         var sessao = req.session;
         if(sessao.email){
             res.redirect("/home");
@@ -10,7 +11,18 @@ module.exports = function(app){
         }
     })
 
-    app.post("/login/autentica", function(req,res){
-        
+    app.post("/login", function(req,res){
+        var usuario = req.body;
+        var connection = new app.infra.ConnectionFactory();
+        var usuarioDAO = new app.persistencia.UsuarioDAO();
+        if(usuario.email && usuario.senha){
+            bcrypt.hash(usuario.senha, 5, function( err, bcryptedPassword) {
+                usuarioDAO.buscarPorEmail(usuario, function(erro, resultado){
+                    if(erro){
+                        res.redirect
+                    }
+                })
+            });
+        }
     })
 }
