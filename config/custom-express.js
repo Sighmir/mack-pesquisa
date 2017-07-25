@@ -14,7 +14,7 @@ module.exports = function(){
     app.use(bodyParser.json())
     app.use(expressValidator());
     app.use(session({
-        secret: 'controladorai',
+        secret: 'controladoria',
         name: 'myCookie',
         resave: true,
         saveUninitialized: true
@@ -24,7 +24,7 @@ module.exports = function(){
     app.use(function(req, res, next){
         var sessao = req.session;
 
-        if(!sessao.email && req.url != "/login"){
+        if(!sessao.email && req.url != "/login" && req.url != "/cadastro"){
             res.redirect("/login");
         }else{
             next();

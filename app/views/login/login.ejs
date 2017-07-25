@@ -18,7 +18,12 @@
          <div class="panel panel-primary">
             <div class="panel-heading">
             </div>
-            <div id="form-box">
+
+            <%if(feedback != undefined){%>
+                    <div id="login" class="form-box elemento-escondido">            
+                <%}else{%>
+                    <div id="login" class="form-box ">
+                <%}%>
                 <form action="/login" method="post">
                     <h3 class="text-center">Já possui cadastro?</h3>
 
@@ -26,7 +31,7 @@
                         <label class="sr-only" for="login">Usuário</label>
                         <div class="input-group">
                             <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span>
+                                <span class="glyphicon glyphicon-envelope"></span>
                             </div>
                             <input id="login" type="email" name="email" class="form-control" placeholder="Digite seu email de usuário" required>
                         </div>
@@ -47,7 +52,55 @@
                     </div>
         
                     <div class="form-group">
-                        Não é registrado? <a href="cadastro.html">Crie uma conta</a>.
+                        Não é registrado? <a href="#" id="mostrarCadastro">Crie uma conta</a>.
+                    </div>
+                </form>
+            </div>
+            
+                <%if(feedback != undefined){%>
+                    <div id="cadastro" class="form-box">            
+                <%}else{%>
+                    <div id="cadastro" class="form-box elemento-escondido">
+                <%}%>
+                <form action="/cadastro" method="post">
+                    <h3 class="text-center">Crie sua conta!</h3>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="login">Nome</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                            <input type="text" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="login">Usuário</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="senha">Senha</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <input id="senha" type="password" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btn btn-success form-control">
+                    </div>
+        
+                    <div class="form-group">
+                        Já possui uma conta? <a href="#" id="mostrarLogin">Realize seu login</a>.
                     </div>
                 </form>
             </div>
@@ -57,7 +110,13 @@
                         <strong><%=erro%></strong>
                     </span>
                 <%}%>
+                <%if(feedback != undefined){%>
+                    <span id="feedback">
+                        <strong><%=feedback%></strong>
+                    </span>
+                <%}%>
             </div>
+            
         </div>
        </div>
     </div>
@@ -66,8 +125,6 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/js/login/main-login.js"></script>
 	</body>
 </html>
