@@ -31,9 +31,10 @@ module.exports = function(){
         }
     })
 
-    consign()
-    .include("./app/controllers")
-    .then("./app/infra")
+    consign({cwd:'app'})
+    .include("controllers")
+    .then("infra")
+    .then("persistencia")
     .into(app);
 
     return app;
