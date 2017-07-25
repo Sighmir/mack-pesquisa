@@ -1,11 +1,11 @@
 var mysql  = require('mysql');
 
 function createDBConnection(){
-    mysql.createConnection({
+    return mysql.createConnection({
         host:"localhost",
         database:"controladoria",
         user:"root",
-        password:"root"
+        password:""
     })
 }
 

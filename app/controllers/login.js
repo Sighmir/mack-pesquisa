@@ -16,11 +16,18 @@ module.exports = function(app){
         var usuario = req.body;
         var connection = new app.infra.ConnectionFactory();
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
-        console.log(usuario);
-        if(usuario.email && usuario.senha){
+
+        req.assert("email", "Digite um e-mail inválido!").isEmail();
+        req.assert("senha", "Digite uma senha válida!").notEmpty();
+
+        var erros = req.validationErrors();
+        
+        
+        if(!erros){
             console.log("Usuario valido");
-            usuarioDAO.buscarPorEmail(usuario, function(erro, resultado){
-                 if(erro || !usuario){
+            usuarioDAO.buscarPorEmail(usuario, function(error, resultado){
+                 if(error){
+                     console.log("Erro de banco: "+error)
                         var erro = "Email ou senha incorretos!";
                         res.render("login/login", {erro:erro});
                         return;

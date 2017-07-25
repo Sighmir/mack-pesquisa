@@ -28,7 +28,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-user"></span>
                             </div>
-                            <input id="login" type="email" name="usuario" class="form-control" placeholder="Digite seu email de usuário" required>
+                            <input id="login" type="email" name="email" class="form-control" placeholder="Digite seu email de usuário" required>
                         </div>
                     </div>
 
@@ -51,14 +51,14 @@
                     </div>
                 </form>
             </div>
+            <div class ="panel-footer">
+                <%if(erro != undefined){%>
+                    <span id="mensagemErro">
+                        <strong><%=erro%></strong>
+                    </span>
+                <%}%>
+            </div>
         </div>
-       </div>
-       <div class="row">
-            <%if(erro != undefined){%>
-                <span id="mensagemErro" class="alert alert-info">
-                    <strong><%=erro%></strong>
-                </span>
-            <%}%>
        </div>
     </div>
     
