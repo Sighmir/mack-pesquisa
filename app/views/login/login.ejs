@@ -10,20 +10,13 @@
 </head>
 
 	<body>
-
-    
-
 	<div class="container">
        <div class="row">
          <div class="panel panel-primary">
             <div class="panel-heading">
             </div>
-
-            <%if(feedback != undefined){%>
-                    <div id="login" class="form-box elemento-escondido">            
-                <%}else{%>
-                    <div id="login" class="form-box ">
-                <%}%>
+              <div id="login" class="form-box ">
+               
                 <form action="/login" method="post">
                     <h3 class="text-center">Já possui cadastro?</h3>
 
@@ -57,11 +50,8 @@
                 </form>
             </div>
             
-                <%if(feedback != undefined){%>
-                    <div id="cadastro" class="form-box">            
-                <%}else{%>
-                    <div id="cadastro" class="form-box elemento-escondido">
-                <%}%>
+               
+            <div id="cadastro" class="form-box elemento-escondido">
                 <form action="/cadastro" method="post">
                     <h3 class="text-center">Crie sua conta!</h3>
 
@@ -96,7 +86,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Cadastrar" class="btn btn-success form-control">
+                        <input id="cadastrar" type="submit" value="Cadastrar" class="btn btn-success form-control">
                     </div>
         
                     <div class="form-group">
@@ -110,11 +100,9 @@
                         <strong><%=erro%></strong>
                     </span>
                 <%}%>
-                <%if(feedback != undefined){%>
-                    <span id="feedback">
-                        <strong><%=feedback%></strong>
+                    <span id="feedback" class="elemento-escondido">
+                        <strong>Por favor, preencha todos os campos corretamente</strong>
                     </span>
-                <%}%>
             </div>
             
         </div>

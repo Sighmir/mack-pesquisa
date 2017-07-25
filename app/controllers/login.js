@@ -7,12 +7,10 @@ module.exports = function(app){
         
         var sessao = req.session;
         var erro = req.query.erro;
-        var feedback = req.query.feedback;
-        console.log(feedback);
         if(sessao.email){
             res.redirect("/home");
         }else{
-            res.render("login/login", {erro:erro, feedback:feedback});
+            res.render("login/login", {erro:erro});
         }
     })
 
@@ -34,7 +32,7 @@ module.exports = function(app){
                  if(error){
                      console.log("Erro de banco: "+error)
                         var erro = "Email ou senha incorretos!";
-                        res.render("login/login", {erro:erro, feedback:undefined});
+                        res.render("login/login", {erro:erro});
                         return;
                   }
                  bcrypt.compare(usuarioLogin.senha, resultado.senha, function(err, senhasCombinam){
@@ -44,14 +42,14 @@ module.exports = function(app){
                             return;
                         }else{
                             var erro = "Email ou senha incorretos!";
-                            res.render("login/login", {erro:erro, feedback:undefined});
+                            res.render("login/login", {erro:erro});
                             return;
                         }
                 });   
             })
         }else{
             var erro = "Email ou senha incorretos!";
-            res.render("login/login", {erro:erro, feedback:undefined});
+            res.render("login/login", {erro:erro});
             return;
         }
         
@@ -71,7 +69,7 @@ module.exports = function(app){
         if(erros){
             req.session.destroy();
             var mensagemErro = "Por favor, preencha todos os campos corretamente!";
-            res.render("login/login", {erro:"", feedback:mensagemErro});
+            
             return;
         }
 
