@@ -39,6 +39,7 @@ module.exports = function(app){
                      bcrypt.compare(usuarioLogin.senha, resultado[0].senha, function(err, senhasCombinam){
                         if (senhasCombinam){
                             req.session.email = usuarioLogin.email;
+							req.session.save();
                             res.redirect("/home"); 
                             return;
                         }else{
