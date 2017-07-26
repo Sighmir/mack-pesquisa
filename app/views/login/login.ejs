@@ -3,10 +3,11 @@
 <head>
 		<title>Controladoria</title>
 		<meta charset="UTF-8"/>
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/css/main-login.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 	<body>
@@ -26,7 +27,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-envelope"></span>
                             </div>
-                            <input id="login" type="email" name="email" class="form-control" placeholder="Digite seu email de usuário" required>
+                            <input id="email" type="email" name="email" class="form-control input" placeholder="Digite seu email de usuário" required>
                         </div>
                     </div>
 
@@ -36,7 +37,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
-                            <input id="senha" type="password" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                            <input id="senha" type="password" name="senha" class="form-control input" placeholder="Digite sua senha" required>
                         </div>
                     </div>
 
@@ -61,17 +62,17 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-user"></span>
                             </div>
-                            <input type="text" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                            <input id="nome" type="text" name="nome" class="form-control input" placeholder="Digite seu nome" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="sr-only" for="login">Usuário</label>
+                        <label class="sr-only" for="email">Email</label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-envelope"></span>
                             </div>
-                            <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                            <input id="email-cadastro" type="email" name="email" class="form-control input" placeholder="Digite seu email" required>
                         </div>
                     </div>
 
@@ -81,7 +82,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
-                            <input id="senha" type="password" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                            <input id="senha-cadastro" type="password" name="senha" class="form-control input" placeholder="Digite sua senha" required>
                         </div>
                     </div>
 
@@ -102,6 +103,12 @@
                 <%}%>
                     <span id="feedback" class="elemento-escondido">
                         <strong>Por favor, preencha todos os campos corretamente</strong>
+                    </span>
+                    <span id="cadastro-sucesso" class="elemento-escondido">
+                        <strong>Cadastro realizado com sucesso!</strong>
+                    </span>
+                    <span id="erro-cadastro" class="elemento-escondido">
+                        <strong></strong>
                     </span>
             </div>
             
