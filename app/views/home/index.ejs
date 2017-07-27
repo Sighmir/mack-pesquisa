@@ -19,7 +19,12 @@
 						<span style="text-align: center" class="titulo text-center">Pesquisa sobre Controles Gerenciais</span>
 						<p class="text-muted credit">Projeto com recursos do CNPQ e vinculado ao Programa de Pós-Graduação em Ciências Contábeis da Universidade Presbiteriana Mackenzie</p>
 					</div>
-					<hr/>
+					<div class="elemento-escondido" style="width: 100%; height: 30px; border-bottom: 1px solid black; text-align: center">
+						<span id="tituloExibido" style="font-size: 20px">
+							Indicadores e Objetivos
+						</span>
+					</div>
+					<hr id="linha"/>
 					<div id="conteudo_0">
 						<div class="row">
 							<p style="text-align: justify">Todos respondentes serão convidados a participar de um workshop gratuito com o tema Controles Gerenciais e Desempenho, além de receberem uma comparação dos dados versus a média da amostra. </p>
@@ -56,116 +61,156 @@
 							</tr>	
 						</thead>
 						<tbody>
-							<tr>
-								<td>Melhoria da margem de Produtos</td>
-								<td>
-									<label class="checkbox-inline">
-								      <input type="radio" value="1">1
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="2">2
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">3
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">4
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">5
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">6
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">7
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">8
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">9
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">10
-								    </label>
-								</td>
-							</tr>
-							<tr>
-								<td>Crescimento de vendas</td>
-								<td>
-									<label class="checkbox-inline">
-								      <input type="radio" value="1">1
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="2">2
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">3
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">4
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">5
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">6
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">7
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">8
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">9
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">10
-								    </label>
-								</td>
-							</tr>
-							<tr>
-								<td>Melhoria de rentabilidade do capital</td>
-								<td>
-									<label class="checkbox-inline">
-								      <input type="radio" value="1">1
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="2">2
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">3
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">4
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">5
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">6
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">7
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">8
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">9
-								    </label>
-								    <label class="checkbox-inline">
-								      <input type="radio" value="3">10
-								    </label>
-								</td>
-							</tr>
+							<div id="conteudo_1">
+									<tr class="linha-resposta">
+									<td>Melhoria da margem de Produtos</td>
+									<td>
+										<label class="checkbox-inline">
+												<input type="radio" value="1">1
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="2">2
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="3">3
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="4">4
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="5">5
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="6">6
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="7">7
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="8">8
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="9">9
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="10">10
+											</label>
+									</td>
+								</tr>
+								<tr class="linha-resposta">
+									<td>Crescimento de vendas</td>
+									<td>
+										<label class="checkbox-inline">
+												<input type="radio" value="1">1
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="2">2
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="3">3
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="4">4
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="5">5
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="6">6
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="7">7
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="8">8
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="9">9
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="10">10
+											</label>
+									</td>
+								</tr>
+								<tr class="linha-resposta">
+									<td>Vender o controle parcial ou total da empresa</td>
+									<td>
+										<label class="checkbox-inline">
+												<input type="radio" value="1">1
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="2">2
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="3">3
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="4">4
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="5">5
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="6">6
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="7">7
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="8">8
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="9">9
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="10">10
+											</label>
+									</td>
+								</tr>
+								<tr class="linha-resposta">
+									<td>Conquistar novos mercados</td>
+									<td>
+										<label class="checkbox-inline">
+												<input type="radio" value="1">1
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="2">2
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="3">3
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="4">4
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="5">5
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="6">6
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="7">7
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="8">8
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="9">9
+											</label>
+											<label class="checkbox-inline">
+												<input type="radio" value="10">10
+											</label>
+									</td>
+								</tr>
+							</div>
+							<div id="conteudo_2">
+
+							</div>
 						</tbody>
 					</table>
 				</div>
 
-				<div class="questionario" id="conteudo_2">
+				<div class="questionario" id="conteudo">
 						<div class="row">
 							<p style="text-align: justify">Muito obrigado por participar de nossa pesquisa!.</p>
 						</div>
@@ -183,14 +228,18 @@
 						<button class="btn btn-default botao">Avançar</button>
 				<div id="botoesPerguntas">
 						<div class="row">
-							<div class="col-md-12 voltar">
-								<button style="float:left;" class="btn btn-default">Voltar</button>
+							<div class="col-md-6">
+								<button id="botaoVolta" style="float:left;" class="btn btn-default">Voltar</button>
 							</div>
-							<div class="col-md-12">
-								<button style="float:right;" class="btn btn-default" id="botaoFim">Finalizar</button>
+							
+							<div class="col-md-6">
+								<button style="float:right;" class="btn btn-default" id="botaoAvanca">Próximo</button>
 							</div>
 						</div>
 				</div>
+					<div class="elemento-escondido col-md-12">
+								<button style="float:right;" class="btn btn-default" id="botaoFim">Finalizar</button>
+					</div>
 			</div>
 	</div>
 	</div>

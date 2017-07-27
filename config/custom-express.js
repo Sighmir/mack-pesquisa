@@ -29,7 +29,9 @@ module.exports = function(){
         }else{
             next();
         }
-    })
+    });
+
+    
 
     consign({cwd:'app'})
     .include("controllers")

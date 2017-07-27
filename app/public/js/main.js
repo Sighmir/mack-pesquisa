@@ -57,7 +57,15 @@ $("#fechaModal").click(function(){
 	}, 1000);
 })
 
-$(".botao").click(function(){
+$(".botao").click(function(){	
+	alternarDivs(indice)
+	$(".botao").hide();
+	$("#linha").hide();
+	$("#tituloExibido").parent().removeClass("elemento-escondido");
+	$("#botoesPerguntas").show();
+});
+
+$("#botaoAvanca").click(function(){
 	
 	if(indice == 0){
 		alternarDivs(indice)
@@ -69,9 +77,7 @@ $(".botao").click(function(){
 			alert("Preencha todos os campos");
 		}
 	}
-	indice++;
-	$(".botao").hide();
-	$("#botoesPerguntas").show();
+	
 });
 
 var alternarDivs = function(indice){
@@ -79,7 +85,7 @@ var alternarDivs = function(indice){
 	indice++;
 	setTimeout(function(){
 		$("#conteudo_"+indice).fadeIn();
-	}, 370);
+	},400 );
 }
 
 var unicaEscolha = function(){
@@ -115,3 +121,15 @@ $("#modalResultado").click(function(){
 $(".voltar").click(function(){
 	location.reload(); 
 })
+
+function validarCampos(){
+	console.log("Cheguei")
+	$(".linha-resposta:visible").each(function(index, value){
+		
+		var valor = $(value).find("td").find("input:checked").val();
+		if(!valor){
+			return false;	
+		}
+	})
+	return true;
+}
