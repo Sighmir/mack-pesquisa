@@ -28,7 +28,7 @@ $("#cadastrar").click(function(event){
         $("#feedback").addClass("elemento-escondido");
 
         $.ajax({
-            url: "/cadastro",
+            url: "/controladoria/cadastro",
             method:"post", 
             dataType:"json", 
             data: usuario,

@@ -1,20 +1,19 @@
 var bcrypt = require('bcrypt');
-var url = require('url');
 
 module.exports = function(app){
     
-    app.get("/login", function(req, res){
+    app.get("/controladoria/login", function(req, res){
         
         var sessao = req.session;
         var erro = req.query.erro;
         if(sessao.email){
-            res.redirect("/home");
+            res.redirect("/controladoria/home");
         }else{
             res.render("login/login", {erro:erro});
         }
     })
 
-    app.post("/login", function(req,res){
+    app.post("/controladoria/login", function(req,res){
         
         var usuarioLogin = req.body;
         var connection = new app.infra.ConnectionFactory();
@@ -38,9 +37,10 @@ module.exports = function(app){
                  if(resultado[0]){
                      bcrypt.compare(usuarioLogin.senha, resultado[0].senha, function(err, senhasCombinam){
                         if (senhasCombinam){
+                            console.log("Login")
                             req.session.email = usuarioLogin.email;
 							req.session.save();
-                            res.redirect("/home"); 
+                            res.redirect("/controladoria/home"); 
                             return;
                         }else{
                             var erro = "E-mail ou senha incorretos!";
@@ -62,7 +62,7 @@ module.exports = function(app){
         
     });
 
-    app.post("/cadastro", function(req, res){
+    app.post("/controladoria/cadastro", function(req, res){
         var usuario = req.body;
 
         var connection = new app.infra.ConnectionFactory();
