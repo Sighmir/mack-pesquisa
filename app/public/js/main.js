@@ -1,9 +1,7 @@
-var indice = 0;
+var indice = 1;
 $(function(){
 	$("#item_2").hide();
 	$("#liderPesquisa").hide();
-	$(".apresentacao").hide();
-	$("#botoesPerguntas").hide();
 	permitirAvanco();
 	$(".botao").attr("disabled", true);
 	animarTextos();
@@ -25,6 +23,8 @@ var permitirAvanco = function(){
 }
 
 var animarTextos = function(){
+	$(".apresentacao").hide();
+	$(".apresentacao").removeClass("elemento-escondido");
 	$(".apresentacao").animate({
 		"height": "toggle",
 	 	"opacity": "toggle" 
@@ -58,34 +58,32 @@ $("#fechaModal").click(function(){
 })
 
 $(".botao").click(function(){	
-	alternarDivs(indice)
+	$("#inicio").fadeOut(400, function(){
+		$(".questionario").hide();
+		$(".questionario").removeClass("elemento-escondido");
+		$(".questionario").fadeIn();
+	})
 	$(".botao").hide();
 	$("#linha").hide();
 	$("#tituloExibido").parent().removeClass("elemento-escondido");
-	$("#botoesPerguntas").show();
+	$("#botoesPerguntas").removeClass("elemento-escondido");
 });
 
-$("#botaoAvanca").click(function(){
-	
-	if(indice == 0){
-		alternarDivs(indice)
-	}else{
-		
-		if(validarCampos()){
+$("#botaoAvanca").click(function(){	
+	if(validarCampos()){
 			alternarDivs(indice)
+			indice+=1;
 		}else{
 			alert("Preencha todos os campos");
 		}
-	}
-	
 });
 
-var alternarDivs = function(indice){
-	$("#conteudo_"+indice).fadeOut();
-	indice++;
-	setTimeout(function(){
-		$("#conteudo_"+indice).fadeIn();
-	},400 );
+function alternarDivs(indice){
+	console.log(indice)
+	$("#conteudo_"+indice).fadeOut(400, function(){
+		console.log(indice);
+		$("#conteudo_"+(indice+1)).fadeIn();
+	});
 }
 
 var unicaEscolha = function(){
@@ -123,13 +121,13 @@ $(".voltar").click(function(){
 })
 
 function validarCampos(){
-	console.log("Cheguei")
+	var valid = true;
 	$(".linha-resposta:visible").each(function(index, value){
 		
 		var valor = $(value).find("td").find("input:checked").val();
 		if(!valor){
-			return false;	
+			valid =  false;	
 		}
 	})
-	return true;
+	return valid;
 }
