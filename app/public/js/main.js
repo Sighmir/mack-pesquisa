@@ -7,6 +7,7 @@ $(function(){
 	animarTextos();
 	$("#fechaModal").hide();
 	$(".questionario").hide();
+	unicaEscolhaVertical();
 	unicaEscolha();
 	$(".voltar").hide();
 })
@@ -59,9 +60,9 @@ $("#fechaModal").click(function(){
 
 $(".botao").click(function(){	
 	$("#inicio").fadeOut(400, function(){
-		$(".questionario").hide();
-		$(".questionario").removeClass("elemento-escondido");
-		$(".questionario").fadeIn();
+		$(".dados-respondente").hide();
+		$(".dados-respondente").removeClass("elemento-escondido");
+		$(".dados-respondente").fadeIn();
 	})
 	$(".botao").hide();
 	$("#linha").hide();
@@ -98,6 +99,18 @@ var unicaEscolha = function(){
      });
 }
 
+var unicaEscolhaVertical = function(){
+	 $('input[type=radio]').click(function () {
+		 var td = $(this).closest('div');
+         var chks = td.find('INPUT');
+         for (i = 0; i < chks.length; i++) {
+            chks[i].checked = false;
+         }
+         if (chks.length > 1)
+            $(this)[0].checked = true;
+     });
+}
+
 $("#botaoFim").click(function(){
 	var dialog = bootbox.dialog({
     	message: '<p><i class="fa fa-spin fa-spinner"></i> Calculando resultados...</p>',
@@ -121,6 +134,7 @@ $(".voltar").click(function(){
 })
 
 function validarCampos(){
+	debugger;
 	var valid = true;
 	$(".linha-resposta:visible").each(function(index, value){
 		
@@ -129,5 +143,18 @@ function validarCampos(){
 			valid =  false;	
 		}
 	})
-	return valid;
+	
+	if(!$(".linha-resposta-vertical:visible").find("input").is(":checked")){
+		valid = false;
+	}else{
+		var valorVertical = $(".linha-resposta-vertical").find("input:checked").val();
+		if(!valorVertical || valorVertical == ""){
+			valid =  false;	
+		}
+	}
+	return valid;	
 }
+
+$(".outro:visible").on("input", function(){
+	$(".recebe-outro:visible").val($(this).val());
+})
