@@ -10,6 +10,10 @@ $(function(){
 	unicaEscolhaVertical();
 	unicaEscolha();
 	$(".voltar").hide();
+
+	$("body").on("input",".outro:visible", function(){
+		$(".recebe-outro:visible").val($(this).val());
+	})
 })
 
 
@@ -147,7 +151,8 @@ function validarCampos(){
 	if(!$(".linha-resposta-vertical:visible").find("input").is(":checked")){
 		valid = false;
 	}else{
-		var valorVertical = $(".linha-resposta-vertical").find("input:checked").val();
+		var valorVertical = $(".linha-resposta-vertical:visible").find("input:checked").val();
+		console.log(valorVertical)
 		if(!valorVertical || valorVertical == ""){
 			valid =  false;	
 		}
@@ -155,6 +160,3 @@ function validarCampos(){
 	return valid;	
 }
 
-$(".outro:visible").on("input", function(){
-	$(".recebe-outro:visible").val($(this).val());
-})
