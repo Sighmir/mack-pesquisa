@@ -78,6 +78,9 @@ $("#botaoAvanca").click(function(){
 	if(validarCampos()){
 			alternarDivs(indice)
 			indice+=1;
+				if(indice == 6){
+					mostrarQuestionario();
+				}
 		}else{
 			alert("Preencha todos os campos");
 		}
@@ -105,7 +108,7 @@ var unicaEscolha = function(){
 
 var unicaEscolhaVertical = function(){
 	 $('input[type=radio]').click(function () {
-		 var td = $(this).closest('div');
+		 var td = $(this).closest('span');
          var chks = td.find('INPUT');
          for (i = 0; i < chks.length; i++) {
             chks[i].checked = false;
@@ -147,16 +150,30 @@ function validarCampos(){
 			valid =  false;	
 		}
 	})
-	
-	if(!$(".linha-resposta-vertical:visible").find("input").is(":checked")){
-		valid = false;
-	}else{
-		var valorVertical = $(".linha-resposta-vertical:visible").find("input:checked").val();
-		console.log(valorVertical)
-		if(!valorVertical || valorVertical == ""){
-			valid =  false;	
+	if($(".linha-resposta-vertical:visible").length > 0){
+		if(!$(".linha-resposta-vertical:visible").find("input").is(":checked")){
+			valid = false;
+		}else{
+			var valorVertical = $(".linha-resposta-vertical:visible").find("input:checked").val();
+			console.log(valorVertical)
+			if(!valorVertical || valorVertical == ""){
+				valid =  false;	
+			}
 		}
 	}
+	
 	return valid;	
 }
 
+function mostrarQuestionario(){
+	fadeAlternativo("questionario", "dados-respondente");
+	$("#tituloExibido").text("Objetivos");
+}
+
+function fadeAlternativo(classeAparecer, classeDesaparecer){
+	$("."+classeAparecer).removeClass("elemento-escondido");
+	$("."+classeAparecer).hide();
+	$("."+classeDesaparecer).fadeToggle(function(){
+		$("."+classeAparecer).fadeToggle();
+	});
+}
