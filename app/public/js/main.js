@@ -75,6 +75,7 @@ $(".botao").click(function(){
 });
 
 $("#botaoAvanca").click(function(){	
+	$("#botaoAvanca").attr("disabled", true);
 	if(validarCampos()){
 			alternarDivs(indice)
 			indice+=1;
@@ -84,9 +85,16 @@ $("#botaoAvanca").click(function(){
 				if(indice == 10){
 					$("#tituloExibido").text("Indicadores");
 				}
+				if(indice == 15){
+					$("#tituloExibido").text("Ferramentas");
+					$(".questionario").fadeOut();
+				}
 		}else{
 			alert("Preencha todos os campos");
 		}
+	setTimeout(function(){
+		$("#botaoAvanca").removeAttr("disabled");
+	}, 1200);	
 });
 
 function alternarDivs(indice){
