@@ -81,6 +81,9 @@ $("#botaoAvanca").click(function(){
 				if(indice == 6){
 					mostrarQuestionario();
 				}
+				if(indice == 10){
+					$("#tituloExibido").text("Indicadores");
+				}
 		}else{
 			alert("Preencha todos os campos");
 		}
