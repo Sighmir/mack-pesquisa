@@ -87,7 +87,7 @@ $("#botaoAvanca").click(function(){
 				}
 				if(indice == 15){
 					$("#tituloExibido").text("Ferramentas");
-					$(".questionario").fadeOut();
+					fadeAlternativo("ferramentas", "questionario");
 				}
 		}else{
 			alert("Preencha todos os campos");
