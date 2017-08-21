@@ -1,11 +1,10 @@
 var indice = 1;
 $(function(){
 	$("#item_2").hide();
-	$("#liderPesquisa").hide();
-	permitirAvanco();
+	
+	
 	$(".botao").attr("disabled", true);
 	animarTextos();
-	$("#fechaModal").hide();
 	$(".questionario").hide();
 	unicaEscolhaVertical();
 	unicaEscolha();
@@ -14,65 +13,19 @@ $(function(){
 	$("body").on("input",".outro:visible", function(){
 		$(".recebe-outro:visible").val($(this).val());
 	})
+	$("#tituloExibido").parent().removeClass("elemento-escondido");
+	$("#botoesPerguntas").removeClass("elemento-escondido");
 })
 
-
-var permitirAvanco = function(){
-	$("#inicioQuestionario").on("change", function(){
-		if($("#inicioQuestionario").is(":checked")){
-			$(".botao").attr("disabled", false);
-		}else{
-			$(".botao").attr("disabled", true);			
-		}
-	})
-}
-
 var animarTextos = function(){
-	$(".apresentacao").hide();
-	$(".apresentacao").removeClass("elemento-escondido");
-	$(".apresentacao").animate({
+	$(".dados-respondente").hide();
+	$(".dados-respondente").removeClass("elemento-escondido");
+	$(".dados-respondente").animate({
 		"height": "toggle",
 	 	"opacity": "toggle" 
 	}, "slow");
 }
 
-$("#modalLider").on("click",function(event){
-	event.preventDefault();
-	$("#liderPesquisa").modal("show");
-});
-
-$("#modalTermo").on("click", function(event){
-	event.preventDefault();
-	$("#termo").modal("show");
-})
-
-$("#avanca").click(function(){
-	$("#item_1").hide();
-	$("#item_2").show();
-	$("#avanca").hide();
-	$("#fechaModal").show();
-})
-
-$("#fechaModal").click(function(){
-	setTimeout(function(){
-		$("#item_1").show();
-		$("#item_2").hide();
-		$("#avanca").show();
-		$("#fechaModal").hide();
-	}, 1000);
-})
-
-$(".botao").click(function(){	
-	$("#inicio").fadeOut(400, function(){
-		$(".dados-respondente").hide();
-		$(".dados-respondente").removeClass("elemento-escondido");
-		$(".dados-respondente").fadeIn();
-	})
-	$(".botao").hide();
-	$("#linha").hide();
-	$("#tituloExibido").parent().removeClass("elemento-escondido");
-	$("#botoesPerguntas").removeClass("elemento-escondido");
-});
 
 $("#botaoAvanca").click(function(){	
 	$("#botaoAvanca").attr("disabled", true);
@@ -88,6 +41,10 @@ $("#botaoAvanca").click(function(){
 				if(indice == 15){
 					$("#tituloExibido").text("Ferramentas");
 					fadeAlternativo("ferramentas", "questionario");
+				}
+				if(indice ==17){
+					$("#botaoFim").parent().removeClass("elemento-escondido");
+					$("#botaoAvanca").parent().addClass("elemento-escondido");
 				}
 		}else{
 			alert("Preencha todos os campos");
@@ -137,8 +94,9 @@ $("#botaoFim").click(function(){
 
 	setTimeout(function(){
 		dialog.modal('hide');
+		$(".ferramentas").addClass("elemento-escondido");
 		alternarDivs(indice)
-		$(".voltar").show();
+		$("#botaoVolta").parent().removeClass("elemento-escondido");
 		$("#botaoFim").hide();
 	}, 2000)
 })
@@ -147,12 +105,11 @@ $("#modalResultado").click(function(){
 	$("#resultado").modal("show");
 })
 
-$(".voltar").click(function(){
+$("#botaoVolta").click(function(){
 	location.reload(); 
 })
 
 function validarCampos(){
-	debugger;
 	var valid = true;
 	$(".linha-resposta:visible").each(function(index, value){
 		

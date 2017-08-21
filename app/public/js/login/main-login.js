@@ -2,7 +2,31 @@ $(function(){
     
     $("#mostrarCadastro").on("click", trocaTela);
     $("#mostrarLogin").on("click", trocaTela);
+    $("#liderPesquisa").hide();
+    $("#fechaModal").hide();
+    animarTextos();
+    permitirAvanco();
 })
+
+var animarTextos = function(){
+	$(".apresentacao").hide();
+	$(".apresentacao").removeClass("elemento-escondido");
+	$(".apresentacao").animate({
+		"height": "toggle",
+	 	"opacity": "toggle" 
+	}, "slow");
+}
+
+
+var permitirAvanco = function(){
+	$("#inicioQuestionario").on("change", function(){
+		if($("#inicioQuestionario").is(":checked")){
+			$("#botaoAvanca").attr("disabled", false);
+		}else{
+			$("#botaoAvanca").attr("disabled", true);			
+		}
+	})
+}
 
 function trocaTela(event){
     if(event != undefined)event.preventDefault();
@@ -10,6 +34,32 @@ function trocaTela(event){
     $("#cadastro").toggleClass("elemento-escondido");
     $(".input").val("");
 }
+
+$("#modalLider").on("click",function(event){
+	event.preventDefault();
+	$("#liderPesquisa").modal("show");
+});
+
+$("#modalTermo").on("click", function(event){
+	event.preventDefault();
+	$("#termo").modal("show");
+})
+
+$("#avanca").click(function(){
+	$("#item_1").hide();
+	$("#item_2").show();
+	$("#avanca").hide();
+	$("#fechaModal").show();
+})
+
+$("#fechaModal").click(function(){
+	setTimeout(function(){
+		$("#item_1").show();
+		$("#item_2").hide();
+		$("#avanca").show();
+		$("#fechaModal").hide();
+	}, 1000);
+})
 
 $("#cadastrar").click(function(event){
     event.preventDefault();
@@ -44,7 +94,7 @@ $("#cadastrar").click(function(event){
                 $("#email").val(usuario.email);
             },error:function(error){
                 $("#erro-cadastro strong").text(error.responseText);
-                $("#erro-cadastro").removeClass("elemento-escondido");
+                mostraMensagem("erro-cadastro");
             },complete: function(){
                 dialog.modal('hide');
             }
@@ -52,8 +102,24 @@ $("#cadastrar").click(function(event){
         });
     }else{
 
-        $("#feedback").removeClass("elemento-escondido");
-        $("#feedback").hide();
-        $("#feedback").fadeIn();    
+        mostraMensagem("feedback"); 
     }
 })
+
+function mostraMensagem(id){
+    debugger;
+    $("#"+id).removeClass("elemento-escondido");
+
+    setTimeout(function(){
+        $("#"+id).addClass("elemento-escondido");
+    }, 1500);
+}
+
+$("#botaoAvanca").click(function(){
+    $(".apresentacao").fadeOut(function(){
+        $("#login").hide();
+        $("#login").removeClass("elemento-escondido");
+        $("#login").fadeIn();
+    });
+    $(this).hide();
+});

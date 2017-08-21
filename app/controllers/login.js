@@ -39,6 +39,7 @@ module.exports = function(app){
                         if (senhasCombinam){
                             console.log("Login")
                             req.session.email = usuarioLogin.email;
+                            req.session.loggedTime = new Date();
 							req.session.save();
                             res.redirect("/controladoria/home"); 
                             return;

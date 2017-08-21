@@ -16,7 +16,42 @@
          <div class="panel panel-primary">
             <div class="panel-heading">
             </div>
-              <div id="login" class="form-box ">
+
+            <div class="panel-body">
+
+                <div class="apresentacao elemento-escondido">
+					<div class="row">
+						<span style="text-align: center" class="titulo text-center">Pesquisa sobre Controles Gerenciais</span>
+						<p class="text-muted credit">Projeto com recursos do CNPQ e vinculado ao Programa de Pós-Graduação em Ciências Contábeis da Universidade Presbiteriana Mackenzie</p>
+                    </div>
+                    <hr/>
+					<div id="inicio">
+						<div class="row">
+							<p style="text-align: justify">Todos respondentes serão convidados a participar de um workshop gratuito com o tema Controles Gerenciais e Desempenho, além de receberem uma comparação dos dados versus a média da amostra. </p>
+						</div>
+	
+						<div class="row">
+							<p style="text-align: justify">Valorizamos o seu tempo, por isso preparamos um questionário breve que tem sido respondido em no máximo <strong>12 minutos</strong>.</p>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 botoes">
+								<a id="modalLider" class="btn btn-default" href="#">Líder da Pesquisa</a>
+							</div>
+							
+							<div class="col-md-6 botoes">
+								<a id="modalTermo" class="btn btn-default" href="#">Termo de confidencialidade</a>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-md-4">
+								<input id="inicioQuestionario" type="checkbox" name="concordo" class="form-group"/>  Eu concordo
+							</div>	
+						</div>
+				</div>
+                </div>
+              <div id="login" class="elemento-escondido form-box ">
                
                 <form action="/controladoria/login" method="post">
                     <h3 class="text-center">Já possui cadastro?</h3>
@@ -95,6 +130,7 @@
                     </div>
                 </form>
             </div>
+            </div>
             <div class ="panel-footer">
                 <%if(erro != undefined){%>
                     <span id="mensagemErro">
@@ -110,11 +146,52 @@
                     <span id="erro-cadastro" class="elemento-escondido">
                         <strong></strong>
                     </span>
+					<button class="btn btn-default" id="botaoAvanca"  disabled="true">Avançar</button>
             </div>
-            
-        </div>
        </div>
     </div>
+    </div>
+
+    	<div id="liderPesquisa" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body">
+					<p>Prof. Dr. José Carlos T. Oyadomari - Mackenzie</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="termo" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body ">
+					<!-- Wrapper for slides -->
+					<div>
+						<div id="item_1">
+							<p>O objetivo dessa pesquisa é entender as práticas de controle gerencial usadas pelos gestores. A pesquisa tem finalidade acadêmica e nenhum dado que permita identificar o respondente e a empresa será divulgado.</p>
+						</div>
+
+						<div id="item_2">
+							<p>Clicando no item <strong>Eu concordo</strong> você concorda VOLUNTARIAMENTE em participar dessa pesquisa. Se você tiver qualquer dúvida antes, durante ou depois de ter completado o questionário você pode falar com Oyadomari pelo e-mail oyadomari@mackenzie.br</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="avanca">Próximo</button>
+					<button type="button" class="btn btn-default" id="fechaModal" data-dismiss="modal">Fechar</button>
+				</div>
+				</div>
+			</div>
+		</div>
     
 
 	<script type="text/javascript" src="/js/jquery.js"></script>
