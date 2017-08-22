@@ -87,20 +87,18 @@ var unicaEscolhaVertical = function(){
 }
 
 $("#botaoFim").click(function(){
-	var tipo_empresa = obtemValorDadosRespondente("caracteriza-empresa");
+	var tipo_empresa = obtemValorDadosRespondente("caracteriza_empresa");
 	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
 	var setor = obtemValorDadosRespondente("setor-empresa");
 	var setor_usuario = obtemValorDadosRespondente("setor-usuario");
 	var nivel_usuario = obtemValorDadosRespondente("nivel-usuario");
 
-	var objetivos = $(".linha-resposta").find(".objetivo");
-	var Indicadores = $(".linha-resposta").find(".indicador");
 
-	var mediaObjetivoLongoPrazo = obtemMedia(objetivos, "longo-prazo");
-	var mediaObjetivoCurtoPrazo = obtemMedia(objetivos, "curto-prazo");
+	var mediaObjetivoLongoPrazo = obtemMedia("linha-resposta.objetivo.longo-prazo");
+	var mediaObjetivoCurtoPrazo = obtemMedia("linha-resposta.objetivo.curto-prazo");
 
-	var mediaIndicadorMonetario = obtemMedia(Indicadores, "monetario");
-	var mediaIndicadorNaoMonetario = obtemMedia(Indicadores, "nao-monetario");
+	var mediaIndicadorMonetario = obtemMedia("linha-resposta.indicador.monetario");
+	var mediaIndicadorNaoMonetario = obtemMedia("linha-resposta.indicador.nao-monetario");
 	
 	var objeto = {
 		"tipo_empresa" : tipo_empresa,
@@ -124,12 +122,12 @@ $("#botaoFim").click(function(){
 	
 })
 
-function obtemMedia(elemento, classe){
+function obtemMedia(classe){
 	var valor = 0;
-	$(elemento).find("."+classe).each(function(index, value){
-		valor += $(value).find("td").find("input:checked").val();
+	$("."+classe).each(function(index, value){
+		valor += parseInt($(value).find("td").find("input:checked").val());
 	})
-	var numeroElementos = $(elemento).find("."+classe).length;
+	var numeroElementos = $("."+classe).length;
 
 	return valor / numeroElementos;
 }
@@ -204,7 +202,7 @@ function enquadrar(objeto){
 		success: function(){
 			mostrarTelaFinal(dialog);
 		},error: function(){
-			dialog.hide();
+			dialog.modal('hide');
 			alert("erro");
 		}
 	})
