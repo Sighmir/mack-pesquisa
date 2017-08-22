@@ -16,7 +16,13 @@ module.exports = function(app){
         res.render("home/index")
     });
 
+    app.post("/controladoria", function(req,res){
+        console.log(req.body);
+        res.json("ok");
+    });
+
 }
+
 
 function createDateAsUTC(date) {
     return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));

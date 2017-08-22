@@ -87,19 +87,64 @@ var unicaEscolhaVertical = function(){
 }
 
 $("#botaoFim").click(function(){
-	var dialog = bootbox.dialog({
-    	message: '<p><i class="fa fa-spin fa-spinner"></i> Calculando resultados...</p>',
-		closeButton: false
-	});
+	var tipo_empresa = obtemValorDadosRespondente("caracteriza-empresa");
+	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
+	var setor = obtemValorDadosRespondente("setor-empresa");
+	var setor_usuario = obtemValorDadosRespondente("setor-usuario");
+	var nivel_usuario = obtemValorDadosRespondente("nivel-usuario");
 
-	setTimeout(function(){
+	var objetivos = $(".linha-resposta").find(".objetivo");
+	var Indicadores = $(".linha-resposta").find(".indicador");
+
+	var mediaObjetivoLongoPrazo = obtemMedia(objetivos, "longo-prazo");
+	var mediaObjetivoCurtoPrazo = obtemMedia(objetivos, "curto-prazo");
+
+	var mediaIndicadorMonetario = obtemMedia(Indicadores, "monetario");
+	var mediaIndicadorNaoMonetario = obtemMedia(Indicadores, "nao-monetario");
+	
+	var objeto = {
+		"tipo_empresa" : tipo_empresa,
+		"quantidade_funcionarios" : quantidade_funcionarios,
+		"setor" : setor,
+		"setor_usuario" : setor_usuario,
+		"nivel_usuario" : nivel_usuario,
+		"objetivo":{
+			"curto-prazo": mediaObjetivoCurtoPrazo,
+			"longo-prazo": mediaObjetivoLongoPrazo
+		},
+		"indicador" :{
+			"monetario" : mediaIndicadorMonetario,
+			"nao-monetario" : mediaIndicadorNaoMonetario
+		}
+	}
+	console.log(objeto);
+
+	enquadrar(objeto);
+
+	
+})
+
+function obtemMedia(elemento, classe){
+	var valor = 0;
+	$(elemento).find("."+classe).each(function(index, value){
+		valor += $(value).find("td").find("input:checked").val();
+	})
+	var numeroElementos = $(elemento).find("."+classe).length;
+
+	return valor / numeroElementos;
+}
+
+function obtemValorDadosRespondente(id){
+	return $("#"+id).find("input:checked").val()
+}
+
+function mostrarTelaFinal(dialog){
 		dialog.modal('hide');
 		$(".ferramentas").addClass("elemento-escondido");
 		alternarDivs(indice)
 		$("#botaoVolta").parent().removeClass("elemento-escondido");
 		$("#botaoFim").hide();
-	}, 2000)
-})
+}
 
 $("#modalResultado").click(function(){
 	$("#resultado").modal("show");
@@ -144,4 +189,23 @@ function fadeAlternativo(classeAparecer, classeDesaparecer){
 	$("."+classeDesaparecer).fadeToggle(function(){
 		$("."+classeAparecer).fadeToggle();
 	});
+}
+
+function enquadrar(objeto){
+	var dialog = bootbox.dialog({
+    	message: '<p><i class="fa fa-spin fa-spinner"></i> Calculando resultados...</p>',
+		closeButton: false
+	});
+	$.ajax({
+		url:"/controladoria",
+		method:"post",
+		dataType:"json",
+		data:objeto,
+		success: function(){
+			mostrarTelaFinal(dialog);
+		},error: function(){
+			dialog.hide();
+			alert("erro");
+		}
+	})
 }

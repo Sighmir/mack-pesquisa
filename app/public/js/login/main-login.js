@@ -4,8 +4,10 @@ $(function(){
     $("#mostrarLogin").on("click", trocaTela);
     $("#liderPesquisa").hide();
     $("#fechaModal").hide();
+    $("#item_2").hide();
     animarTextos();
     permitirAvanco();
+    autoPlayYouTubeModal();
 })
 
 var animarTextos = function(){
@@ -15,6 +17,19 @@ var animarTextos = function(){
 		"height": "toggle",
 	 	"opacity": "toggle" 
 	}, "slow");
+}
+
+function autoPlayYouTubeModal(){
+  var trigger = $("body").find('[data-toggle="modal"]');
+  trigger.click(function() {
+    var theModal = $(this).data( "target" ),
+    videoSRC = $(this).attr( "data-theVideo" ), 
+    videoSRCauto = videoSRC+"?autoplay=1" ;
+    $(theModal+' iframe').attr('src', videoSRCauto);
+    $(theModal+' button.close').click(function () {
+        $(theModal+' iframe').attr('src', videoSRC);
+    });   
+  });
 }
 
 
