@@ -99,6 +99,9 @@ $("#botaoFim").click(function(){
 
 	var mediaIndicadorMonetario = obtemMedia("linha-resposta.indicador.monetario");
 	var mediaIndicadorNaoMonetario = obtemMedia("linha-resposta.indicador.nao-monetario");
+
+	var objetivos = $(".linha-resposta.objetivo");
+	
 	
 	var objeto = {
 		"tipo_empresa" : tipo_empresa,
@@ -107,12 +110,12 @@ $("#botaoFim").click(function(){
 		"setor_usuario" : setor_usuario,
 		"nivel_usuario" : nivel_usuario,
 		"objetivo":{
-			"curto-prazo": mediaObjetivoCurtoPrazo,
-			"longo-prazo": mediaObjetivoLongoPrazo
+			"media_longo_prazo": mediaObjetivoLongoPrazo,
+			"media_curto_prazo": mediaObjetivoCurtoPrazo
 		},
 		"indicador" :{
-			"monetario" : mediaIndicadorMonetario,
-			"nao-monetario" : mediaIndicadorNaoMonetario
+			"media_longo_prazo" : mediaIndicadorMonetario,
+			"media_curto_prazo" : mediaIndicadorNaoMonetario
 		}
 	}
 	console.log(objeto);
