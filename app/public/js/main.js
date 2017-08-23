@@ -15,6 +15,7 @@ $(function(){
 	})
 	$("#tituloExibido").parent().removeClass("elemento-escondido");
 	$("#botoesPerguntas").removeClass("elemento-escondido");
+	$("#tabela-pagina-2").hide();
 })
 
 var animarTextos = function(){
@@ -210,7 +211,12 @@ function mostrarTelaFinal(dialog){
 
 $("#modalResultado").click(function(){
 	$("#resultado").modal("show");
-})
+});
+
+$("#modalFerramenta").click(function(){
+	$("#ferramenta").modal("show");
+});
+
 
 $("#botaoVolta").click(function(){
 	location.reload(); 
@@ -265,11 +271,53 @@ function enquadrar(objeto){
 		success: function(dados){
 			mostrarTelaFinal(dialog);
 			montarGrafico(objeto);
+			montarTabelaFerramentas(objeto.ferramenta);
 		},error: function(erro){
 			dialog.modal('hide');
 			bootbox.dialog({message: erro.responseText});
 		}
 	})
+}
+
+function montarTabelaFerramentas(ferramenta){
+	debugger;
+	var nomeIcone = getIcon(ferramenta.balanced_scorecard_utilizacao, ferramenta.balanced_scorecard_importancia);
+	$("#balanced-scorecard").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.planejamento_utilizacao, ferramenta.planejamento_importancia);
+	$("#planejamento").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.orcamento_utilizacao, ferramenta.orcamento_importancia);
+	$("#orcamento").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.orcamento_base_zero_utilizacao, ferramenta.orcamento_base_zero_importancia);
+	$("#orcamento-base-zero").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.orcamento_continuo_utilizacao, ferramenta.orcamento_continuo_importancia);
+	$("#orcamento-continuo").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.gestao_utilizacao, ferramenta.gestao_importancia);
+	$("#gestao").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.gerenciamento_utilizacao, ferramenta.gerenciamento_importancia);
+	$("#gerenciamento").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.margem_utilizacao, ferramenta.margem_importancia);
+	$("#margem-produtos").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.analise_variacoes_utilizacao, ferramenta.analise_variacoes_importancia);
+	$("#analise-variacoes").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.lucratividade_utilizacao, ferramenta.lucratividade_importancia);
+	$("#lucratividade").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.resultado_utilizacao, ferramenta.resultado_importancia);
+	$("#resultado-unidades").append($("<i>").addClass("material-icons").text(nomeIcone));
+	nomeIcone = getIcon(ferramenta.custo_utilizacao, ferramenta.custo_importancia);
+	$("#custo").append($("<i>").addClass("material-icons").text(nomeIcone));
+
+}
+
+function getIcon(valor1, valor2){
+	if(valor1 > 5 && valor2 > 5){
+		return "sentiment_very_satisfied";
+	}else if(valor1 > 5 && valor2 < 6){
+		return "sentiment_very_dissatisfied";
+	}else if(valor1 < 6 && valor2 > 5){
+		return "sentiment_very_dissatisfied";
+	}else{
+		return "sentiment_very_satisfied";
+	}
 }
 
 function montarGrafico(objeto){
@@ -287,8 +335,10 @@ function montarGrafico(objeto){
         type: 'bubble',
         plotBorderWidth: 1,
         zoomType: 'xy'
-    },
-
+	},
+	credits:{
+		enabled:false
+	},
     legend: {
         enabled: false
     },
@@ -376,7 +426,34 @@ function montarGrafico(objeto){
 			{x: 0, y:0, texto:"Origem", name:''},
             { x: parseFloat(valorMediaObjetivo), y: parseFloat(valorMediaIndicador), texto:"Sua empresa", name:"Você"}
         ]
-    }]
+	}],
+	 exporting: {
+        buttons: {
+            contextButton: {
+                menuItems: [ {
+                    text: 'Exportar para PNG',
+                    onclick: function () {
+                        this.exportChart();
+                    },
+                    separator: false
+                }]
+            }
+        }
+    }
 
 });
 }
+
+$("#retornaFerramenta").click(function(event){
+	event.preventDefault();
+	$("#tabela-pagina-2").fadeOut(function(){
+		$("#tabela-pagina-1").fadeIn();
+	});
+});
+
+$("#avancaFerramenta").click(function(event){
+	event.preventDefault();
+	$("#tabela-pagina-1").fadeOut(function(){
+		$("#tabela-pagina-2").fadeIn();
+	});
+});
