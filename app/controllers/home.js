@@ -23,6 +23,7 @@ module.exports = function(app){
         var id_usuario;
         var objetivo = req.body.objetivo;
         var indicador = req.body.indicador;
+        var ferramenta = req.body.ferramenta;
         var dados_respondente = obtemDados(req);
         var obj = new Object();
         obj.email = req.session.email;
@@ -57,10 +58,11 @@ module.exports = function(app){
                             res.status(500).json("Erro ao salvar ferramentas: "+erro);
                             return;
                         }
+                        
                         dados_respondente.id_objetivo = id_objetivo;
                         dados_respondente.id_indicador = id_indicador;
                         dados_respondente.id_usuario = id_usuario;
-                        dados_respondente.id_ferramenta = resultado[0].id_ferramenta;
+                        dados_respondente.id_ferramenta = resultado.insertId;
                         
                         usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
                             if(erro){
