@@ -20,6 +20,7 @@ module.exports = function(app){
         
         var id_objetivo;
         var id_indicador;
+        var id_usuario;
         var objetivo = req.body.objetivo;
         var indicador = req.body.indicador;
         var dados_respondente = obtemDados(req);
@@ -30,6 +31,7 @@ module.exports = function(app){
         var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
         var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
+        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
 
         objetivoDAO.inserir(objetivo, function(erro, resultado){
             if(erro){
@@ -49,19 +51,26 @@ module.exports = function(app){
                         res.status(500).json("Erro ao obter dados do usuário: "+erro);
                         return;
                     }
-                    
-                    dados_respondente.id_objetivo = id_objetivo;
-                    dados_respondente.id_indicador = id_indicador;
-                    dados_respondente.id_usuario = resultado[0].id;
-                    
-                    usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
+                    id_usuario = resultado[0].id;
+                    ferramentaDAO.inserir(ferramenta, function(erro, resultado){
                         if(erro){
-                            res.status(500).json("Erro ao salvar dados: "+erro);
+                            res.status(500).json("Erro ao salvar ferramentas: "+erro);
                             return;
                         }
-                        res.status(201).json("Dados salvos com sucesso");
+                        dados_respondente.id_objetivo = id_objetivo;
+                        dados_respondente.id_indicador = id_indicador;
+                        dados_respondente.id_usuario = id_usuario;
+                        dados_respondente.id_ferramenta = resultado[0].id_ferramenta;
                         
-                    });
+                        usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
+                            if(erro){
+                                res.status(500).json("Erro ao salvar dados: "+erro);
+                                return;
+                            }
+                            res.status(201).json("Dados salvos com sucesso");
+                            
+                        });
+                    })
                 });
             });
         });

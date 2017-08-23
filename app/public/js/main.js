@@ -100,6 +100,8 @@ $("#botaoFim").click(function(){
 
 	var objetivos = $(".linha-resposta.objetivo");
 	var indicadores = $(".linha-resposta.indicador");
+	var ferramentas_utilizacao = $(".ferramenta.utilizacao");
+	var ferramentas_importancia = $(".ferramenta.importancia");
 	
 	
 	var objeto = {
@@ -148,7 +150,34 @@ $("#botaoFim").click(function(){
 			"retorno_investimento" : $(indicadores[17]).find("td").find("input:checked").val(),
 			"media_longo_prazo" : mediaIndicadorMonetario,
 			"media_curto_prazo" : mediaIndicadorNaoMonetario
+		},
+		"ferramenta":{
+			"balanced_scorecard_utilizacao" : $(ferramentas_utilizacao[0]).find(":selected").val(),
+			"balanced_scorecard_importancia" : $(ferramentas_importancia[0]).find(":selected").val(),
+			"planejamento_utilizacao": $(ferramentas_utilizacao[1]).find(":selected").val(),
+			"planejamento_importancia" : $(ferramentas_importancia[1]).find(":selected").val(),
+			"gerenciamento_utilizacao" : $(ferramentas_utilizacao[2]).find(":selected").val(),
+			"gerenciamento_importancia" : $(ferramentas_importancia[2]).find(":selected").val(),
+			"orcamento_base_zero_utilizacao" : $(ferramentas_utilizacao[3]).find(":selected").val(),
+			"orcamento_base_zero_importancia" : $(ferramentas_importancia[3]).find(":selected").val(),
+			"orcamento_continuo_utilizacao": $(ferramentas_utilizacao[4]).find(":selected").val(),
+			"orcamento_continuo_importancia": $(ferramentas_importancia[4]).find(":selected").val(),
+			"gestao_utilizacao" : $(ferramentas_utilizacao[5]).find(":selected").val(),
+			"gestao_importancia" : $(ferramentas_importancia[5]).find(":selected").val(),
+			"lucratividade_utilizacao" : $(ferramentas_utilizacao[6]).find(":selected").val(),
+			"lucratividade_importancia" : $(ferramentas_importancia[6]).find(":selected").val(),
+			"custo_utilizacao" : $(ferramentas_utilizacao[7]).find(":selected").val(),
+			"custo_importancia" : $(ferramentas_importancia[7]).find(":selected").val(),
+			"orcamento_utilizacao" : $(ferramentas_utilizacao[8]).find(":selected").val(),
+			"orcamento_importancia" : $(ferramentas_importancia[8]).find(":selected").val(),
+			"margem_utilizacao" : $(ferramentas_utilizacao[9]).find(":selected").val(),
+			"margem_importancia" : $(ferramentas_importancia[9]).find(":selected").val(),
+			"analise_variacoes_utilizacao" : $(ferramentas_utilizacao[10]).find(":selected").val(),
+			"analise_variacoes_importancia" : $(ferramentas_importancia[10]).find(":selected").val(),
+			"resultado_utilizacao" : $(ferramentas_utilizacao[11]).find(":selected").val(),
+			"resultado_importancia" : $(ferramentas_importancia[11]).find(":selected").val()
 		}
+
 	}
 	console.log(objeto);
 
