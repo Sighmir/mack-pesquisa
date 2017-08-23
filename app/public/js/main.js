@@ -101,6 +101,7 @@ $("#botaoFim").click(function(){
 	var mediaIndicadorNaoMonetario = obtemMedia("linha-resposta.indicador.nao-monetario");
 
 	var objetivos = $(".linha-resposta.objetivo");
+	var indicadores = $(".linha-resposta.indicador");
 	
 	
 	var objeto = {
@@ -110,10 +111,43 @@ $("#botaoFim").click(function(){
 		"setor_usuario" : setor_usuario,
 		"nivel_usuario" : nivel_usuario,
 		"objetivo":{
+			"satisfacao_colaboradores" : $(objetivos[0]).find("td").find("input:checked").val(),
+			"reducao_custos" : $(objetivos[1]).find("td").find("input:checked").val(),
+			"crescimento_vendas" :$(objetivos[2]).find("td").find("input:checked").val(),
+			"melhoria_preco" : $(objetivos[3]).find("td").find("input:checked").val(),
+			"aumento_ebitda" : $(objetivos[4]).find("td").find("input:checked").val(),
+			"indice_qualidade":$(objetivos[5]).find("td").find("input:checked").val(),
+			"margem_produto" : $(objetivos[6]).find("td").find("input:checked").val(),
+			"reconhecimento_institucional": $(objetivos[7]).find("td").find("input:checked").val(),
+			"lucratividade" : $(objetivos[8]).find("td").find("input:checked").val(),
+			"rentabilidade" : $(objetivos[9]).find("td").find("input:checked").val(),
+			"aquisicao" : $(objetivos[10]).find("td").find("input:checked").val(),
+			"novos_mercados" : $(objetivos[11]).find("td").find("input:checked").val(),
+			"inovacao" : $(objetivos[12]).find("td").find("input:checked").val(),
+			"processos" : $(objetivos[13]).find("td").find("input:checked").val(),
+			"endividamento" : $(objetivos[14]).find("td").find("input:checked").val(),
 			"media_longo_prazo": mediaObjetivoLongoPrazo,
 			"media_curto_prazo": mediaObjetivoCurtoPrazo
 		},
 		"indicador" :{
+			"ciclo_caixa" : $(indicadores[0]).find("td").find("input:checked").val(),
+			"processos" : $(indicadores[1]).find("td").find("input:checked").val(),
+			"despesas_vendas" : $(indicadores[2]).find("td").find("input:checked").val(),
+			"funcionarios" : $(indicadores[3]).find("td").find("input:checked").val(),
+			"ambientais": $(indicadores[4]).find("td").find("input:checked").val(),
+			"market_share" : $(indicadores[5]).find("td").find("input:checked").val(),
+			"eva" : $(indicadores[6]).find("td").find("input:checked").val(),
+			"divida_liquida" : $(indicadores[7]).find("td").find("input:checked").val(),
+			"ebitda" : $(indicadores[8]).find("td").find("input:checked").val(),
+			"inovacao" : $(indicadores[9]).find("td").find("input:checked").val(),
+			"lucro_liquido" : $(indicadores[10]).find("td").find("input:checked").val(),
+			"qualidade" : $(indicadores[11]).find("td").find("input:checked").val(),
+			"fluxo_caixa" : $(indicadores[12]).find("td").find("input:checked").val(),
+			"margem_contribuicao" : $(indicadores[13]).find("td").find("input:checked").val(),
+			"clientes" : $(indicadores[14]).find("td").find("input:checked").val(),
+			"enterprise_value" : $(indicadores[15]).find("td").find("input:checked").val(),
+			"margem_bruta" : $(indicadores[16]).find("td").find("input:checked").val(),
+			"retorno_investimento" : $(indicadores[16]).find("td").find("input:checked").val(),
 			"media_longo_prazo" : mediaIndicadorMonetario,
 			"media_curto_prazo" : mediaIndicadorNaoMonetario
 		}
@@ -204,9 +238,9 @@ function enquadrar(objeto){
 		data:objeto,
 		success: function(){
 			mostrarTelaFinal(dialog);
-		},error: function(){
+		},error: function(erro){
 			dialog.modal('hide');
-			alert("erro");
+			alert(erro.responseText);
 		}
 	})
 }

@@ -17,8 +17,34 @@ module.exports = function(app){
     });
 
     app.post("/controladoria", function(req,res){
-        console.log(req.body);
-        res.json("ok");
+        
+        var id_objetivo;
+        var id_indicador ;
+
+        var connection = new app.infra.ConnectionFactory();
+        var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
+        var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
+        console.log(req.body.objetivo);
+        console.log(req.body.indicador);
+        objetivoDAO.inserir(req.body.objetivo, function(erro, resultado){
+            if(erro){
+                res.status(500).json("Erro ao salvar objetivos: "+erro);
+                return;
+            }
+
+             id_objetivo = resultado.insertId;
+             indicadorDAO.inserir(req.body.indicador, function(erro, resultado){
+                if(erro){
+                    res.status(500).json("Erro ao salvar Indicadores: "+erro);
+                    return;
+                }
+                id_indicador = resultado.insertId;
+                res.json("OPA");
+            });
+        });
+
+       
+        console.log(id_indicador + " | " + id_objetivo);
     });
 
 }
