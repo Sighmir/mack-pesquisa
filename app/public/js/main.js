@@ -47,7 +47,7 @@ $("#botaoAvanca").click(function(){
 					$("#botaoAvanca").parent().addClass("elemento-escondido");
 				}
 		}else{
-			alert("Preencha todos os campos");
+			bootbox.dialog({message: "Preencha todos os campos"});
 		}
 	setTimeout(function(){
 		$("#botaoAvanca").removeAttr("disabled");
@@ -55,9 +55,7 @@ $("#botaoAvanca").click(function(){
 });
 
 function alternarDivs(indice){
-	console.log(indice)
 	$("#conteudo_"+indice).fadeOut(400, function(){
-		console.log(indice);
 		$("#conteudo_"+(indice+1)).fadeIn();
 	});
 }
@@ -147,7 +145,7 @@ $("#botaoFim").click(function(){
 			"clientes" : $(indicadores[14]).find("td").find("input:checked").val(),
 			"enterprise_value" : $(indicadores[15]).find("td").find("input:checked").val(),
 			"margem_bruta" : $(indicadores[16]).find("td").find("input:checked").val(),
-			"retorno_investimento" : $(indicadores[16]).find("td").find("input:checked").val(),
+			"retorno_investimento" : $(indicadores[17]).find("td").find("input:checked").val(),
 			"media_longo_prazo" : mediaIndicadorMonetario,
 			"media_curto_prazo" : mediaIndicadorNaoMonetario
 		}
@@ -166,7 +164,7 @@ function obtemMedia(classe){
 	})
 	var numeroElementos = $("."+classe).length;
 
-	return valor / numeroElementos;
+	return (valor / numeroElementos).toFixed(2);
 }
 
 function obtemValorDadosRespondente(id){
@@ -236,11 +234,12 @@ function enquadrar(objeto){
 		method:"post",
 		dataType:"json",
 		data:objeto,
-		success: function(){
+		success: function(dados){
+			bootbox.dialog({message: dados});
 			mostrarTelaFinal(dialog);
 		},error: function(erro){
 			dialog.modal('hide');
-			alert(erro.responseText);
+			bootbox.dialog({message: erro.responseText});
 		}
 	})
 }

@@ -19,32 +19,52 @@ module.exports = function(app){
     app.post("/controladoria", function(req,res){
         
         var id_objetivo;
-        var id_indicador ;
+        var id_indicador;
+        var objetivo = req.body.objetivo;
+        var indicador = req.body.indicador;
+        var dados_respondente = obtemDados(req);
+        var obj = new Object();
+        obj.email = req.session.email;
 
         var connection = new app.infra.ConnectionFactory();
         var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
         var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
-        console.log(req.body.objetivo);
-        console.log(req.body.indicador);
-        objetivoDAO.inserir(req.body.objetivo, function(erro, resultado){
+        var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
+
+        objetivoDAO.inserir(objetivo, function(erro, resultado){
             if(erro){
                 res.status(500).json("Erro ao salvar objetivos: "+erro);
                 return;
             }
 
              id_objetivo = resultado.insertId;
-             indicadorDAO.inserir(req.body.indicador, function(erro, resultado){
+             indicadorDAO.inserir(indicador, function(erro, resultado){
                 if(erro){
                     res.status(500).json("Erro ao salvar Indicadores: "+erro);
                     return;
                 }
                 id_indicador = resultado.insertId;
-                res.json("OPA");
+                usuarioDAO.buscarPorEmail(obj, function(erro, resultado){
+                    if(erro){
+                        res.status(500).json("Erro ao obter dados do usuário: "+erro);
+                        return;
+                    }
+                    
+                    dados_respondente.id_objetivo = id_objetivo;
+                    dados_respondente.id_indicador = id_indicador;
+                    dados_respondente.id_usuario = resultado[0].id;
+                    
+                    usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
+                        if(erro){
+                            res.status(500).json("Erro ao salvar dados: "+erro);
+                            return;
+                        }
+                        res.status(201).json("Dados salvos com sucesso");
+                        
+                    });
+                });
             });
         });
-
-       
-        console.log(id_indicador + " | " + id_objetivo);
     });
 
 }
@@ -52,4 +72,14 @@ module.exports = function(app){
 
 function createDateAsUTC(date) {
     return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+}
+
+function obtemDados(req){
+    return {
+        "tipo_empresa" : req.body.tipo_empresa,
+		"qtde_funcionarios" : req.body.quantidade_funcionarios,
+		"setor" : req.body.setor,
+		"setor_usuario" : req.body.setor_usuario,
+		"nivel_usuario" : req.body.nivel_usuario,
+    };
 }
