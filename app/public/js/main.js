@@ -263,7 +263,6 @@ function enquadrar(objeto){
 		dataType:"json",
 		data:objeto,
 		success: function(dados){
-			bootbox.dialog({message: dados});
 			mostrarTelaFinal(dialog);
 			montarGrafico(objeto);
 		},error: function(erro){
@@ -321,7 +320,7 @@ function montarGrafico(objeto){
                 style: {
                     fontStyle: 'italic'
                 },
-                text: 'Objetivos'
+                text: ''
             },
             zIndex: 3
         }]
@@ -347,7 +346,7 @@ function montarGrafico(objeto){
                 style: {
                     fontStyle: 'italic'
                 },
-                text: 'Safe sugar intake 50g/day',
+                text: '',
                 x: -10
             },
             zIndex: 3
@@ -357,16 +356,25 @@ function montarGrafico(objeto){
     tooltip: {
         useHTML: true,
         headerFormat: '<table>',
-        pointFormat: '<tr><th>Média objetivos:</th><td>{point.x}g</td></tr>' +
-            '<tr><th>Média indicadores:</th><td>{point.y}g</td></tr>',
+        pointFormat: '<tr><th>{point.texto}</th></tr>'+
+			'<tr><th>Média objetivos:</th><td>{point.x}</td></tr>' +
+            '<tr><th>Média indicadores:</th><td>{point.y}</td></tr>',
         footerFormat: '</table>',
         followPointer: true
     },
-
+		plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '{point.name}'
+					}
+				}
+			},
 
     series: [{
         data: [
-            { x: parseFloat(valorMediaObjetivo), y: parseFloat(valorMediaIndicador)}
+			{x: 0, y:0, texto:"Origem", name:''},
+            { x: parseFloat(valorMediaObjetivo), y: parseFloat(valorMediaIndicador), texto:"Sua empresa", name:"Você"}
         ]
     }]
 
