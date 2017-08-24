@@ -128,8 +128,8 @@ function mostraMensagem(id){
 }
 
 $("#botaoAvanca").click(function(){
-    $(".apresentacao").fadeOut(function(){
-        $("#mensagemErro").hide();
+    $("#mensagemErro").hide();
+    $(".apresentacao").fadeOut(function(){ 
         $("#login").hide();
         $("#login").removeClass("elemento-escondido");
         $("#login").fadeIn();

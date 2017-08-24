@@ -205,6 +205,7 @@ function mostrarTelaFinal(dialog){
 		$(".ferramentas").addClass("elemento-escondido");
 		alternarDivs(indice)
 		$("#botaoVolta").parent().removeClass("elemento-escondido");
+		$("#botaoSair").parent().removeClass("elemento-escondido");
 		$("#tituloExibido").text("Teste concluído!");
 		$("#botaoFim").hide();
 }

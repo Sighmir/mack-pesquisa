@@ -4,9 +4,10 @@
 		<title>Controladoria</title>
 		<meta charset="UTF-8"/>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/main-login.css">
+		<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/main-login.css">
+		<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
 
 </head>
 
@@ -24,6 +25,30 @@
 							</div>
 						</div>
 
+						<table id="tabela" class="table table-striped">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>E-mail</th>
+									<th>Data de cadastro</th>
+									<th>Ação</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%for(i=0; i < lista.length;i++){%>
+									<tr>
+										<td><%=lista[i].nome%></td>
+										<td class="email"><%=lista[i].email%></td>
+										<td><%=moment(lista[i].data_cadastro).format('DD/MM/YYYY')%></td>
+										<%if(lista[i].perfil != "ADMIN"){%>
+											<td><button class="btn btn-default concedeAcesso" >Conceder acesso</button></td>
+										<%}else{%>	
+											<td><button class="btn btn-default revogaAcesso">Revogar acesso</button></td>
+										<%}%>
+									</tr>	
+								<%}%>	
+							</tbody>
+						</table>	
 						<div class="row">
 							<div class="col-md-6 botoes">
 								<a id="#" class="btn btn-default" target="_blank" href="/controladoria/excel">Download planinha de resultados(xls)</a>
@@ -43,5 +68,7 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/js/bootbox.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/js/admin/main-admin.js"></script>
 	</body>
 </html>

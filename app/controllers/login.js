@@ -26,12 +26,13 @@ module.exports = function(app){
         
         
         if(!erros){
-            console.log("Usuario valido");
+
             usuarioDAO.buscarPorEmail(usuarioLogin, function(error, resultado){
                  if(error){
                      console.log("Erro de banco: "+error)
                         var erro = "Email ou senha incorretos!";
                         res.render("login/login", {erro:erro});
+                        connection.end();
                         return;
                   }
                  if(resultado[0]){
@@ -42,29 +43,27 @@ module.exports = function(app){
                             req.session.loggedTime = new Date();
                             req.session.save();
                             if(resultado[0].perfil == "ADMIN"){
-                                res.redirect("/controladoria/home-admin");
+                                res.redirect("/controladoria/admin/home");
                             }else{
                                 res.redirect("/controladoria/home");
                             } 
-                            return;
+                            
                         }else{
                             var erro = "E-mail ou senha incorretos!";
                             res.render("login/login", {erro:erro});
-                            return;
+                            
                         }
                     });   
                  }else{
                     var erro = "E-mail não existe, por favor realize seu cadastro!";
                     res.render("login/login", {erro:erro});
-                    return;
                  }
             })
         }else{
             var erro = "E-mail ou senha incorretos!";
             res.render("login/login", {erro:erro});
-            return;
         }
-        
+        connection.end();
     });
 
     app.post("/controladoria/cadastro", function(req, res){
@@ -102,6 +101,7 @@ module.exports = function(app){
                         if(err){
                             var mensagemErro = "Erro ao realizar cadastro!";
                             res.status(500).json(mensagemErro);
+                            connection.end();
                             return;
                         }else{
 
@@ -113,10 +113,10 @@ module.exports = function(app){
                                     console.log("Erro de banco: "+erro)
                                     var mensagemErro = "Erro ao realizar cadastro!";
                                     res.status(500).json(mensagemErro);
-                                    return;
+                                    
                                 }else{
                                     res.status(201).json(resultado.insertId);
-                                    return;
+                                    
                                 }
                             });
                         }
@@ -124,7 +124,7 @@ module.exports = function(app){
                  }
             });
         }
-
+        connection.end();
         
     })
 }

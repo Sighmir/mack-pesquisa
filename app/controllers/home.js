@@ -15,22 +15,6 @@ module.exports = function(app){
         }
         res.render("home/index")
     });
-
-    app.get("/controladoria/home-admin", function(req, res){
-
-        var dataLogin =  createDateAsUTC(new Date(req.session.loggedTime));
-        var dataAtual = new Date();
-
-        var dataLimite = createDateAsUTC(addSubtractDate.subtract(dataAtual, 30, "minutes"));
-    
-        if(dataLimite > dataLogin){
-            req.session.destroy();
-            res.redirect("/controladoria/login");
-            return;
-        }
-        res.render("home/admin")
-    });
-
     app.post("/controladoria", function(req,res){
         
         var id_objetivo;
@@ -52,6 +36,7 @@ module.exports = function(app){
         objetivoDAO.inserir(objetivo, function(erro, resultado){
             if(erro){
                 res.status(500).json("Erro ao salvar objetivos: "+erro);
+                connection.end();
                 return;
             }
 
@@ -59,18 +44,21 @@ module.exports = function(app){
              indicadorDAO.inserir(indicador, function(erro, resultado){
                 if(erro){
                     res.status(500).json("Erro ao salvar Indicadores: "+erro);
+                    connection.end();
                     return;
                 }
                 id_indicador = resultado.insertId;
                 usuarioDAO.buscarPorEmail(obj, function(erro, resultado){
                     if(erro){
                         res.status(500).json("Erro ao obter dados do usuário: "+erro);
+                        connection.end();
                         return;
                     }
                     id_usuario = resultado[0].id;
                     ferramentaDAO.inserir(ferramenta, function(erro, resultado){
                         if(erro){
                             res.status(500).json("Erro ao salvar ferramentas: "+erro);
+                            connection.end();
                             return;
                         }
                         
@@ -82,6 +70,7 @@ module.exports = function(app){
                         usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
                             if(erro){
                                 res.status(500).json("Erro ao salvar dados: "+erro);
+                                connection.end();
                                 return;
                             }
                             res.status(201).json("Dados salvos com sucesso");
@@ -91,6 +80,7 @@ module.exports = function(app){
                 });
             });
         });
+        connection.end();
     });
 
     app.get("/controladoria/logoff", function(req, res){
