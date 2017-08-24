@@ -80,7 +80,7 @@ module.exports = function(app){
                 });
             });
         });
-        connection.end();
+        
     });
 
     app.get("/controladoria/logoff", function(req, res){

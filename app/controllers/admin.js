@@ -65,7 +65,7 @@ module.exports = function(app){
                 }
                 var arrayLinhas = [];
                 for(i=0; i<linhas.length;i++){
-                    var a = [i+1, linhas[i].nome, linhas[i].email, linhas[i].satisfacao_colaboradores, linhas[i].reducao_custos,linhas[i].crescimento_vendas, linhas[i].melhoria_preco, linhas[i].aumento_ebitda, linhas[i].indice_qualidade, linhas[i].margem_produto, linhas[i].reconhecimento_institucional, linhas[i].lucratividade, linhas[i].rentabilidade, linhas[i].aquisicao,linhas[i].novos_mercados, linhas[i].inovacao, linhas[i].processos, linhas[i].endividamento, linhas[i].ciclo_caixa,linhas[i].processos, linhas[i].despesas_vendas, linhas[i].funcionarios, linhas[i].ambientais, linhas[i].market_share, linhas[i].eva,linhas[i].divida_liquida, linhas[i].ebitda, linhas[i].inovacao, linhas[i].lucro_liquido, linhas[i].qualidade, linhas[i].fluxo_caixa, linhas[i].margem_contribuicao, linhas[i].clientes, linhas[i].enterprise_value, linhas[i].margem_bruta, linhas[i].retorno_investimento, linhas[i].obj_curto_prazo,linhas[i].obj_longo_prazo, linhas[i].ind_curto_prazo,linhas[i].ind_longo_prazo ];
+                    var a = [i+1, linhas[i].nome, linhas[i].email,linhas[i].tipo_empresa,linhas[i].qtde_funcionarios, linhas[i].setor, linhas[i].setor_usuario, linhas[i].nivel_usuario, linhas[i].satisfacao_colaboradores, linhas[i].reducao_custos,linhas[i].crescimento_vendas, linhas[i].melhoria_preco, linhas[i].aumento_ebitda, linhas[i].indice_qualidade, linhas[i].margem_produto, linhas[i].reconhecimento_institucional, linhas[i].lucratividade, linhas[i].rentabilidade, linhas[i].aquisicao,linhas[i].novos_mercados, linhas[i].inovacao, linhas[i].processos, linhas[i].endividamento, linhas[i].ciclo_caixa,linhas[i].processos, linhas[i].despesas_vendas, linhas[i].funcionarios, linhas[i].ambientais, linhas[i].market_share, linhas[i].eva,linhas[i].divida_liquida, linhas[i].ebitda, linhas[i].inovacao, linhas[i].lucro_liquido, linhas[i].qualidade, linhas[i].fluxo_caixa, linhas[i].margem_contribuicao, linhas[i].clientes, linhas[i].enterprise_value, linhas[i].margem_bruta, linhas[i].retorno_investimento, linhas[i].balanced_scorecard_utilizacao,  linhas[i].balanced_scorecard_importancia, linhas[i].planejamento_utilizacao, linhas[i].planejamento_importancia,  linhas[i].gerenciamento_utilizacao,  linhas[i].gerenciamento_importancia, linhas[i].orcamento_base_zero_utilizacao, linhas[i].orcamento_base_zero_importancia, linhas[i].orcamento_continuo_utilizacao, linhas[i].orcamento_continuo_importancia, linhas[i].gestao_utilizacao, linhas[i].gestao_importancia, linhas[i].lucratividade_utilizacao, linhas[i].lucratividade_importancia, linhas[i].custo_utilizacao, linhas[i].custo_importancia, linhas[i].orcamento_utilizacao, linhas[i].orcamento_importancia, linhas[i].margem_utilizacao, linhas[i].margem_importancia, linhas[i].analise_variacoes_utilizacao, linhas[i].analise_variacoes_importancia, linhas[i].resultado_utilizacao, linhas[i].resultado_importancia, linhas[i].obj_curto_prazo,linhas[i].obj_longo_prazo, linhas[i].ind_curto_prazo,linhas[i].ind_longo_prazo ];
                     arrayLinhas.push(a);
                 }
                     conf.rows = arrayLinhas;
@@ -97,6 +97,31 @@ function montaColunasExcel(){
             },
             {
                 caption:'email',
+                type:'string',
+                width:15
+            },
+            {
+                caption:'Tipo da empresa',
+                type:'string',
+                width:15
+            },
+            {
+                caption:'Quantidade de funcionários',
+                type:'string',
+                width:15
+            },
+            {
+                caption:'Setor da empresa',
+                type:'string',
+                width:15
+            },
+            {
+                caption:'Setor do usuário',
+                type:'string',
+                width:15
+            },
+            {
+                caption:'Nível hierárquico do usuário',
                 type:'string',
                 width:15
             },
@@ -262,6 +287,125 @@ function montaColunasExcel(){
             },
             {
                 caption:'ROI ou ROIC (retorno sobre investimento',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Balanced Scorecard - Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Balanced Scorecard - Importancia',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Planejamento estratégico - Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Planejamento estratégico - Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Gerenciamento Matricial de Despesas -  Utilizacao',
+                type:'number',
+                width:3,
+            },{
+                caption:'Gerenciamento Matricial de Despesas -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento base zero -  Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento base zero -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento contínuo -  Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento contínuo -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Gestão à vista(indicadores e metas operacionais) -  Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Gestão à vista(indicadores e metas operacionais) -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Lucratividade de cliente -  Utilização',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Lucratividade de cliente -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Custo das ativiades -  Utilização',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Custo das atividades -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento - Utilizacao',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Orçamento -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Margem de produtos e serviços - Utilização',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Margem de produtos e serviços -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Análise de variações orcamentárias -  Utilização',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Análise de variações orçamentárias -  Importância',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Resultado das unidades de negócio -  Utilização',
+                type:'number',
+                width:3,
+            },
+            {
+                caption:'Resultado das unidades de negócio -  Importância',
                 type:'number',
                 width:3,
             },
