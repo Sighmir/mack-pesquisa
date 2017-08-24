@@ -16,6 +16,21 @@ module.exports = function(app){
         res.render("home/index")
     });
 
+    app.get("/controladoria/home-admin", function(req, res){
+
+        var dataLogin =  createDateAsUTC(new Date(req.session.loggedTime));
+        var dataAtual = new Date();
+
+        var dataLimite = createDateAsUTC(addSubtractDate.subtract(dataAtual, 30, "minutes"));
+    
+        if(dataLimite > dataLogin){
+            req.session.destroy();
+            res.redirect("/controladoria/login");
+            return;
+        }
+        res.render("home/admin")
+    });
+
     app.post("/controladoria", function(req,res){
         
         var id_objetivo;
@@ -76,6 +91,11 @@ module.exports = function(app){
                 });
             });
         });
+    });
+
+    app.get("/controladoria/logoff", function(req, res){
+         req.session.destroy();
+         res.redirect("/controladoria/login");
     });
 
 }

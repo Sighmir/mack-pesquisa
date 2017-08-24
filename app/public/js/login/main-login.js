@@ -103,21 +103,18 @@ $("#cadastrar").click(function(event){
                     message: '<p><i class="fa fa-spin fa-spinner"></i> Aguarde...</p>'
                 });    
             }, success:function(data){
-                console.log(data);
-                $("#cadastro-sucesso").removeClass("elemento-escondido");
+                bootbox.dialog({message: "Cadastro realizado com sucesso!"})
                 trocaTela();
                 $("#email").val(usuario.email);
             },error:function(error){
-                $("#erro-cadastro strong").text(error.responseText);
-                mostraMensagem("erro-cadastro");
+                bootbox.dialog({message: error.responseText})
             },complete: function(){
                 dialog.modal('hide');
             }
 
         });
     }else{
-
-        mostraMensagem("feedback"); 
+        bootbox.dialog({message: "Por favor, preencha todos os campos corretamente"});
     }
 })
 
@@ -132,6 +129,7 @@ function mostraMensagem(id){
 
 $("#botaoAvanca").click(function(){
     $(".apresentacao").fadeOut(function(){
+        $("#mensagemErro").hide();
         $("#login").hide();
         $("#login").removeClass("elemento-escondido");
         $("#login").fadeIn();

@@ -40,8 +40,12 @@ module.exports = function(app){
                             console.log("Login")
                             req.session.email = usuarioLogin.email;
                             req.session.loggedTime = new Date();
-							req.session.save();
-                            res.redirect("/controladoria/home"); 
+                            req.session.save();
+                            if(resultado[0].perfil == "ADMIN"){
+                                res.redirect("/controladoria/home-admin");
+                            }else{
+                                res.redirect("/controladoria/home");
+                            } 
                             return;
                         }else{
                             var erro = "E-mail ou senha incorretos!";
