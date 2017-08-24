@@ -63,7 +63,6 @@ module.exports = function(app){
                     res.end("Erro ao realizar download");
                     return;
                 }
-                console.log(linhas);
                 var arrayLinhas = [];
                 for(i=0; i<linhas.length;i++){
                     var a = [i+1, linhas[i].nome, linhas[i].email, linhas[i].satisfacao_colaboradores, linhas[i].reducao_custos,linhas[i].crescimento_vendas, linhas[i].melhoria_preco, linhas[i].aumento_ebitda, linhas[i].indice_qualidade, linhas[i].margem_produto, linhas[i].reconhecimento_institucional, linhas[i].lucratividade, linhas[i].rentabilidade, linhas[i].aquisicao,linhas[i].novos_mercados, linhas[i].inovacao, linhas[i].processos, linhas[i].endividamento, linhas[i].ciclo_caixa,linhas[i].processos, linhas[i].despesas_vendas, linhas[i].funcionarios, linhas[i].ambientais, linhas[i].market_share, linhas[i].eva,linhas[i].divida_liquida, linhas[i].ebitda, linhas[i].inovacao, linhas[i].lucro_liquido, linhas[i].qualidade, linhas[i].fluxo_caixa, linhas[i].margem_contribuicao, linhas[i].clientes, linhas[i].enterprise_value, linhas[i].margem_bruta, linhas[i].retorno_investimento, linhas[i].obj_curto_prazo,linhas[i].obj_longo_prazo, linhas[i].ind_curto_prazo,linhas[i].ind_longo_prazo ];
