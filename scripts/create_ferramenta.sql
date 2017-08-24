@@ -1,3 +1,5 @@
+use controladoria;
+
 CREATE TABLE `ferramenta` (
   `id_ferramenta` int(11) NOT NULL AUTO_INCREMENT,
   `balanced_scorecard_utilizacao` int(11) NOT NULL,

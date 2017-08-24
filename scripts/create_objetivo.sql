@@ -1,3 +1,5 @@
+use controladoria;
+
 CREATE TABLE `objetivo` (
   `id_objetivo` int(11) NOT NULL AUTO_INCREMENT,
   `satisfacao_colaboradores` int(11) NOT NULL,

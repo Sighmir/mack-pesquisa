@@ -1,3 +1,5 @@
+use controladoria;
+
 CREATE TABLE `dados_usuario` (
   `id_dados_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,

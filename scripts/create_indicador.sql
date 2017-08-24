@@ -1,3 +1,5 @@
+use controladoria;
+
 CREATE TABLE `indicador` (
   `id_indicador` int(11) NOT NULL AUTO_INCREMENT,
   `ciclo_caixa` int(11) NOT NULL,
