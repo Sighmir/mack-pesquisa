@@ -58,12 +58,12 @@ module.exports = function(app){
                     var erro = "E-mail não existe, por favor realize seu cadastro!";
                     res.render("login/login", {erro:erro});
                  }
+                connection.end();
             })
         }else{
             var erro = "E-mail ou senha incorretos!";
             res.render("login/login", {erro:erro});
         }
-        connection.end();
     });
 
     app.post("/controladoria/cadastro", function(req, res){
@@ -88,12 +88,14 @@ module.exports = function(app){
                      console.log("Erro de banco: "+error)
                         var mensagemErro = "Erro ao realizar cadastro!";
                         res.status(500).json(mensagemErro);
+                        connection.end();
                         return;
                   }
                  if(resultado[0]){
                      console.log(resultado);
                     var mensagemErro = "Já existe uma conta utilizando este e-mail!";
                     res.status(500).json(mensagemErro);
+                    connection.end();
                     return;
                  }else{
                      
@@ -118,13 +120,14 @@ module.exports = function(app){
                                     res.status(201).json(resultado.insertId);
                                     
                                 }
+                                connection.end();
                             });
                         }
                     });
                  }
             });
         }
-        connection.end();
+        
         
     })
 }

@@ -42,12 +42,12 @@ module.exports = function(app){
                     }else{
                         res.status(200).json("Operação realizada com sucesso");
                     }
+                    connection.end();
                 });
             }else{
                 res.status(500).json("Erro");
             }
-
-            connection.end();
+            
         })
 
         app.get("/controladoria/admin/excel", function(req,res){
@@ -73,6 +73,7 @@ module.exports = function(app){
                     res.setHeader('Content-Type','application/vnd.openxmlformates');
                     res.setHeader("Content-Disposition","attachment;filename="+"dados.xlsx");
                     res.end(result,'binary');
+                    connection.end();
             })
             
         })
