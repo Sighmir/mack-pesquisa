@@ -424,6 +424,10 @@ function montarGrafico(objeto){
     series: [{
         data: [
 			{x: 0, y:0, texto:"Origem", name:''},
+			{x: 5, y:5, texto:"1º", name:'1º quadrante'},
+			{x: 5, y:-5, texto:"4º", name:'4º quadrante'},
+			{x: -5, y:5, texto:"2º", name:'2º quadrante'},
+			{x: -5, y:-5, texto:"3º", name:'3º quadrante'},
             { x: parseFloat(valorMediaObjetivo), y: parseFloat(valorMediaIndicador), texto:"Sua empresa", name:"Você"}
         ]
 	}],
