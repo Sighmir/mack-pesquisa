@@ -33,7 +33,7 @@ module.exports = function(app){
 
             var connection = new app.infra.ConnectionFactory();
             var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
-            console.log(objeto)
+            
             if(req.session.email != objeto.email){
                 usuarioDAO.atualizaAcesso(objeto, function(erro, resultado){
                     if(erro){
