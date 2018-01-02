@@ -15,6 +15,8 @@ module.exports = function(app){
         }
         res.render("home/index")
     });
+
+    
     app.post("/controladoria", function(req,res){
         
         var id_objetivo;

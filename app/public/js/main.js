@@ -33,17 +33,17 @@ $("#botaoAvanca").click(function(){
 	if(validarCampos()){
 			alternarDivs(indice)
 			indice+=1;
-				if(indice == 6){
+				if(indice == 4){
 					mostrarQuestionario();
 				}
-				if(indice == 10){
+				if(indice == 8){
 					$("#tituloExibido").text("Indicadores");
 				}
-				if(indice == 15){
+				if(indice == 13){
 					$("#tituloExibido").text("Ferramentas");
 					fadeAlternativo("ferramentas", "questionario");
 				}
-				if(indice ==17){
+				if(indice ==15){
 					$("#botaoFim").parent().removeClass("elemento-escondido");
 					$("#botaoAvanca").parent().addClass("elemento-escondido");
 				}

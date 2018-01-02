@@ -5,7 +5,7 @@ function createDBConnection(){
         host:"127.0.0.1",
         database:"controladoria",
         user:"root",
-        password:""
+        password:"root"
     })
 }
 
