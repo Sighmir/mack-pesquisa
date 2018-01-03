@@ -2,8 +2,8 @@ function IndicadorDAO(connection){
     this._connection = connection
 }
 
-IndicadorDAO.prototype.inserir = function(indicador, callback){
-    this._connection.query("insert into indicador set ?", indicador, callback);
+IndicadorDAO.prototype.listar = function(callback){
+    this._connection.query("select * from indicador", callback);
 }
 
 module.exports = function(){

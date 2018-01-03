@@ -13,6 +13,21 @@ module.exports = function(app){
             res.redirect("/controladoria/login");
             return;
         }
+
+        var connection = new app.infra.ConnectionFactory();
+        var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
+        var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
+        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
+
+        objetivoDAO.listar(function(err, resultado){
+            if(err){
+                errorHandler(err);
+                return;
+            }
+            console.log(resultado);
+
+        })
+
         res.render("home/index")
     });
 
@@ -105,4 +120,10 @@ function obtemDados(req){
 		"setor_usuario" : req.body.setor_usuario,
 		"nivel_usuario" : req.body.nivel_usuario,
     };
+}
+
+function errorHandler(err){
+    console.log("Erro ao obter dados da base de dados: "+err);
+    req.session.destroy();
+    res.redirect("/controladoria/login");
 }

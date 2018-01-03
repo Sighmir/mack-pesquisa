@@ -1,4 +1,4 @@
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app){
     
@@ -68,14 +68,14 @@ module.exports = function(app){
 
     app.post("/controladoria/cadastro", function(req, res){
         var usuario = req.body;
-
+        console.log("Usuario: "+JSON.stringify(usuario));
         var connection = new app.infra.ConnectionFactory();
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
-        
+        console.log("Instanciou os usuários");
         req.assert("nome", "Digite um nome válido").notEmpty();
         req.assert("email", "Digite um e-mail inválido!").isEmail().notEmpty();
         req.assert("senha", "Digite uma senha válida!").notEmpty();
-
+        console.log("Definiu as regras de validação");
         var erros = req.validationErrors();
 
         if(erros){

@@ -2,8 +2,8 @@ function ObjetivoDAO(connection){
     this._connection = connection;
 }
 
-ObjetivoDAO.prototype.inserir = function(objetivo, callback){
-    this._connection.query("insert into objetivo set ?", objetivo, callback);
+ObjetivoDAO.prototype.listar = function(callback){
+    this._connection.query("select * from objetivo", callback);
 }
 
 module.exports = function(){
