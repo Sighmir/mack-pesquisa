@@ -24,8 +24,8 @@
 						</span>
 					</div>
 					<hr id="linha"/>
-				<div class="dados-respondente elemento-escondido col-md-12">
-					<div class="elemento-escondido" id="conteudo_1">
+				<div class="dados-respondente col-md-12">
+					<div  id="conteudo_1">
 						<strong>Quantos funcionários existem na sua empresa?</strong>
 						<br/>
 						<br/>
@@ -81,362 +81,142 @@
 							</tr>	
 						</thead>
 						<tbody id="conteudo_4">
-									<tr class="linha-resposta objetivo longo-prazo">
-									<td>Melhorar satisfação de colaboradores</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+							<%for(var i=0; i<4; i++){%>
+								
+									<tr class="linha-resposta objetivo">
+										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
+										
+										<%var descricao = viewModel.objetivos[i].obj_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:11px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td>Redução de custos e despesas</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td>Crescimento de vendas</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo longo-prazo">
-									<td>Melhoria do preço da ação</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
+										
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>	
+						
 						</tbody>
-
 						<tbody class="elemento-escondido" id="conteudo_5">
-							<tr class="linha-resposta objetivo curto-prazo">
-									<td>Aumento do EBITDA</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+							<%for(var i=4; i<8; i++){%>
+								
+									<tr class="linha-resposta objetivo">
+										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
+										<%var descricao = viewModel.objetivos[i].obj_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:11px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo longo-prazo">
-									<td>Melhorar os índices relacionados a qualidade</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td>Melhoria da margem de produtos</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>	
-								<tr class="linha-resposta objetivo longo-prazo">
-									<td>Melhorar reconhecimento institucional da empresa</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>						
+						
 						</tbody>
 
 						<tbody class="elemento-escondido" id="conteudo_6">
-							<tr class="linha-resposta objetivo curto-prazo">
-									<td>Melhoria da lucratividade</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+							<%for(var i=8; i<viewModel.objetivos.length; i++){%>
+								
+									<tr class="linha-resposta objetivo">
+										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
+										<%var descricao = viewModel.objetivos[i].obj_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:11px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td style="font-size:12px">Melhoraria de rentabilidade do capital empregado(ROI)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-								<tr class="linha-resposta objetivo longo-prazo">
-									<td>Crescer por aquisição</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>	
-								<tr class="linha-resposta objetivo longo-prazo">
-									<td>Conquistar novos mercados</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>		
 						</tbody>
 
 						<tbody class="elemento-escondido" id="conteudo_7">
-							<tr class="linha-resposta objetivo longo-prazo">
-									<td>Inovação de produtos e serviços</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+							<%for(var i=0; i<4; i++){%>
+									<tr class="linha-resposta indicador">
+										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
+										<%var descricao = viewModel.indicadores[i].ind_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:8px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td>Melhoria dos processos</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 	
-								<tr class="linha-resposta objetivo curto-prazo">
-									<td>Diminuir o endividamento</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>	
+							
 						</tbody>
 
 						<tbody class="elemento-escondido" id="conteudo_8">
-							<tr class="linha-resposta indicador monetario">
-									<td>Ciclo de caixa em dias</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+							<%for(var i=4; i<8; i++){%>
+									<tr class="linha-resposta indicador">
+										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
+										<%var descricao = viewModel.indicadores[i].ind_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:11px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Processos (Produtividade, Segurança, Tempo)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-								<tr class="linha-resposta indicador monetario">
-									<td style="font-size:10px">SG&A - Despesas com vendas e administrativas em %  das Receitas</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>	
-								<tr class="linha-resposta indicador nao-monetario">
-									<td style="font-size:10px">Funcionários (por exemplo: Atrativade, Retenção, Satisfação)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-						</tbody>
-
-						<tbody class="elemento-escondido" id="conteudo_9">
-							<tr class="linha-resposta indicador nao-monetario">
-									<td style="font-size: 12px"	>Ambientais (emissão de CO2, acidentes ambientais, etc.)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Market-share</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-								<tr class="linha-resposta indicador monetario">
-									<td>EVA (lucro econômico)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>	
-								<tr class="linha-resposta indicador monetario">
-									<td>Dívida líquida / EBITDA</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>	
 						</tbody> 
 
-						<tbody class="elemento-escondido" id="conteudo_10">
-							<tr class="linha-resposta indicador monetario">
-									<td>EBITDA</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
+						<tbody class="elemento-escondido" id="conteudo_9">
+							<%for(var i=8; i<viewModel.indicadores.length; i++){%>
+									<tr class="linha-resposta indicador">
+										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
+										<%var descricao = viewModel.indicadores[i].ind_desc%>
+										<%if(descricao.length > 47){%>
+											<td style="font-size:11px"><%=descricao%></td>
+										<%}else{%>
+											<td><%=descricao%></td>
 										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Inovação</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-
-								<tr class="linha-resposta indicador monetario">
-									<td>Lucro líquido</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Qualidade (índice de conformidade)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-						</tbody>
-
-						<tbody class="elemento-escondido" id="conteudo_11">
-							<tr class="linha-resposta indicador monetario">
-									<td>Fluxo de caixa</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador monetario">
-									<td>Margem de contribuição em $ ou %</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr> 
-
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Clientes (por exemplo: Retenção, Satisfação)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador nao-monetario">
-									<td>Enterprise Value / EBITDA</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-						</tbody>
-
-						<tbody class="elemento-escondido" id="conteudo_12">
-							<tr class="linha-resposta indicador monetario">
-									<td>Margem bruta em %</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>
-								<tr class="linha-resposta indicador monetario">
-									<td>ROI ou ROIC (retorno sobre investimento)</td>
-									<td>
-										<%for(var i=1; i <=10;i++){%>
-											<label class="checkbox-inline">
-												<input type="radio" value="<%=i%>"><%=i%>
-											</label>
-										<%}%>
-									</td>
-								</tr>	
+										<td>
+											<%for(var j=1; j <=10;j++){%>
+												<label class="checkbox-inline">
+													<input type="radio" value="<%=j%>"><%=j%>
+												</label>
+											<%}%>
+										</td>
+									</tr>
+								
+							<%}%>	
 						</tbody>
 							
 					</table>
@@ -453,7 +233,7 @@
 							<td>importância</td>
 						</tr>	
 					</thead>	
-					<tbody id="conteudo_13">
+					<tbody id="conteudo_10">
 						<tr>
 							<td>Balanced Scorecard</td>
 							<td>
@@ -524,7 +304,7 @@
 						</tr>
 					</tbody>
 
-					<tbody class="elemento-escondido" id="conteudo_14">
+					<tbody class="elemento-escondido" id="conteudo_11">
 						<tr>
 							<td>Orçamento contínuo</td>
 							<td>
@@ -595,7 +375,7 @@
 						</tr>
 					</tbody>
 				
-					<tbody class="elemento-escondido" id="conteudo_15">
+					<tbody class="elemento-escondido" id="conteudo_12">
 						<tr>
 							<td>Orçamento</td>
 							<td>
@@ -668,7 +448,7 @@
 					</table>
 				</div>
 
-				<div class="elemento-escondido" id="conteudo_16">
+				<div class="elemento-escondido" id="conteudo_13">
 						<div class="row">
 							<div class="col-md-6">
 									<p style="text-align: justify">Muito obrigado por participar de nossa pesquisa!.</p>

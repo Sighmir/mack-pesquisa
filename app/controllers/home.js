@@ -14,21 +14,40 @@ module.exports = function(app){
             return;
         }
 
-        var connection = new app.infra.ConnectionFactory();
-        var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
-        var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
-        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
+        try{
+            var connection = new app.infra.ConnectionFactory();
+            var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
+            var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
+            var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
+            var viewModel = new Object();
+            objetivoDAO.listar(function(err, listaObjetivos){
+                if(err){
+                    errorHandler(err);
+                    return;
+                }
+                viewModel.objetivos = listaObjetivos;
+                indicadorDAO.listar(function(err, listaIndicadores){
+                    if(err){
+                        errorHandler(err);
+                        return;
+                    }
+                    viewModel.indicadores = listaIndicadores;
+                    ferramentaDAO.listar(function(err, listaFerramentas){
+                        if(err){
+                            errorHandler(err);
+                            return;
+                        }
+                        viewModel.ferramentas = listaFerramentas;
+                        console.log("Meu objeto: "+JSON.stringify(viewModel));
+                        res.render("home/index", {viewModel:viewModel});
+                    })
+                })
 
-        objetivoDAO.listar(function(err, resultado){
-            if(err){
-                errorHandler(err);
-                return;
-            }
-            console.log(resultado);
-
-        })
-
-        res.render("home/index")
+            })
+        }catch(e){
+            console.log("Erro ao obter dados do banco para listagem da pagina inicial: "+e);
+            errorHandler(err);
+        }
     });
 
     

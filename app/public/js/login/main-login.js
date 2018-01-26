@@ -107,6 +107,7 @@ $("#cadastrar").click(function(event){
                 trocaTela();
                 $("#email").val(usuario.email);
             },error:function(error){
+                console.log(error);
                 bootbox.dialog({message: error.responseText})
             },complete: function(){
                 dialog.modal('hide');

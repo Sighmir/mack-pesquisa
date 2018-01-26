@@ -16,28 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `indicador`
+-- Table structure for table `usuario`
 --
 
-DROP TABLE IF EXISTS `indicador`;
+DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `indicador` (
-  `ind_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ind_desc` varchar(100) NOT NULL,
-  `ind_longo_prazo` bit(1) DEFAULT NULL,
-  PRIMARY KEY (`ind_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `senha` varchar(250) DEFAULT NULL,
+  `perfil` varchar(50) DEFAULT NULL,
+  `data_cadastro` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `indicador`
+-- Dumping data for table `usuario`
 --
 
-LOCK TABLES `indicador` WRITE;
-/*!40000 ALTER TABLE `indicador` DISABLE KEYS */;
-INSERT INTO `indicador` VALUES (1,'Receitas líquidas','\0'),(2,'Margem bruta','\0'),(3,'SG&A % receitas ou Despesas de Vendas, Gerais e Administrativas como % das Receitas','\0'),(4,'Margem ebitda','\0'),(5,'ROI','\0'),(6,'Dívida / EBITDA','\0'),(7,'Múltiplos EBITDA ou Valor de Mercado das Ações',''),(8,'Satisfação dos clientes',''),(9,'Satisfação, atratividade e retenção dos funcionários',''),(10,'Receitas de Novos Produtos /Receitas Totais',''),(11,'Market share','');
-/*!40000 ALTER TABLE `indicador` ENABLE KEYS */;
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-26 10:25:56
+-- Dump completed on 2018-01-26 10:25:57

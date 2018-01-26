@@ -36,17 +36,22 @@ $("#botaoAvanca").click(function(){
 				if(indice == 4){
 					mostrarQuestionario();
 				}
-				if(indice == 8){
+				if(indice == 7){
 					$("#tituloExibido").text("Indicadores");
 				}
-				if(indice == 13){
-					$("#tituloExibido").text("Ferramentas");
-					fadeAlternativo("ferramentas", "questionario");
-				}
-				if(indice ==15){
+
+				if(indice == 9){
 					$("#botaoFim").parent().removeClass("elemento-escondido");
 					$("#botaoAvanca").parent().addClass("elemento-escondido");
 				}
+				// if(indice == 13){
+				// 	$("#tituloExibido").text("Ferramentas");
+				// 	fadeAlternativo("ferramentas", "questionario");
+				// }
+				// if(indice ==15){
+				// 	$("#botaoFim").parent().removeClass("elemento-escondido");
+				// 	$("#botaoAvanca").parent().addClass("elemento-escondido");
+				// }
 		}else{
 			bootbox.dialog({message: "Preencha todos os campos"});
 		}
@@ -86,11 +91,9 @@ var unicaEscolhaVertical = function(){
 }
 
 $("#botaoFim").click(function(){
-	var tipo_empresa = obtemValorDadosRespondente("caracteriza_empresa");
 	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
-	var setor = obtemValorDadosRespondente("setor-empresa");
-	var setor_usuario = obtemValorDadosRespondente("setor-usuario");
-	var nivel_usuario = obtemValorDadosRespondente("nivel-usuario");
+	var setor = obtemValorDadosRespondente("concorrência");
+	var setor_usuario = obtemValorDadosRespondente("incertezas-ambientas");
 
 
 	var mediaObjetivoLongoPrazo = obtemMedia("linha-resposta.objetivo.longo-prazo");
@@ -101,85 +104,7 @@ $("#botaoFim").click(function(){
 
 	var objetivos = $(".linha-resposta.objetivo");
 	var indicadores = $(".linha-resposta.indicador");
-	var ferramentas_utilizacao = $(".ferramenta.utilizacao");
-	var ferramentas_importancia = $(".ferramenta.importancia");
 	
-	
-	var objeto = {
-		"tipo_empresa" : tipo_empresa,
-		"quantidade_funcionarios" : quantidade_funcionarios,
-		"setor" : setor,
-		"setor_usuario" : setor_usuario,
-		"nivel_usuario" : nivel_usuario,
-		"objetivo":{
-			"satisfacao_colaboradores" : $(objetivos[0]).find("td").find("input:checked").val(),
-			"reducao_custos" : $(objetivos[1]).find("td").find("input:checked").val(),
-			"crescimento_vendas" :$(objetivos[2]).find("td").find("input:checked").val(),
-			"melhoria_preco" : $(objetivos[3]).find("td").find("input:checked").val(),
-			"aumento_ebitda" : $(objetivos[4]).find("td").find("input:checked").val(),
-			"indice_qualidade":$(objetivos[5]).find("td").find("input:checked").val(),
-			"margem_produto" : $(objetivos[6]).find("td").find("input:checked").val(),
-			"reconhecimento_institucional": $(objetivos[7]).find("td").find("input:checked").val(),
-			"lucratividade" : $(objetivos[8]).find("td").find("input:checked").val(),
-			"rentabilidade" : $(objetivos[9]).find("td").find("input:checked").val(),
-			"aquisicao" : $(objetivos[10]).find("td").find("input:checked").val(),
-			"novos_mercados" : $(objetivos[11]).find("td").find("input:checked").val(),
-			"inovacao" : $(objetivos[12]).find("td").find("input:checked").val(),
-			"processos" : $(objetivos[13]).find("td").find("input:checked").val(),
-			"endividamento" : $(objetivos[14]).find("td").find("input:checked").val(),
-			"media_longo_prazo": mediaObjetivoLongoPrazo,
-			"media_curto_prazo": mediaObjetivoCurtoPrazo
-		},
-		"indicador" :{
-			"ciclo_caixa" : $(indicadores[0]).find("td").find("input:checked").val(),
-			"processos" : $(indicadores[1]).find("td").find("input:checked").val(),
-			"despesas_vendas" : $(indicadores[2]).find("td").find("input:checked").val(),
-			"funcionarios" : $(indicadores[3]).find("td").find("input:checked").val(),
-			"ambientais": $(indicadores[4]).find("td").find("input:checked").val(),
-			"market_share" : $(indicadores[5]).find("td").find("input:checked").val(),
-			"eva" : $(indicadores[6]).find("td").find("input:checked").val(),
-			"divida_liquida" : $(indicadores[7]).find("td").find("input:checked").val(),
-			"ebitda" : $(indicadores[8]).find("td").find("input:checked").val(),
-			"inovacao" : $(indicadores[9]).find("td").find("input:checked").val(),
-			"lucro_liquido" : $(indicadores[10]).find("td").find("input:checked").val(),
-			"qualidade" : $(indicadores[11]).find("td").find("input:checked").val(),
-			"fluxo_caixa" : $(indicadores[12]).find("td").find("input:checked").val(),
-			"margem_contribuicao" : $(indicadores[13]).find("td").find("input:checked").val(),
-			"clientes" : $(indicadores[14]).find("td").find("input:checked").val(),
-			"enterprise_value" : $(indicadores[15]).find("td").find("input:checked").val(),
-			"margem_bruta" : $(indicadores[16]).find("td").find("input:checked").val(),
-			"retorno_investimento" : $(indicadores[17]).find("td").find("input:checked").val(),
-			"media_longo_prazo" : mediaIndicadorMonetario,
-			"media_curto_prazo" : mediaIndicadorNaoMonetario
-		},
-		"ferramenta":{
-			"balanced_scorecard_utilizacao" : $(ferramentas_utilizacao[0]).find(":selected").val(),
-			"balanced_scorecard_importancia" : $(ferramentas_importancia[0]).find(":selected").val(),
-			"planejamento_utilizacao": $(ferramentas_utilizacao[1]).find(":selected").val(),
-			"planejamento_importancia" : $(ferramentas_importancia[1]).find(":selected").val(),
-			"gerenciamento_utilizacao" : $(ferramentas_utilizacao[2]).find(":selected").val(),
-			"gerenciamento_importancia" : $(ferramentas_importancia[2]).find(":selected").val(),
-			"orcamento_base_zero_utilizacao" : $(ferramentas_utilizacao[3]).find(":selected").val(),
-			"orcamento_base_zero_importancia" : $(ferramentas_importancia[3]).find(":selected").val(),
-			"orcamento_continuo_utilizacao": $(ferramentas_utilizacao[4]).find(":selected").val(),
-			"orcamento_continuo_importancia": $(ferramentas_importancia[4]).find(":selected").val(),
-			"gestao_utilizacao" : $(ferramentas_utilizacao[5]).find(":selected").val(),
-			"gestao_importancia" : $(ferramentas_importancia[5]).find(":selected").val(),
-			"lucratividade_utilizacao" : $(ferramentas_utilizacao[6]).find(":selected").val(),
-			"lucratividade_importancia" : $(ferramentas_importancia[6]).find(":selected").val(),
-			"custo_utilizacao" : $(ferramentas_utilizacao[7]).find(":selected").val(),
-			"custo_importancia" : $(ferramentas_importancia[7]).find(":selected").val(),
-			"orcamento_utilizacao" : $(ferramentas_utilizacao[8]).find(":selected").val(),
-			"orcamento_importancia" : $(ferramentas_importancia[8]).find(":selected").val(),
-			"margem_utilizacao" : $(ferramentas_utilizacao[9]).find(":selected").val(),
-			"margem_importancia" : $(ferramentas_importancia[9]).find(":selected").val(),
-			"analise_variacoes_utilizacao" : $(ferramentas_utilizacao[10]).find(":selected").val(),
-			"analise_variacoes_importancia" : $(ferramentas_importancia[10]).find(":selected").val(),
-			"resultado_utilizacao" : $(ferramentas_utilizacao[11]).find(":selected").val(),
-			"resultado_importancia" : $(ferramentas_importancia[11]).find(":selected").val()
-		}
-
-	}
 
 	enquadrar(objeto);
 

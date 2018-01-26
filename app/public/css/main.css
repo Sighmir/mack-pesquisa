@@ -56,3 +56,8 @@ label{
 .elemento-escondido{
 	display: none;
 }
+
+.table{
+	overflow: hidden;
+	white-space: nowrap;
+}

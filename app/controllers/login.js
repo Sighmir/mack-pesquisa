@@ -83,49 +83,57 @@ module.exports = function(app){
             res.status(500).json(mensagemErro);
             return;
         }else{
-             usuarioDAO.buscarPorEmail(usuario, function(error, resultado){
-                 if(error){
-                     console.log("Erro de banco: "+error)
-                        var mensagemErro = "Erro ao realizar cadastro!";
-                        res.status(500).json(mensagemErro);
-                        connection.end();
-                        return;
-                  }
-                 if(resultado[0]){
-                     console.log(resultado);
-                    var mensagemErro = "Já existe uma conta utilizando este e-mail!";
-                    res.status(500).json(mensagemErro);
-                    connection.end();
-                    return;
-                 }else{
-                     
-                    bcrypt.hash(usuario.senha, 5, function(err, hash) {
-                        if(err){
-                            var mensagemErro = "Erro ao realizar cadastro!";
-                            res.status(500).json(mensagemErro);
-                            connection.end();
-                            return;
-                        }else{
-
-                            console.log(hash);
-                            usuario.senha = hash;
-                            usuario.data_cadastro = new Date();
-                            usuarioDAO.inserir(usuario, function(erro, resultado){
-                                if(erro){
-                                    console.log("Erro de banco: "+erro)
-                                    var mensagemErro = "Erro ao realizar cadastro!";
-                                    res.status(500).json(mensagemErro);
-                                    
-                                }else{
-                                    res.status(201).json(resultado.insertId);
-                                    
-                                }
-                                connection.end();
-                            });
-                        }
-                    });
-                 }
-            });
+            console.log("Não teve erro de validação");
+            try{
+                usuarioDAO.buscarPorEmail(usuario, function(error, resultado){
+                    console.log("Entrou no buscar por Email");
+                    if(error){
+                        console.log("Erro de banco: "+error)
+                           var mensagemErro = "Erro ao realizar cadastro!";
+                           res.status(500).json(mensagemErro);
+                           connection.end();
+                           return;
+                     }
+                    if(resultado[0]){
+                        console.log(resultado);
+                       var mensagemErro = "Já existe uma conta utilizando este e-mail!";
+                       res.status(500).json(mensagemErro);
+                       connection.end();
+                       return;
+                    }else{
+                        console.log("Vai criptografar a senha");
+                    var salt = bcrypt.genSaltSync(5);
+                       bcrypt.hash(usuario.senha, salt,null,  function(err, hash) {
+                           if(err){
+                               var mensagemErro = "Erro ao realizar cadastro!";
+                               console.log("Erro: "+err);
+                               res.status(500).json(mensagemErro);
+                               connection.end();
+                               return;
+                           }else{
+   
+                               console.log("Criptografou a senha: "+hash);
+                               usuario.senha = hash;
+                               usuario.data_cadastro = new Date();
+                               usuarioDAO.inserir(usuario, function(erro, resultado){
+                                   if(erro){
+                                       console.log("Erro de banco: "+erro)
+                                       var mensagemErro = "Erro ao realizar cadastro!";
+                                       res.status(500).json(mensagemErro);
+                                       
+                                   }else{
+                                       res.status(201).json(resultado.insertId);
+                                       
+                                   }
+                                   connection.end();
+                               });
+                           }
+                       });
+                    }
+               });
+            }catch(e){
+                console.log("Ocorreu um erro: "+e);
+            }
         }
         
         
