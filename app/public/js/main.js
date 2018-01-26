@@ -91,35 +91,54 @@ var unicaEscolhaVertical = function(){
 }
 
 $("#botaoFim").click(function(){
+	var dialog = {};
 	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
-	var setor = obtemValorDadosRespondente("concorrência");
-	var setor_usuario = obtemValorDadosRespondente("incertezas-ambientas");
+	var concorrencia = obtemValorDadosRespondente("concorrência");
+	var incertezas_ambientais = obtemValorDadosRespondente("incertezas-ambientas");
 
 
-	var mediaObjetivoLongoPrazo = obtemMedia("linha-resposta.objetivo.longo-prazo");
-	var mediaObjetivoCurtoPrazo = obtemMedia("linha-resposta.objetivo.curto-prazo");
-
-	var mediaIndicadorMonetario = obtemMedia("linha-resposta.indicador.monetario");
-	var mediaIndicadorNaoMonetario = obtemMedia("linha-resposta.indicador.nao-monetario");
+	var listaObjetivos = [];
+	var listaIndicadores = [];
 
 	var objetivos = $(".linha-resposta.objetivo");
 	var indicadores = $(".linha-resposta.indicador");
-	
 
+	objetivos.each(function(index, value){
+		var tr = $(value);
+		var longoPrazo = tr.find(".longo-prazo").val();
+
+		var objetivo = new Object();
+		objetivo.id = tr.find(".id").val();
+		objetivo.longoPrazo = longoPrazo;
+		objetivo.descricao = $(tr.find("td")[0]).text();
+		objetivo.nota = tr.find("td").find("input:checked").val();
+		
+		listaObjetivos.push(objetivo);
+	})
+
+	indicadores.each(function(index, value){
+		var tr = $(value);
+		var longoPrazo = tr.find(".longo-prazo").val();
+
+		var indicador = new Object();
+		indicador.id = tr.find(".id").val();
+		indicador.longoPrazo = longoPrazo;
+		indicador.descricao = $(tr.find("td")[0]).text();
+		indicador.nota = tr.find("td").find("input:checked").val();
+		listaIndicadores.push(indicador);
+	})
+	
+	var objeto = {
+		quantidade_funcionarios: quantidade_funcionarios,
+		incertezas_ambientais: incertezas_ambientais,
+		concorrencia:concorrencia,
+		listaIndicadores : listaIndicadores,
+		listaObjetivos : listaObjetivos
+	}
 	enquadrar(objeto);
 
 	
 })
-
-function obtemMedia(classe){
-	var valor = 0;
-	$("."+classe).each(function(index, value){
-		valor += parseInt($(value).find("td").find("input:checked").val());
-	})
-	var numeroElementos = $("."+classe).length;
-
-	return (valor / numeroElementos).toFixed(2);
-}
 
 function obtemValorDadosRespondente(id){
 	return $("#"+id).find("input:checked").val()
@@ -194,12 +213,11 @@ function enquadrar(objeto){
 		dataType:"json",
 		data:objeto,
 		success: function(dados){
-			mostrarTelaFinal(dialog);
-			montarGrafico(objeto);
-			montarTabelaFerramentas(objeto.ferramenta);
+			console.log(dados);
+			verificaMedias(dados);
 		},error: function(erro){
 			dialog.modal('hide');
-			bootbox.dialog({message: erro.responseText});
+			bootbox.dialog({message: "Ocorreu um erro ao processar sua avaliação. Estamos trabalhando para resolver isso. Tente novamente mais tarde"});
 		}
 	})
 }
@@ -231,6 +249,20 @@ function montarTabelaFerramentas(ferramenta){
 	nomeIcone = getIcon(ferramenta.custo_utilizacao, ferramenta.custo_importancia);
 	$("#custo").append($("<i>").addClass("material-icons").text(nomeIcone));
 
+}
+
+function verificaMedias(objeto){
+
+	var objetivos = objeto.listaObjetivos;
+	var indicadores = objeto.listaIndicadores;
+
+	objetivos.forEach(function(index, value){
+
+	})
+
+			//mostrarTelaFinal(dialog);
+			//montarGrafico(objeto);
+			//montarTabelaFerramentas(objeto.ferramenta);
 }
 
 function getIcon(valor1, valor2){

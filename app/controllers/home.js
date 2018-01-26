@@ -38,7 +38,6 @@ module.exports = function(app){
                             return;
                         }
                         viewModel.ferramentas = listaFerramentas;
-                        console.log("Meu objeto: "+JSON.stringify(viewModel));
                         res.render("home/index", {viewModel:viewModel});
                     })
                 })
@@ -53,13 +52,10 @@ module.exports = function(app){
     
     app.post("/controladoria", function(req,res){
         
-        var id_objetivo;
-        var id_indicador;
-        var id_usuario;
-        var objetivo = req.body.objetivo;
-        var indicador = req.body.indicador;
-        var ferramenta = req.body.ferramenta;
-        var dados_respondente = obtemDados(req);
+        var idUsuario;
+        var objeto = req.body
+        var dados_respondente = obtemDados(objeto);
+        console.log("Dados do respondente: "+JSON.stringify(dados_respondente));
         var obj = new Object();
         obj.email = req.session.email;
 
@@ -67,55 +63,53 @@ module.exports = function(app){
         var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
         var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
-        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
 
-        objetivoDAO.inserir(objetivo, function(erro, resultado){
-            if(erro){
-                res.status(500).json("Erro ao salvar objetivos: "+erro);
-                connection.end();
-                return;
-            }
-
-             id_objetivo = resultado.insertId;
-             indicadorDAO.inserir(indicador, function(erro, resultado){
+       var arrayInsertObjetivos = new Array();
+       var arrayInsertIndicadores = new Array();
+            usuarioDAO.buscarPorEmail(obj, function(erro, usuarios){
+                
                 if(erro){
-                    res.status(500).json("Erro ao salvar Indicadores: "+erro);
+                    res.status(500).json("Erro ao obter dados do usuário: "+erro);
                     connection.end();
                     return;
                 }
-                id_indicador = resultado.insertId;
-                usuarioDAO.buscarPorEmail(obj, function(erro, resultado){
+                idUsuario = usuarios[0].id;
+                console.log("Id do usuário: "+idUsuario);
+                var listaObjetivos = objeto.listaObjetivos;
+                for(var i = 0; i < listaObjetivos.length; i++){
+                    var objetivo = listaObjetivos[i];
+                    arrayInsertObjetivos.push([idUsuario, objetivo.id, objetivo.nota]);
+                }
+
+                var listaIndicadores = objeto.listaIndicadores;
+                for(var i = 0; i < listaIndicadores.length; i++){
+                    var indicador = listaIndicadores[i];
+                   arrayInsertIndicadores.push([idUsuario, indicador.id, indicador.nota]);
+                }
+                console.log("Array objetivos: "+arrayInsertObjetivos);
+                console.log("Array indicadores: "+arrayInsertIndicadores);
+
+                objetivoDAO.inserir(arrayInsertObjetivos, function(erro, resultado){
                     if(erro){
-                        res.status(500).json("Erro ao obter dados do usuário: "+erro);
-                        connection.end();
+                        res.status(500).json(erro);
+                        console.log("Erro: "+erro);
                         return;
                     }
-                    id_usuario = resultado[0].id;
-                    ferramentaDAO.inserir(ferramenta, function(erro, resultado){
+                    console.log(`Resultado 1: ${resultado}`)
+                    indicadorDAO.inserir(arrayInsertIndicadores,function(erro, resultado){
                         if(erro){
-                            res.status(500).json("Erro ao salvar ferramentas: "+erro);
-                            connection.end();
+                            res.status(500).json(erro);
+                            console.log("Erro: "+erro);
                             return;
                         }
-                        
-                        dados_respondente.id_objetivo = id_objetivo;
-                        dados_respondente.id_indicador = id_indicador;
-                        dados_respondente.id_usuario = id_usuario;
-                        dados_respondente.id_ferramenta = resultado.insertId;
-                        
-                        usuarioDAO.inserirDadosUsuario(dados_respondente, function(erro, resultado){
-                            if(erro){
-                                res.status(500).json("Erro ao salvar dados: "+erro);
-                                connection.end();
-                                return;
-                            }
-                            res.status(201).json("Dados salvos com sucesso");
-                            
-                        });
+                        console.log(`Resultado 2: ${resultado}`)
+                        res.status(200).json(objeto);
                     })
+                   
                 });
+               
             });
-        });
+       
         
     });
 
@@ -131,18 +125,10 @@ function createDateAsUTC(date) {
     return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
 }
 
-function obtemDados(req){
+function obtemDados(objeto){
     return {
-        "tipo_empresa" : req.body.tipo_empresa,
-		"qtde_funcionarios" : req.body.quantidade_funcionarios,
-		"setor" : req.body.setor,
-		"setor_usuario" : req.body.setor_usuario,
-		"nivel_usuario" : req.body.nivel_usuario,
+        "concorrencia" : objeto.concorrencia,
+		"qtde_funcionarios" : objeto.quantidade_funcionarios,
+		"incertezas_ambientais" : objeto.incertezas_ambientais
     };
-}
-
-function errorHandler(err){
-    console.log("Erro ao obter dados da base de dados: "+err);
-    req.session.destroy();
-    res.redirect("/controladoria/login");
 }
