@@ -32,14 +32,7 @@ module.exports = function(app){
                         return;
                     }
                     viewModel.indicadores = listaIndicadores;
-                    ferramentaDAO.listar(function(err, listaFerramentas){
-                        if(err){
-                            errorHandler(err);
-                            return;
-                        }
-                        viewModel.ferramentas = listaFerramentas;
-                        res.render("home/index", {viewModel:viewModel});
-                    })
+                    res.render("home/index", {viewModel:viewModel});
                 })
 
             })
@@ -113,10 +106,29 @@ module.exports = function(app){
         
     });
 
+    app.get("/controladoria/ferramenta/:flag", function(req, res){
+
+        var flag = req.params.flag === "true" ? 1 : 0;
+
+        var connection = new app.infra.ConnectionFactory();
+        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
+
+        ferramentaDAO.listar(flag, function(erro, resultado){
+            if(erro){
+                res.status(500).json(erro);
+                console.log("Erro: "+erro);
+                return;
+            }
+            res.status(200).json(resultado);
+        })
+    })
+
     app.get("/controladoria/logoff", function(req, res){
          req.session.destroy();
          res.redirect("/controladoria/login");
     });
+
+
 
 }
 
