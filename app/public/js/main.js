@@ -51,7 +51,7 @@ $("#botaoAvanca").click(function () {
 			$("#controles").addClass("elemento-escondido");
 		}
 
-		if(indice > 9){
+		if (indice > 9) {
 			$("#botaoVolta").parent().addClass("elemento-escondido");
 			$("#botaoAvanca").parent().addClass("col-md-12").removeClass("col-md-6");
 		}
@@ -77,7 +77,7 @@ $("#botaoVolta").click(function () {
 		$("#botaoAvanca").parent().addClass("col-md-6").removeClass("col-md-12");
 	}
 
-	if(indice == 3){
+	if (indice == 3) {
 		fadeAlternativo("dados-respondente", "questionario");
 		$("#tituloExibido").text("");
 	}
@@ -120,14 +120,62 @@ var unicaEscolhaVertical = function () {
 }
 
 $("#botaoFim").click(function () {
-	if(flagFerramentas){
-		
-	}else{
+
+	if (flagFerramentas) {
+		avaliarFerramentas();
+	} else {
 		avaliarRespostas();
 	}
 })
 
-function avaliarRespostas(){
+function avaliarFerramentas() {
+	var arrayFerramentas = new Array();
+	var dialog = bootbox.dialog({
+		message: '<p><i class="fa fa-spin fa-spinner"></i> Calculando ferramentas...</p>',
+		closeButton: false
+	});
+
+	var ferramentas = $(".ferramenta.utilizacao")
+	ferramentas.each(function (index, value) {
+		var linhaFerramenta = $(value).closest("tr");
+		var id = linhaFerramenta.find(".informacoes_ferramenta").data("id");
+		var nota = $(value).find(":checked").val();
+
+		arrayFerramentas.push({ id: id, nota: nota })
+
+	});
+
+	$.ajax({
+		url: "/controladoria/ferramenta",
+		method: "post",
+		dataType: "json",
+		data: { arrayFerramentas: arrayFerramentas },
+		success: function (dados) {
+			mostrarTelaFinal(dialog);
+			montarTabelaFerramentas(dados.ferramenta);
+		}, error: function (erro) {
+			dialog.modal('hide');
+			bootbox.dialog({ message: "Ocorreu um erro ao processar sua avaliação. Estamos trabalhando para resolver isso. Tente novamente mais tarde" });
+		}
+	})
+
+
+}
+
+function montarTabelaFerramentas(ferramentas) {
+	if (ferramentas.length > 0) {
+		$("#tabela-pagina-1").find("span").text("Você deve melhorar o uso das seguintes ferramentas:");
+		ferramentas.forEach(function (ferramenta) {
+			var li = $("<li>")
+			li.text(ferramenta.ferr_desc)
+			$("#tabela-pagina-1").append(li);
+		})
+	}else{
+		$("#tabela-pagina-1").find("span").text("Parabéns! Você demonstrou um bom uso das ferramentas propostas");
+	}
+}
+
+function avaliarRespostas() {
 	var dialog = {};
 	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
 	var concorrencia = obtemValorDadosRespondente("concorrência");
@@ -189,8 +237,12 @@ function mostrarTelaFinal(dialog) {
 	$("#botaoFim").hide();
 }
 
-$("#modalResultado").click(function () {
-	$("#resultado").modal("show");
+$("#modalResultadoCurto").click(function () {
+	$("#resultadoCurto").modal("show");
+});
+
+$("#modalResultadoLongo").click(function () {
+	$("#resultadoLongo").modal("show");
 });
 
 $("#modalFerramenta").click(function () {
@@ -253,34 +305,6 @@ function enquadrar(objeto) {
 	})
 }
 
-function montarTabelaFerramentas(ferramenta) {
-	debugger;
-	var nomeIcone = getIcon(ferramenta.balanced_scorecard_utilizacao, ferramenta.balanced_scorecard_importancia);
-	$("#balanced-scorecard").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.planejamento_utilizacao, ferramenta.planejamento_importancia);
-	$("#planejamento").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.orcamento_utilizacao, ferramenta.orcamento_importancia);
-	$("#orcamento").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.orcamento_base_zero_utilizacao, ferramenta.orcamento_base_zero_importancia);
-	$("#orcamento-base-zero").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.orcamento_continuo_utilizacao, ferramenta.orcamento_continuo_importancia);
-	$("#orcamento-continuo").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.gestao_utilizacao, ferramenta.gestao_importancia);
-	$("#gestao").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.gerenciamento_utilizacao, ferramenta.gerenciamento_importancia);
-	$("#gerenciamento").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.margem_utilizacao, ferramenta.margem_importancia);
-	$("#margem-produtos").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.analise_variacoes_utilizacao, ferramenta.analise_variacoes_importancia);
-	$("#analise-variacoes").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.lucratividade_utilizacao, ferramenta.lucratividade_importancia);
-	$("#lucratividade").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.resultado_utilizacao, ferramenta.resultado_importancia);
-	$("#resultado-unidades").append($("<i>").addClass("material-icons").text(nomeIcone));
-	nomeIcone = getIcon(ferramenta.custo_utilizacao, ferramenta.custo_importancia);
-	$("#custo").append($("<i>").addClass("material-icons").text(nomeIcone));
-
-}
 
 function verificaMedias(objeto, dialog) {
 	var objetivos = objeto.listaObjetivos;
@@ -310,20 +334,17 @@ function verificaMedias(objeto, dialog) {
 			mediaIndicadorCurto.quantidade += 1;
 		}
 	})
-
+debugger;
 	var diferenca = Math.abs(mediaObjetivoCurto.calculaMedia() - mediaObjetivoLongo.calculaMedia());
-	diferenca = 3;
+	montarGrafico(mediaObjetivoCurto, mediaIndicadorCurto, "containerCurto", false);
+	montarGrafico(mediaObjetivoLongo, mediaIndicadorLongo, "containerLongo", true);
 	if (diferenca < 4) {
 		flagFerramentas = true;
 		exibirQuestionarioFerramentas(dialog);
 	} else {
 		mostrarTelaFinal(dialog);
-		//montarGrafico(objeto);
 	}
 
-	//mostrarTelaFinal(dialog);
-	//montarGrafico(objeto);
-	//montarTabelaFerramentas(objeto.ferramenta);
 }
 
 function exibirQuestionarioFerramentas(dialog) {
@@ -338,7 +359,6 @@ function exibirQuestionarioFerramentas(dialog) {
 		method: "get",
 		dataType: "json",
 		success: function (dados) {
-			debugger;
 			var tbody1 = $("<tbody>")
 			tbody1.attr("id", "conteudo_10")
 
@@ -387,6 +407,8 @@ function montaHTMLFerramentas(dados, tbody, inicio, fim) {
 		var segundaCelula = $("<td>")
 
 		primeiraCelula.text(dados[i].ferr_desc);
+		primeiraCelula.attr("data-id", dados[i].ferr_id)
+		primeiraCelula.addClass("informacoes_ferramenta");
 		var select = $("<select>");
 		select.addClass("ferramenta").addClass("utilizacao").addClass("form-control");
 		for (var j = 1; j <= 10; j++) {
@@ -405,28 +427,9 @@ function montaHTMLFerramentas(dados, tbody, inicio, fim) {
 	return tbody;
 }
 
-function getIcon(valor1, valor2) {
-	if (valor1 > 5 && valor2 > 5) {
-		return "sentiment_very_satisfied";
-	} else if (valor1 > 5 && valor2 < 6) {
-		return "sentiment_very_dissatisfied";
-	} else if (valor1 < 6 && valor2 > 5) {
-		return "sentiment_very_dissatisfied";
-	} else {
-		return "sentiment_very_satisfied";
-	}
-}
-
-function montarGrafico(objeto) {
-	var objetivo = objeto.objetivo;
-	var indicador = objeto.indicador;
-
-	var valorMediaObjetivo = objetivo.media_longo_prazo > objetivo.media_curto_prazo ? objetivo.media_longo_prazo : objetivo.media_curto_prazo * -1;
-	var valorMediaIndicador = indicador.media_longo_prazo > indicador.media_curto_prazo ? indicador.media_longo_prazo : indicador.media_curto_prazo * -1;
-	console.log(valorMediaObjetivo);
-	console.log(valorMediaIndicador)
-
-	Highcharts.chart('container', {
+function montarGrafico(mediaObjetivo, mediaIndicador, id, longoPrazo) {
+	var texto = defineTexto(mediaObjetivo.calculaMedia(), mediaIndicador.calculaMedia(), longoPrazo)
+	Highcharts.chart(id, {
 
 		chart: {
 			type: 'bubble',
@@ -521,11 +524,7 @@ function montarGrafico(objeto) {
 		series: [{
 			data: [
 				{ x: 0, y: 0, texto: "Origem", name: '' },
-				{ x: 5, y: 5, texto: "1º", name: '1º quadrante' },
-				{ x: 5, y: -5, texto: "4º", name: '4º quadrante' },
-				{ x: -5, y: 5, texto: "2º", name: '2º quadrante' },
-				{ x: -5, y: -5, texto: "3º", name: '3º quadrante' },
-				{ x: parseFloat(valorMediaObjetivo), y: parseFloat(valorMediaIndicador), texto: "Sua empresa", name: "Você" }
+				{ x: parseFloat(mediaObjetivo.calculaMedia()), y: parseFloat(mediaIndicador.calculaMedia), texto: "Sua empresa", name: "Você" }
 			]
 		}],
 		exporting: {
@@ -558,3 +557,47 @@ $("#avancaFerramenta").click(function (event) {
 		$("#tabela-pagina-2").fadeIn();
 	});
 });
+
+function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
+	var texto = "";
+		if(mediaObjetivo > 6.67 && mediaIndicador > 6.67){//1
+			if(longoPrazo){
+				texto = "A sua empresa tem altos objetivos de longo prazo e usa os indicadores adequados para atingir esses objetivos, parabéns"
+			}else{
+				texto = "A sua empresa tem altos objetivos de curto prazo e usa os indicadores adequados para atingir esses objetivos, parabéns"
+			}
+		}else if(mediaObjetivo > 3.34 && mediaIndicador > 6.67){//9
+			texto = "Você deve rever o uso dos indicadores. Parece em excesso"
+		}else if(mediaObjetivo <= 3.34 && mediaIndicador > 6.67){//2
+			if(longoPrazo){
+				texto = "A sua empresa não tem muito foco em atingir objetivos de longo prazo, o que pode ser considerado um risco. Reavalie sua situação. Caso seja isso mesmo, reveja o uso dos seus indicadores. O perfil é desalinhado e com potenciais riscos a longo prazo ou desperdício de tempo"
+			}else{
+				texto = "A sua empresa não tem muito foco em atingir objetivos de curto prazo, o que pode ser considerado um risco. Reavalie sua situação. Caso seja isso mesmo, reveja o uso dos seus indicadores. O perfil é desalinhado e com potenciais riscos a longo prazo ou desperdício de tempo"
+			}
+		}else if(mediaObjetivo > 6.67 && mediaIndicador > 3.34){//7
+			if(longoPrazo){
+				texto = "A sua empresa tem objetivos de longo prazo elevados. Parece que ainda tem alguns indicadores listados que podem ser úteis"
+			}else{
+				texto = "A sua empresa tem objetivos de curto prazo elevados. Parece que ainda tem alguns indicadores listados que podem ser úteis"
+			}
+		}else if(mediaObjetivo > 3.34 && mediaIndicador > 3.34){//5
+			texto = "A sua empresa está bem alinhada, considere revisar alguns objetivos"
+		}else if(mediaObjetivo <=3.34 && mediaIndicador > 3.34){//8
+			if(longoPrazo){
+				texto = "A sua empresa não enfatiza objetivos de longo prazo, o que pode ser um risco. Você pode estar desperdiçando tempo - reveja seus indicadores"
+			}else{
+				texto = "A sua empresa não enfatiza objetivos de curto prazo, o que pode ser um risco. Você pode estar desperdiçando tempo - reveja seus indicadores"
+			}
+		}else if(mediaObjetivo > 6.67 && mediaIndicador <= 3.34){//4
+			texto = "Sua empresa corre um grande risco de não atingir os objetivos. Reveja seus indicadores"
+		}else if(mediaObjetivo > 3.34 && mediaIndicador <=3.34){//6
+			if(longoPrazo){
+				texto = "Sua empresa tem ênfase em objetivos de longo prazo, mas não usa os indicadores adequados."
+			}else{
+				texto = "Sua empresa tem ênfase em objetivos de curto prazo, mas não usa os indicadores adequados."
+			}
+		}else if(mediaObjetivo <=3.34 && mediaIndicador <=3.34){//3
+			texto = "A sua empresa não enfatiza objetivos, o que pode ser um risco. Reavalie sua situação. Se for isso mesmo, você está alinhado"
+		}
+	return texto;
+}

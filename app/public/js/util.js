@@ -4,5 +4,6 @@ function Media(){
 }
 
 Media.prototype.calculaMedia = function(){
-    return Math.round(this.valor / this.quantidade);
+    var media =  (this.valor / this.quantidade)
+    return parseFloat(media.toFixed(2));
 }
