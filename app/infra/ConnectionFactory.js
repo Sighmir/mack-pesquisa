@@ -4,10 +4,10 @@ var mysql  = require('mysql');
 
 function createDBConnection(){
     return mysql.createConnection({
-        host:"us-cdbr-iron-east-05.cleardb.net"//"127.0.0.1",
-        database:"heroku_59cde3663ed2f89"//"controladoria",
-        user:"b63078ab490d35"//"root",
-        password:"8d96f31d"//"root",
+        host:"us-cdbr-iron-east-05.cleardb.net",//"127.0.0.1",
+        database:"heroku_59cde3663ed2f89",//"controladoria",
+        user:"b63078ab490d35",//"root",
+        password:"8d96f31d",//"root",
         typeCast: function castField( field, useDefaultTypeCasting ) {
 
             // We only want to cast bit fields that have a single-bit in them. If the field
