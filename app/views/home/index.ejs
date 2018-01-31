@@ -246,6 +246,7 @@
 						<div class="row">
 							<div class="col-md-6">
 									<p style="text-align: justify">Muito obrigado por participar de nossa pesquisa!.</p>
+									<p class="text-muted">Confira seus resultados</p>
 							</div>
 						</div>
 
@@ -295,6 +296,9 @@
 					<div id="containerLongo" class="modal-body">
 							
 					</div>
+					<div class="modal-footer">
+						<span id="texto-feedback-longo"></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -307,6 +311,10 @@
 					<div id="containerCurto" class="modal-body">
 							
 					</div>
+					<div class="modal-footer">
+						<span id="texto-feedback-curto"></span>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -318,17 +326,11 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>	
 					<div class="modal-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Critério</th>
-									<th>Avaliação</th>
-								</tr>
-							</thead>
-							<tbody id="tabela-pagina-1">
-								<span class="text-muted"></span>
-							</tbody>
-						</table>
+						<div id="tabela-pagina-1">
+							<span class="text-muted"></span>
+							<ul id="lista-ferramentas" class="list-group">
+							</ul>
+						</div>
 					</div>
 					<div class="modal-footer">
 						

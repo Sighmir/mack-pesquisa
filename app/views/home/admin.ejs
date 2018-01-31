@@ -31,7 +31,7 @@
 									<th>Nome</th>
 									<th>E-mail</th>
 									<th>Data de cadastro</th>
-									<th>Ação</th>
+									<th colspan="2">Ação</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -45,15 +45,14 @@
 										<%}else{%>	
 											<td><button class="btn btn-default revogaAcesso">Revogar acesso</button></td>
 										<%}%>
+										<td>
+											<a id="#" class="btn btn-default" target="_blank" href="/controladoria/admin/excel/<%=lista[i].id%>">Resultados</a>
+										</td>
 									</tr>	
 								<%}%>	
 							</tbody>
 						</table>	
-						<div class="row">
-							<div class="col-md-6 botoes">
-								<a id="#" class="btn btn-default" target="_blank" href="/controladoria/admin/excel">Download planinha de resultados(xls)</a>
-							</div>
-						</div>
+
             </div>
             <div class ="panel-footer">
 				<a class="btn btn-default" id="botaoSair" href="/controladoria/logoff">Sair</a>

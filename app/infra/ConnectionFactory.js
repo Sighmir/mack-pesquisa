@@ -23,7 +23,8 @@ function createDBConnection(){
     
             return( useDefaultTypeCasting() );
     
-        }
+        },
+        multipleStatements: true
     })
 }
 

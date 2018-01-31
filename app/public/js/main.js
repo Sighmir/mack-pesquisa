@@ -1,5 +1,11 @@
 var indice = 1;
 var flagFerramentas = false;
+
+var mediaObjetivoCurto = new Media();
+var mediaObjetivoLongo = new Media();
+var mediaIndicadorCurto = new Media();
+var mediaIndicadorLongo = new Media();
+
 $(function () {
 	$("#item_2").hide();
 
@@ -145,14 +151,18 @@ function avaliarFerramentas() {
 
 	});
 
+	var categoriaEmpresa = $("#quantidade-funcionarios").find("input:checked").data("categoria");
+
+	var empresaGrande = categoriaEmpresa > 2;
+
 	$.ajax({
 		url: "/controladoria/ferramenta",
 		method: "post",
 		dataType: "json",
-		data: { arrayFerramentas: arrayFerramentas },
+		data: { arrayFerramentas: arrayFerramentas, flag: categoriaEmpresa },
 		success: function (dados) {
 			mostrarTelaFinal(dialog);
-			montarTabelaFerramentas(dados.ferramenta);
+			montarTabelaFerramentas(dados);
 		}, error: function (erro) {
 			dialog.modal('hide');
 			bootbox.dialog({ message: "Ocorreu um erro ao processar sua avaliação. Estamos trabalhando para resolver isso. Tente novamente mais tarde" });
@@ -163,12 +173,15 @@ function avaliarFerramentas() {
 }
 
 function montarTabelaFerramentas(ferramentas) {
+	
 	if (ferramentas.length > 0) {
 		$("#tabela-pagina-1").find("span").text("Você deve melhorar o uso das seguintes ferramentas:");
 		ferramentas.forEach(function (ferramenta) {
+			
 			var li = $("<li>")
-			li.text(ferramenta.ferr_desc)
-			$("#tabela-pagina-1").append(li);
+			li.text(ferramenta.ferr_desc);
+			li.addClass("list-group-item");
+			$("#lista-ferramentas").append(li);
 		})
 	}else{
 		$("#tabela-pagina-1").find("span").text("Parabéns! Você demonstrou um bom uso das ferramentas propostas");
@@ -229,9 +242,22 @@ function obtemValorDadosRespondente(id) {
 }
 
 function mostrarTelaFinal(dialog) {
+	montarGrafico(mediaObjetivoCurto, mediaIndicadorCurto, "containerCurto", false);
+	montarGrafico(mediaObjetivoLongo, mediaIndicadorLongo, "containerLongo", true);
+
 	dialog.modal('hide');
 	$(".ferramentas").addClass("elemento-escondido");
-	alternarDivs(indice)
+	$(".ferramentas").addClass("elemento-escondido");
+	if(flagFerramentas == false){
+		alternarDivs(indice, 4)
+		$(".questionario").addClass("elemento-escondido");
+		$("#modalFerramenta").hide();
+	}else{
+		alternarDivs(indice, 1)
+	}
+	
+	
+	indice += 1;
 	$("#botaoSair").parent().removeClass("elemento-escondido");
 	$("#tituloExibido").text("Teste concluído!");
 	$("#botaoFim").hide();
@@ -310,10 +336,6 @@ function verificaMedias(objeto, dialog) {
 	var objetivos = objeto.listaObjetivos;
 	var indicadores = objeto.listaIndicadores;
 
-	var mediaObjetivoCurto = new Media();
-	var mediaObjetivoLongo = new Media();
-	var mediaIndicadorCurto = new Media();
-	var mediaIndicadorLongo = new Media();
 
 
 	objetivos.forEach(function (objetivo) {
@@ -334,15 +356,16 @@ function verificaMedias(objeto, dialog) {
 			mediaIndicadorCurto.quantidade += 1;
 		}
 	})
-debugger;
+	
 	var diferenca = Math.abs(mediaObjetivoCurto.calculaMedia() - mediaObjetivoLongo.calculaMedia());
-	montarGrafico(mediaObjetivoCurto, mediaIndicadorCurto, "containerCurto", false);
-	montarGrafico(mediaObjetivoLongo, mediaIndicadorLongo, "containerLongo", true);
-	if (diferenca < 4) {
+
+	
+	if (diferenca > 4) {
 		flagFerramentas = true;
 		exibirQuestionarioFerramentas(dialog);
 	} else {
 		mostrarTelaFinal(dialog);
+		
 	}
 
 }
@@ -429,6 +452,10 @@ function montaHTMLFerramentas(dados, tbody, inicio, fim) {
 
 function montarGrafico(mediaObjetivo, mediaIndicador, id, longoPrazo) {
 	var texto = defineTexto(mediaObjetivo.calculaMedia(), mediaIndicador.calculaMedia(), longoPrazo)
+	var xValue = mediaObjetivo.calculaMedia();
+	var yValue = mediaIndicador.calculaMedia();
+
+	longoPrazo == true ? $("#texto-feedback-longo").text(texto) : $("#texto-feedback-curto").text(texto)
 	Highcharts.chart(id, {
 
 		chart: {
@@ -524,7 +551,8 @@ function montarGrafico(mediaObjetivo, mediaIndicador, id, longoPrazo) {
 		series: [{
 			data: [
 				{ x: 0, y: 0, texto: "Origem", name: '' },
-				{ x: parseFloat(mediaObjetivo.calculaMedia()), y: parseFloat(mediaIndicador.calculaMedia), texto: "Sua empresa", name: "Você" }
+				{ x: xValue, y: yValue, texto: "Sua empresa", name: "Você" },
+				{x:10, y:10, texto: "Limite", name:''}
 			]
 		}],
 		exporting: {

@@ -22,6 +22,10 @@ UsuarioDAO.prototype.inserirDadosUsuario = function(dados_usuario, callback){
     this._connection.query("insert into dados_usuario set ?", dados_usuario,callback);
 }
 
+UsuarioDAO.prototype.atualizarDadosUsuario = function(dados, callback){
+    this._connection.query("update dados_usuario set concorrencia =  ?, qtde_funcionarios = ?, incertezas_ambientais = ? WHERE id_usuario = ?", [dados.concorrencia, dados.qtde_funcionarios, dados.incertezas_ambientais, dados.id_usuario],callback);
+}
+
 module.exports = function(){
     return UsuarioDAO;
 }

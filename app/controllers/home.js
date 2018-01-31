@@ -67,39 +67,84 @@ module.exports = function (app) {
                 return;
             }
             idUsuario = usuarios[0].id;
+            dados_respondente.id_usuario = idUsuario;
             console.log("Id do usuário: " + idUsuario);
             var listaObjetivos = objeto.listaObjetivos;
             for (var i = 0; i < listaObjetivos.length; i++) {
                 var objetivo = listaObjetivos[i];
-                arrayInsertObjetivos.push([idUsuario, objetivo.id, objetivo.nota]);
+                arrayInsertObjetivos.push([objetivo.nota, idUsuario, objetivo.id]);
             }
 
             var listaIndicadores = objeto.listaIndicadores;
             for (var i = 0; i < listaIndicadores.length; i++) {
                 var indicador = listaIndicadores[i];
-                arrayInsertIndicadores.push([idUsuario, indicador.id, indicador.nota]);
+                arrayInsertIndicadores.push([indicador.nota, idUsuario, indicador.id]);
             }
             console.log("Array objetivos: " + arrayInsertObjetivos);
             console.log("Array indicadores: " + arrayInsertIndicadores);
 
-            objetivoDAO.inserir(arrayInsertObjetivos, function (erro, resultado) {
+            objetivoDAO.buscarPorId(idUsuario, function (erro, resultado) {
                 if (erro) {
-                    res.status(500).json(erro);
-                    console.log("Erro: " + erro);
+                    res.status(500).json("Erro ao obter dados do usuário: " + erro);
+                    connection.end();
                     return;
                 }
-                console.log(`Resultado 1: ${resultado}`)
-                indicadorDAO.inserir(arrayInsertIndicadores, function (erro, resultado) {
-                    if (erro) {
-                        res.status(500).json(erro);
-                        console.log("Erro: " + erro);
-                        return;
-                    }
-                    console.log(`Resultado 2: ${resultado}`)
-                    res.status(200).json(objeto);
-                })
+                if (resultado[0]) {
+                    usuarioDAO.atualizarDadosUsuario(dados_respondente, function(erro, resultado){
+                        if(erro){
+                            res.status(500).json(erro);
+                            console.log("Erro: "+erro);
+                            return
+                        }
+                        objetivoDAO.atualizar(arrayInsertObjetivos, function (erro, resultado) {
+                            if (erro) {
+                                res.status(500).json(erro);
+                                console.log("Erro: " + erro);
+                                return;
+                            }
+                            console.log(`Resultado 1: ${resultado}`)
+                            indicadorDAO.atualizar(arrayInsertIndicadores, function (erro, resultado) {
+                                if (erro) {
+                                    res.status(500).json(erro);
+                                    console.log("Erro: " + erro);
+                                    return;
+                                }
+                                console.log(`Resultado 2: ${resultado}`)
+                                res.status(200).json(objeto);
+                            })
+    
+                        });
+                    })
+                } else {
+                    usuarioDAO.inserirDadosUsuario(dados_respondente, function (erro, resultado) {
+                        if (erro) {
+                            res.status(500).json(erro);
+                            console.log("Erro: " + erro);
+                            return;
+                        }
+                        objetivoDAO.inserir(arrayInsertObjetivos, function (erro, resultado) {
+                            if (erro) {
+                                res.status(500).json(erro);
+                                console.log("Erro: " + erro);
+                                return;
+                            }
+                            console.log(`Resultado 1: ${resultado}`)
+                            indicadorDAO.inserir(arrayInsertIndicadores, function (erro, resultado) {
+                                if (erro) {
+                                    res.status(500).json(erro);
+                                    console.log("Erro: " + erro);
+                                    return;
+                                }
+                                console.log(`Resultado 2: ${resultado}`)
+                                res.status(200).json(objeto);
+                            })
 
-            });
+                        });
+                    })
+                }
+            })
+
+
 
         });
 
@@ -129,6 +174,7 @@ module.exports = function (app) {
         var obj = new Object();
         obj.email = req.session.email;
 
+        var flag = objeto.flag === true ? 1 : 0;
         var connection = new app.infra.ConnectionFactory();
         var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
@@ -146,24 +192,50 @@ module.exports = function (app) {
             var ferramentas = objeto.arrayFerramentas;
             for (var i = 0; i < ferramentas.length; i++) {
                 var ferramenta = ferramentas[i];
-                arrayInsertFerramentas.push([idUsuario, ferramenta.id, ferramenta.nota]);
+                arrayInsertFerramentas.push([ferramenta.nota, idUsuario, ferramenta.id]);
             }
-
-            ferramentaDAO.inserir(arrayInsertFerramentas, function(erro, resultado){
+            console.log(arrayInsertFerramentas);
+            ferramentaDAO.buscarPorId(idUsuario, function (erro, resultado) {
                 if (erro) {
-                    res.status(500).json("Erro ao inserir ferramentas: " + erro);
+                    res.status(500).json("Erro ao obter dados do usuário: " + erro);
                     connection.end();
                     return;
                 }
+                if (!resultado[0]) {
+                    ferramentaDAO.inserir(arrayInsertFerramentas, function (erro, resultado) {
+                        if (erro) {
+                            res.status(500).json("Erro ao inserir ferramentas: " + erro);
+                            connection.end();
+                            return;
+                        }
 
-                ferramentaDAO.listarFerramentasBaixoUso(idUsuario, function(erro, resultado){
-                    if (erro) {
-                        res.status(500).json("Erro ao inserir ferramentas: " + erro);
-                        connection.end();
-                        return;
-                    }
-                    res.status(200).json(resultado);
-                })
+                        ferramentaDAO.listarFerramentasBaixoUso(idUsuario, flag, function (erro, resultado) {
+                            if (erro) {
+                                res.status(500).json("Erro ao inserir ferramentas: " + erro);
+                                connection.end();
+                                return;
+                            }
+                            res.status(200).json(resultado);
+                        })
+                    })
+                } else {
+                    ferramentaDAO.atualizar(arrayInsertFerramentas, function (erro, resultado) {
+                        if (erro) {
+                            res.status(500).json("Erro ao atualizar ferramentas: " + erro);
+                            connection.end();
+                            return;
+                        }
+
+                        ferramentaDAO.listarFerramentasBaixoUso(idUsuario, flag, function (erro, resultado) {
+                            if (erro) {
+                                res.status(500).json("Erro ao inserir ferramentas: " + erro);
+                                connection.end();
+                                return;
+                            }
+                            res.status(200).json(resultado);
+                        })
+                    })
+                }
             })
         })
     })
@@ -184,6 +256,7 @@ function createDateAsUTC(date) {
 
 function obtemDados(objeto) {
     return {
+        "id_usuario": "",
         "concorrencia": objeto.concorrencia,
         "qtde_funcionarios": objeto.quantidade_funcionarios,
         "incertezas_ambientais": objeto.incertezas_ambientais
