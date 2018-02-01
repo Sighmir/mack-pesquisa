@@ -22,13 +22,17 @@ module.exports = function (app) {
             var viewModel = new Object();
             objetivoDAO.listar(function (err, listaObjetivos) {
                 if (err) {
-                    errorHandler(err);
+                    console.log("Ocorreu um erro: "+err);
+                    req.session.destroy();
+                    res.redirect("/controladoria/login");
                     return;
                 }
                 viewModel.objetivos = listaObjetivos;
                 indicadorDAO.listar(function (err, listaIndicadores) {
                     if (err) {
-                        errorHandler(err);
+                        console.log("Ocorreu um erro: "+err);
+                        req.session.destroy();
+                        res.redirect("/controladoria/login");
                         return;
                     }
                     viewModel.indicadores = listaIndicadores;
@@ -38,7 +42,7 @@ module.exports = function (app) {
             })
         } catch (e) {
             console.log("Erro ao obter dados do banco para listagem da pagina inicial: " + e);
-            errorHandler(err);
+            req.session.destroy();
         }
     });
 
