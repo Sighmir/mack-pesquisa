@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var expressValidator = require("express-validator");
 var session = require('express-session');
 
+
 module.exports = function(){
     var app = express();
 
@@ -24,7 +25,7 @@ module.exports = function(){
     app.use(function(req, res, next){
         var sessao = req.session;
 
-        if(!sessao.email && req.url != "/controladoria/login" && req.url != "/controladoria/cadastro"){
+        if(!sessao.email && req.url != "/controladoria" && req.url != "/controladoria/termo"){
             res.redirect("/controladoria/login");
         }else{
             next();

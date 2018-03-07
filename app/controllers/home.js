@@ -1,7 +1,8 @@
 var addSubtractDate = require("add-subtract-date");
+var fs = require("fs");
 
 module.exports = function (app) {
-    app.get("/controladoria/home", function (req, res) {
+    app.get("/controladoria", function (req, res) {
 
         var dataLogin = createDateAsUTC(new Date(req.session.loggedTime));
         var dataAtual = new Date();
@@ -249,7 +250,12 @@ module.exports = function (app) {
         res.redirect("/controladoria/login");
     });
 
+    app.get("/controladoria/termo", function(req, res){
 
+        var file = fs.readFileSync("./app/termo/termo.pdf", "binary");
+        console.log(file);
+        res.download("./app/termo/termo.pdf"); // Set disposition and send it.
+    })
 
 }
 

@@ -1,4 +1,4 @@
-var indice = 1;
+var indice = 0;
 var flagFerramentas = false;
 
 var mediaObjetivoCurto = new Media();
@@ -9,7 +9,7 @@ var mediaIndicadorLongo = new Media();
 $(function () {
 	$("#item_2").hide();
 
-
+	$("#botaoAvanca").attr("disabled", true);	
 	$(".botao").attr("disabled", true);
 	animarTextos();
 	$(".questionario").hide();
@@ -24,16 +24,36 @@ $(function () {
 	$("#botoesPerguntas").removeClass("elemento-escondido");
 	$("#tabela-pagina-2").hide();
 	$("#botaoVolta").parent().addClass("elemento-escondido");
+	permitirAvanco();
 })
 
 var animarTextos = function () {
-	$(".dados-respondente").hide();
-	$(".dados-respondente").removeClass("elemento-escondido");
-	$(".dados-respondente").animate({
+	$(".apresentacao").hide();
+	$(".apresentacao").removeClass("elemento-escondido");
+	$(".apresentacao").animate({
 		"height": "toggle",
 		"opacity": "toggle"
 	}, "slow");
 }
+
+
+
+var permitirAvanco = function(){
+	$("#inicioQuestionario").on("change", function(){
+		if($("#inicioQuestionario").is(":checked")){
+			$("#botaoAvanca").attr("disabled", false);
+		}else{
+			$("#botaoAvanca").attr("disabled", true);			
+		}
+	})
+}
+
+
+$("#modalLider").on("click",function(event){
+	event.preventDefault();
+	$("#liderPesquisa").modal("show");
+});
+
 
 
 $("#botaoAvanca").click(function () {
@@ -41,7 +61,10 @@ $("#botaoAvanca").click(function () {
 	if (validarCampos()) {
 		alternarDivs(indice, 1)
 		indice += 1;
-		if (indice > 1) {
+		if(indice == 1){
+			fadeAlternativo("dados-respondente", "apresentacao");
+		}
+		if (indice > 0) {
 			$("#botaoVolta").parent().removeClass("elemento-escondido");
 			$("#botaoAvanca").parent().addClass("col-md-6").removeClass("col-md-12");
 		}
@@ -75,9 +98,10 @@ $("#botaoVolta").click(function () {
 	alternarDivs(indice, -1)
 	indice -= 1;
 
-	if (indice == 1) {
+	if (indice == 0) {
 		$("#botaoVolta").parent().addClass("elemento-escondido");
 		$("#botaoAvanca").parent().addClass("col-md-12").removeClass("col-md-6");
+		fadeAlternativo("apresentacao", "dados-respondente");
 	} else {
 		$("#botaoVolta").parent().removeClass("elemento-escondido");
 		$("#botaoAvanca").parent().addClass("col-md-6").removeClass("col-md-12");
@@ -259,7 +283,7 @@ function mostrarTelaFinal(dialog) {
 	
 	indice += 1;
 	$("#botaoSair").parent().removeClass("elemento-escondido");
-	$("#tituloExibido").text("Teste concluído!");
+	$("#tituloExibido").text("Autodiagnóstico terminado");
 	$("#botaoFim").hide();
 }
 
@@ -360,7 +384,7 @@ function verificaMedias(objeto, dialog) {
 	var diferenca = Math.abs(mediaObjetivoCurto.calculaMedia() - mediaObjetivoLongo.calculaMedia());
 
 	
-	if (diferenca > 4) {
+	if (true) {
 		flagFerramentas = true;
 		exibirQuestionarioFerramentas(dialog);
 	} else {
@@ -471,7 +495,7 @@ function montarGrafico(mediaObjetivo, mediaIndicador, id, longoPrazo) {
 		},
 
 		title: {
-			text: ''
+			text: 'Veja o alinhamento da sua organização.'
 		},
 
 		subtitle: {
@@ -590,17 +614,17 @@ function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
 	var texto = "";
 		if(mediaObjetivo > 6.67 && mediaIndicador > 6.67){//1
 			if(longoPrazo){
-				texto = "A sua empresa tem altos objetivos de longo prazo e usa os indicadores adequados para atingir esses objetivos, parabéns"
+				texto = "A sua empresa enfatiza objetivos de longo prazo e usa os indicadores adequados para atingir esses objetivos. Parabéns! Muito Alinhada"
 			}else{
-				texto = "A sua empresa tem altos objetivos de curto prazo e usa os indicadores adequados para atingir esses objetivos, parabéns"
+				texto = "A sua empresa enfatiza objetivos de curto prazo e usa os indicadores adequados para atingir esses objetivos. Parabéns! Muito Alinhada"
 			}
 		}else if(mediaObjetivo > 3.34 && mediaIndicador > 6.67){//9
 			texto = "Você deve rever o uso dos indicadores. Parece em excesso"
 		}else if(mediaObjetivo <= 3.34 && mediaIndicador > 6.67){//2
 			if(longoPrazo){
-				texto = "A sua empresa não tem muito foco em atingir objetivos de longo prazo, o que pode ser considerado um risco. Reavalie sua situação. Caso seja isso mesmo, reveja o uso dos seus indicadores. O perfil é desalinhado e com potenciais riscos a longo prazo ou desperdício de tempo"
+				texto = "A sua empresa não tem muito foco em atingir objetivos de longo prazo, mas utiliza indicadores orientados para esses objetivos. Dois aspectos chamam a atenção: (1) Não ter objetivos de longo prazo pode ser um risco de continuidade (2) O desalinhamento pode indicar um desperdício de tempo no uso dos indicadores. Reavalie sua situação"
 			}else{
-				texto = "A sua empresa não tem muito foco em atingir objetivos de curto prazo, o que pode ser considerado um risco. Reavalie sua situação. Caso seja isso mesmo, reveja o uso dos seus indicadores. O perfil é desalinhado e com potenciais riscos a longo prazo ou desperdício de tempo"
+				texto = "A sua empresa não tem muito foco em atingir objetivos de curto prazo, mas utiliza indicadores orientados para esses objetivos. Dois aspectos chamam a atenção: (1) Não ter objetivos de curto prazo pode ser um risco de continuidade (2) O desalinhamento pode indicar um desperdício de tempo no uso dos indicadores. Reavalie sua situação"
 			}
 		}else if(mediaObjetivo > 6.67 && mediaIndicador > 3.34){//7
 			if(longoPrazo){
@@ -609,7 +633,11 @@ function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
 				texto = "A sua empresa tem objetivos de curto prazo elevados. Parece que ainda tem alguns indicadores listados que podem ser úteis"
 			}
 		}else if(mediaObjetivo > 3.34 && mediaIndicador > 3.34){//5
-			texto = "A sua empresa está bem alinhada, considere revisar alguns objetivos"
+			if(longoPrazo){
+				texto = "Os objetivos de longo prazo tem importância média para a sua organização e utiliza de forma moderada os indicadores alinhados com esses objetivos. Consideramos que a sua empresa está alinhada, mas considere revisar alguns objetivos"
+			}else{
+				texto = "Os objetivos de curto prazo tem importância média para a sua organização e utiliza de forma moderada os indicadores alinhados com esses objetivos. Consideramos que a sua empresa está alinhada, mas considere revisar alguns objetivos"
+			}
 		}else if(mediaObjetivo <=3.34 && mediaIndicador > 3.34){//8
 			if(longoPrazo){
 				texto = "A sua empresa não enfatiza objetivos de longo prazo, o que pode ser um risco. Você pode estar desperdiçando tempo - reveja seus indicadores"
@@ -617,7 +645,11 @@ function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
 				texto = "A sua empresa não enfatiza objetivos de curto prazo, o que pode ser um risco. Você pode estar desperdiçando tempo - reveja seus indicadores"
 			}
 		}else if(mediaObjetivo > 6.67 && mediaIndicador <= 3.34){//4
-			texto = "Sua empresa corre um grande risco de não atingir os objetivos. Reveja seus indicadores"
+			if(longoPrazo){
+				texto = "A sua empresa tem objetivos de longo prazo, entretanto não utiliza os indicadores apropriados. Aqui há uma oportunidade de melhoria. Mãos à obra!"
+			}else{
+				texto = "A sua empresa tem objetivos de curto prazo, entretanto não utiliza os indicadores apropriados. Aqui há uma oportunidade de melhoria. Mãos à obra!"
+			}
 		}else if(mediaObjetivo > 3.34 && mediaIndicador <=3.34){//6
 			if(longoPrazo){
 				texto = "Sua empresa tem ênfase em objetivos de longo prazo, mas não usa os indicadores adequados."
@@ -625,7 +657,11 @@ function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
 				texto = "Sua empresa tem ênfase em objetivos de curto prazo, mas não usa os indicadores adequados."
 			}
 		}else if(mediaObjetivo <=3.34 && mediaIndicador <=3.34){//3
-			texto = "A sua empresa não enfatiza objetivos, o que pode ser um risco. Reavalie sua situação. Se for isso mesmo, você está alinhado"
+			if(longoPrazo){
+				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no médio e longo prazo. Reavalie sua sitauação"
+			}else{
+				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no curto prazo. Reavalie sua sitauação"
+			}
 		}
 	return texto;
 }

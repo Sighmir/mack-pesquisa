@@ -18,61 +18,11 @@
             </div>
 
             <div class="panel-body">
-                <div style="padding: 0px 20px 0px 20px" class="row">
-					<span style="text-align: center" class="titulo text-center">Teste de alinhamento – controles gerenciais x objetivos estratégicos</span>
-					<p class="text-muted credit">Projeto com recursos do CNPQ e vinculado ao Programa de Pós-Graduação em Ciências Contábeis da Universidade Presbiteriana Mackenzie</p>
-                </div>
-                <div class="apresentacao elemento-escondido">
-					
-                    <hr/>
-					<div id="inicio">
-						<div class="row">
-							<p style="text-align: justify">O alinhamento dos objetivos de uma organização com os indicadores é importante pois com isso você
-poderá direcionar os gestores para atingirem os objetivos organizacionais </p>
-						</div>
-	
-						<div class="row">
-							<p style="text-align: justify">O uso adequado das ferramentas de controle gerencial geralmente ajuda a organização a ter melhor
-desempenho.</p>
-                        </div>
-
-                        <div class="row">
-                            <p style="text-align:justify">Pensando em ajudar os gestores das empresas brasileiras a melhorarem o desempenho é que
-convidamos você a fazer esse teste.</p>
-                        </div>
-
-                        <div class="row">
-                            <p style="text-align:justify">O teste dura geralmente dez a doze minutos e ao final você receberá um feedback indicando pontos de
-atenção e melhoria para o seu trabalho.</p>
-                        </div>
-
-                        <div class="row">
-                            Veja o <a href="#"data-toggle="modal" data-target="#videoModal" data-theVideo="http://www.youtube.com/embed/zpSwy3vyu7c" >vídeo</a> em que o Prof. José Carlos Oyadomari explica o teste.
-                        </div>
-						<br/>
-						<div class="row">
-							<div class="col-md-6 botoes">
-								<a id="modalLider" class="btn btn-default" href="#">Líder da pesquisa</a>
-							</div>
-							
-							<div class="col-md-6 botoes">
-								<a id="modalTermo" class="btn btn-default" href="#">Termo de confidencialidade</a>
-							</div>
-						</div>
-						<br/>
-						<div class="row">
-							<div class="col-md-4">
-								<input id="inicioQuestionario" type="checkbox" name="concordo" class="form-group"/>  Eu concordo
-							</div>	
-						</div>
-				</div>
-                </div>
+                
               <div id="login" class="elemento-escondido form-box ">
                
                 <form action="/controladoria/login" method="post">
-                    <h3 class="text-center">Já possui cadastro?</h3>
-                    <h6 class="text-muted text-center">Fique tranquilo, não enviaremos SPAMS para sua caixa de entrada!</h6>
-                    <div class="form-group">
+                     <div class="form-group">
                         <label class="sr-only" for="login">Usuário</label>
                         <div class="input-group">
                             <div class="input-group-addon">
@@ -95,55 +45,6 @@ atenção e melhoria para o seu trabalho.</p>
                     <div class="form-group">
                         <input type="submit" value="Entrar" class="btn btn-success form-control">
                     </div>
-        
-                    <div class="form-group">
-                        Não é registrado? <a href="#" id="mostrarCadastro">Crie uma conta</a>.
-                    </div>
-                </form>
-            </div>
-            
-               
-            <div id="cadastro" class="form-box elemento-escondido">
-                <form action="" method="post">
-                    <h3 class="text-center">Crie sua conta!</h3>
-                    <h6 class="text-muted text-center">Fique tranquilo, não enviaremos SPAMS para sua caixa de entrada!</h6>
-                    <div class="form-group">
-                        <label class="sr-only" for="login">Nome</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-user"></span>
-                            </div>
-                            <input id="nome" type="text" name="nome" class="form-control input" placeholder="Digite seu nome" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="email">Email</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                            </div>
-                            <input id="email-cadastro" type="email" name="email" class="form-control input" placeholder="Digite seu email" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="senha">Senha</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-lock"></span>
-                            </div>
-                            <input id="senha-cadastro" type="password" name="senha" class="form-control input" placeholder="Digite sua senha" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <input id="cadastrar" type="submit" value="Cadastrar" class="btn btn-success form-control">
-                    </div>
-        
-                    <div class="form-group">
-                        Já possui uma conta? <a href="#" id="mostrarLogin">Realize seu login</a>.
-                    </div>
                 </form>
             </div>
             </div>
@@ -159,64 +60,6 @@ atenção e melhoria para o seu trabalho.</p>
        </div>
     </div>
     </div>
-
-    	<div id="liderPesquisa" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-				</div>
-				<div class="modal-body">
-					<p>Esse teste foi concebido e desenvolvido pelos de Professores, Prof. José Carlos T. Oyadomari (líder do
-projeto), e pelo Prof. Ricardo Malagueño (University of East Anglia – UK). A equipe de programação
-ficou sob responsabilidade da Profa. Daniela Cunha com apoio do Gustavo.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="termo" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-				</div>
-				<div class="modal-body ">
-					<!-- Wrapper for slides -->
-					<div>
-						<div id="item_1">
-							<p>Por favor ao citar esse trabalho cite
-Oyadomari, J.C.T; Malagueño, R. Cunha, D. Silva, G.S. (2017) Teste de Alinhamento de Objetivos e
-Ferramentas de Controle Gerencial. São Paulo, 2017.</p>
-						</div>
-
-						<div id="item_2">
-							<p>Clicando no item <strong>Eu concordo</strong> você concorda VOLUNTARIAMENTE em participar dessa pesquisa. Se você tiver qualquer dúvida antes, durante ou depois de ter completado o questionário você pode falar com Oyadomari pelo e-mail oyadomari@mackenzie.br</p>
-						</div>
-					</div>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="avanca">Próximo</button>
-					<button type="button" class="btn btn-default" id="fechaModal" data-dismiss="modal">Fechar</button>
-				</div>
-				</div>
-			</div>
-        </div>
-        
-        <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <div>
-                    <iframe width="100%" height="350" src=""></iframe>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
 
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.js"></script>
