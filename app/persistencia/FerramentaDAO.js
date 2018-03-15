@@ -13,12 +13,12 @@ FerramentaDAO.prototype.listar = function(flag, callback){
     this._connection.query("select * from ferramenta where ferr_grande = ? ",[flag], callback);
 }
 
-FerramentaDAO.prototype.listarFerramentasBaixoUso = function(idUsuario, flag, callback){
-    this._connection.query("select f.* from ferramenta f inner join usuario_ferramenta uf on f.ferr_id = uf.id_ferr where uf.id_usr = ? and uf.nota < 5 and f.ferr_grande = ?", [idUsuario, flag], callback)
+FerramentaDAO.prototype.listarFerramentasBaixoUso = function(id, flag, callback){
+    this._connection.query("select f.* from ferramenta f inner join usuario_ferramenta uf on f.ferr_id = uf.id_ferr where uf.id_usr_ferr > ? and uf.nota < 5 and f.ferr_grande = ?", [id, flag], callback)
 }
 
 FerramentaDAO.prototype.inserir = function(valores, callback){
-    this._connection.query("INSERT INTO usuario_ferramenta (nota,id_usr, id_ferr ) VALUES ?",[valores] , callback)
+    this._connection.query("INSERT INTO usuario_ferramenta (nota,id_ferr) VALUES ?",[valores] , callback)
 }
 
 FerramentaDAO.prototype.atualizar = function(valores, callback){

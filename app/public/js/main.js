@@ -197,7 +197,7 @@ function avaliarFerramentas() {
 }
 
 function montarTabelaFerramentas(ferramentas) {
-	
+	debugger;
 	if (ferramentas.length > 0) {
 		$("#tabela-pagina-1").find("span").text("Você deve melhorar o uso das seguintes ferramentas:");
 		ferramentas.forEach(function (ferramenta) {
@@ -347,9 +347,11 @@ function enquadrar(objeto) {
 		data: objeto,
 		success: function (dados) {
 			console.log(dados);
+			debugger;
 			verificaMedias(dados, dialog);
 		}, error: function (erro) {
 			dialog.modal('hide');
+			console.log(erro);
 			bootbox.dialog({ message: "Ocorreu um erro ao processar sua avaliação. Estamos trabalhando para resolver isso. Tente novamente mais tarde" });
 		}
 	})
@@ -384,7 +386,7 @@ function verificaMedias(objeto, dialog) {
 	var diferenca = Math.abs(mediaObjetivoCurto.calculaMedia() - mediaObjetivoLongo.calculaMedia());
 
 	
-	if (true) {
+	if (diferenca > 4) {
 		flagFerramentas = true;
 		exibirQuestionarioFerramentas(dialog);
 	} else {
@@ -406,6 +408,7 @@ function exibirQuestionarioFerramentas(dialog) {
 		method: "get",
 		dataType: "json",
 		success: function (dados) {
+			debugger;
 			var tbody1 = $("<tbody>")
 			tbody1.attr("id", "conteudo_10")
 
@@ -441,6 +444,8 @@ function exibirQuestionarioFerramentas(dialog) {
 			$("#botaoFim").parent().addClass("elemento-escondido");
 			$("#controles").removeClass("elemento-escondido");
 			indice += 1;
+		},error:function(err){
+			console.log(err);
 		}, complete: function () {
 			dialog.modal('hide');
 		}
