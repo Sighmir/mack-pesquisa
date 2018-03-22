@@ -663,9 +663,9 @@ function defineTexto(mediaObjetivo, mediaIndicador, longoPrazo){
 			}
 		}else if(mediaObjetivo <=3.34 && mediaIndicador <=3.34){//3
 			if(longoPrazo){
-				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no médio e longo prazo. Reavalie sua sitauação"
+				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no médio e longo prazo. Reavalie sua situação"
 			}else{
-				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no curto prazo. Reavalie sua sitauação"
+				texto = "A sua empresa enfatiza atingir os objetivos de longo prazo, e também não utiliza indicadores, portanto está alinhada. Não ter objetivos de longo prazo pode sinalizar um risco no curto prazo. Reavalie sua situação"
 			}
 		}
 	return texto;
