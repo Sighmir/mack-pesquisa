@@ -1,9 +1,18 @@
-function Media(){
-    this.valor = 0;
-    this.quantidade = 0;
+function GrauDeDiversificacao() {
+    this.top5 = 0;
+    this.periodo = 1;
 }
 
-Media.prototype.calculaMedia = function(){
-    var media =  (this.valor / this.quantidade)
-    return parseFloat(media.toFixed(2));
+GrauDeDiversificacao.prototype.calculaGrau = function () {
+    return (this.top5 * this.periodo / 100) * (this.top5 * this.periodo / 100);
+}
+
+
+function MargemDeSeguranca() {
+    this.projetada = 0;
+    this.minima = 0;
+}
+
+MargemDeSeguranca.prototype.calculaMargem = function(){
+    return ((projetada - minima) / minima);
 }

@@ -1,15 +1,13 @@
 var indice = 0;
 var flagFerramentas = false;
 
-var mediaObjetivoCurto = new Media();
-var mediaObjetivoLongo = new Media();
-var mediaIndicadorCurto = new Media();
-var mediaIndicadorLongo = new Media();
+let grauDeDiversificacao = new GrauDeDiversificacao();
+let margemDeSeguranca = new MargemDeSeguranca();
 
 $(function () {
 	$("#item_2").hide();
 
-	$("#botaoAvanca").attr("disabled", true);	
+	$("#botaoAvanca").attr("disabled", true);
 	$(".botao").attr("disabled", true);
 	animarTextos();
 	$(".questionario").hide();
@@ -43,7 +41,7 @@ var permitirAvanco = function(){
 		if($("#inicioQuestionario").is(":checked")){
 			$("#botaoAvanca").attr("disabled", false);
 		}else{
-			$("#botaoAvanca").attr("disabled", true);			
+			$("#botaoAvanca").attr("disabled", true);
 		}
 	})
 }
@@ -61,21 +59,16 @@ $("#botaoAvanca").click(function () {
 	if (validarCampos()) {
 		alternarDivs(indice, 1)
 		indice += 1;
-		if(indice == 1){
+		if (indice == 1) {
+			$("#tituloExibido").text("Questionario");
 			fadeAlternativo("dados-respondente", "apresentacao");
 		}
 		if (indice > 0) {
 			$("#botaoVolta").parent().removeClass("elemento-escondido");
 			$("#botaoAvanca").parent().addClass("col-md-6").removeClass("col-md-12");
 		}
-		if (indice == 4) {
-			mostrarQuestionario();
-		}
-		if (indice == 7) {
-			$("#tituloExibido").text("Indicadores");
-		}
 
-		if (indice == 9 || indice == 12) {
+		if (indice == 9) {
 			$("#botaoFim").parent().removeClass("elemento-escondido");
 			$("#controles").addClass("elemento-escondido");
 		}
@@ -109,10 +102,6 @@ $("#botaoVolta").click(function () {
 
 	if (indice == 3) {
 		fadeAlternativo("dados-respondente", "questionario");
-		$("#tituloExibido").text("");
-	}
-	if (indice == 6) {
-		$("#tituloExibido").text("Objetivos");
 	}
 	setTimeout(function () {
 		$("#botaoVolta").removeAttr("disabled");
@@ -201,7 +190,7 @@ function montarTabelaFerramentas(ferramentas) {
 	if (ferramentas.length > 0) {
 		$("#tabela-pagina-1").find("span").text("Você deve melhorar o uso das seguintes ferramentas:");
 		ferramentas.forEach(function (ferramenta) {
-			
+
 			var li = $("<li>")
 			li.text(ferramenta.ferr_desc);
 			li.addClass("list-group-item");
@@ -214,48 +203,28 @@ function montarTabelaFerramentas(ferramentas) {
 
 function avaliarRespostas() {
 	var dialog = {};
-	var quantidade_funcionarios = obtemValorDadosRespondente("quantidade-funcionarios");
-	var concorrencia = obtemValorDadosRespondente("concorrência");
-	var incertezas_ambientais = obtemValorDadosRespondente("incertezas-ambientas");
-
-
-	var listaObjetivos = [];
-	var listaIndicadores = [];
-
-	var objetivos = $(".linha-resposta.objetivo");
-	var indicadores = $(".linha-resposta.indicador");
-
-	objetivos.each(function (index, value) {
-		var tr = $(value);
-		var longoPrazo = tr.find(".longo-prazo").val();
-
-		var objetivo = new Object();
-		objetivo.id = tr.find(".id").val();
-		objetivo.longoPrazo = longoPrazo;
-		objetivo.descricao = $(tr.find("td")[0]).text();
-		objetivo.nota = tr.find("td").find("input:checked").val();
-
-		listaObjetivos.push(objetivo);
-	})
-
-	indicadores.each(function (index, value) {
-		var tr = $(value);
-		var longoPrazo = tr.find(".longo-prazo").val();
-
-		var indicador = new Object();
-		indicador.id = tr.find(".id").val();
-		indicador.longoPrazo = longoPrazo;
-		indicador.descricao = $(tr.find("td")[0]).text();
-		indicador.nota = tr.find("td").find("input:checked").val();
-		listaIndicadores.push(indicador);
-	})
+	var faturamento_empresa = obtemValorDadosRespondente("faturamento-empresa");
+	var regiao_empresa = obtemValorDadosRespondente("regiao-empresa");
+	var segmento_empresa = obtemValorDadosRespondente("segmento-empresa");
+	var contribuicao_percentual = obtemValorDadosRespondente("contribuicao-percentual");
+	var faturamento_percentual = obtemValorDadosRespondente("faturamento-percentual");
+	var margem_percentual = obtemValorDadosRespondente("margem-percentual");
+	var representatividade_percentual = obtemValorDadosRespondente("representatividade-percentual");
+	var nome = $('#nome').val();
+	var email = $('#email').val();
+	var empresa = $('#empresa').val();
 
 	var objeto = {
-		quantidade_funcionarios: quantidade_funcionarios,
-		incertezas_ambientais: incertezas_ambientais,
-		concorrencia: concorrencia,
-		listaIndicadores: listaIndicadores,
-		listaObjetivos: listaObjetivos
+		nome: nome,
+		email: email,
+		empresa: empresa,
+		faturamento_empresa: faturamento_empresa,
+		regiao_empresa: regiao_empresa,
+		segmento_empresa: segmento_empresa,
+		contribuicao_percentual: contribuicao_percentual,
+		faturamento_percentual: faturamento_percentual,
+		margem_percentual: margem_percentual,
+		representatividade_percentual: representatividade_percentual
 	}
 	enquadrar(objeto);
 
@@ -279,8 +248,8 @@ function mostrarTelaFinal(dialog) {
 	}else{
 		alternarDivs(indice, 1)
 	}
-	
-	
+
+
 	indice += 1;
 	$("#botaoSair").parent().removeClass("elemento-escondido");
 	$("#tituloExibido").text("Autodiagnóstico terminado");
@@ -317,6 +286,11 @@ function validarCampos() {
 				valid = false;
 			}
 		}
+
+		let inputText = $(".linha-resposta-vertical:visible").find("input[type=text]")
+		if (inputText) {
+			valid = true
+		}
 	}
 
 	return valid;
@@ -348,7 +322,7 @@ function enquadrar(objeto) {
 		success: function (dados) {
 			console.log(dados);
 			debugger;
-			verificaMedias(dados, dialog);
+			verificaQuadrantes(dados, dialog);
 		}, error: function (erro) {
 			dialog.modal('hide');
 			console.log(erro);
@@ -358,41 +332,10 @@ function enquadrar(objeto) {
 }
 
 
-function verificaMedias(objeto, dialog) {
-	var objetivos = objeto.listaObjetivos;
-	var indicadores = objeto.listaIndicadores;
+function verificaQuadrantes(objeto, dialog) {
 
 
-
-	objetivos.forEach(function (objetivo) {
-		if (objetivo.longoPrazo === "true") {
-			mediaObjetivoLongo.valor += parseInt(objetivo.nota);
-			mediaObjetivoLongo.quantidade += 1;
-		} else {
-			mediaObjetivoCurto.valor += parseInt(objetivo.nota);
-			mediaObjetivoCurto.quantidade += 1
-		}
-	})
-	indicadores.forEach(function (indicador) {
-		if (indicador.longoPrazo === "true") {
-			mediaIndicadorLongo.valor += parseInt(indicador.nota);
-			mediaIndicadorLongo.quantidade += 1;
-		} else {
-			mediaIndicadorCurto.valor += parseInt(indicador.nota);
-			mediaIndicadorCurto.quantidade += 1;
-		}
-	})
-	
-	var diferenca = Math.abs(mediaObjetivoCurto.calculaMedia() - mediaObjetivoLongo.calculaMedia());
-
-	
-	if (diferenca > 4) {
-		flagFerramentas = true;
-		exibirQuestionarioFerramentas(dialog);
-	} else {
-		mostrarTelaFinal(dialog);
-		
-	}
+	mostrarTelaFinal(dialog);
 
 }
 
