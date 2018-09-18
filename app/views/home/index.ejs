@@ -14,20 +14,20 @@
 	<div class="img-header">
 		<img class="img-item left" src="/img/marca_CCSA.png"/>
 		<img class="img-item right" src="/img/marca_computação_informatica.png"/>
-	</div>	
+	</div>
 	<div class="container-fluid">
 		<div class="panel panel-primary">
 			<div class="panel-heading"></div>
 			<div class="panel-body">
 				<div class="row">
 					<span style="padding: 0px 30px 0px 90px" class="titulo text-center">Autodiagnóstico de alinhamento de indicadores e controles gerenciais</span>
-					
+
 				</div>
 				<br/>
 				<p class="text-muted credit">Projeto com recursos do Mackpesquisa e vinculado ao Programa de Pós-Graduação em Ciências Contábeis da Universidade Presbiteriana Mackenzie</p>
 					<div class="elemento-escondido" style="width: 100%; height: 30px; border-bottom: 1px solid black; text-align: center">
 						<span id="tituloExibido" style="font-size: 20px">
-							
+
 						</span>
 					</div>
 					<hr id="linha"/>
@@ -37,17 +37,17 @@
 							<div class="row">
 								<p style="text-align: justify">O alinhamento dos objetivos de uma organização com os indicadores é importante, pois você poderá direcionar os esforços dos gestores para atingirem os objetivos organizacionais. Além disso, o uso adequado das ferramentas de controle gerencial ajuda a organização a ter melhor desempenho. </p>
 							</div>
-	
+
 							<div class="row">
 								<p style="text-align:justify">O autodiagnóstico dura geralmente em torno de dez minutos, ao final você receberá um feedback indicando pontos de atenção para melhoria dos controles de sua organização.</p>
 							</div>
-	
+
 							<br/>
 							<div class="row">
 								<div class="col-md-6 botoes">
 									<a id="modalLider" class="btn btn-default" href="#">Líder da pesquisa</a>
 								</div>
-								
+
 								<div class="col-md-6 botoes">
 									<a id="modalTermo" class="btn btn-default" target = "_blank" href="/controladoria/termo">Termo de confidencialidade</a>
 								</div>
@@ -56,229 +56,174 @@
 							<div class="row">
 								<div class="col-md-4">
 									<input id="inicioQuestionario" type="checkbox" name="concordo" class="form-group"/>  Eu concordo
-								</div>	
+								</div>
 							</div>
 					</div>
 					</div>
 				<div class="dados-respondente col-md-12 elemento-escondido">
 					<div  id="conteudo_1">
-						<strong>Quantos funcionários existem na sua empresa?</strong>
+						<strong>Afim de enquadrar sua empresa entre micro empresa (ME), Empresa de pequeno porte (EPP), ou Empresa de Grande porte, com base na Lei complementar 155 de 2016, nos informe em qual faturamento sua Empresa se enquadra</strong>
 						<br/>
 						<br/>
-						
-						<span class="linha-resposta-vertical" id="quantidade-funcionarios">
-							<input type="radio" data-categoria = "1" value="até 50 funcionários"> até 50 funcionários
-							<br/><input type="radio" data-categoria = "2" value="entre 51 a 200"> entre 51 a 200
-							<br/><input type="radio" data-categoria = "3" value="entre 201 a 1000"> entre 201 a 1.000
-							<br/><input type="radio" data-categoria = "4" value="entre 1001 a 10000"> entre 1001 a 10.000
-							<br/><input type="radio" data-categoria = "5" value="acima de 10000"> acima de 10.000						
+
+						<span class="linha-resposta-vertical" id="faturamento-empresa">
+							<input type="radio" data-categoria = "1" value="até R$ 360.000,00"> até R$ 360.000,00
+							<br/><input type="radio" data-categoria = "2" value="entre R$ 360.0001,00 a R$ 4.800.000,00"> entre R$ 360.0001,00 a R$ 4.800.000,00
+							<br/><input type="radio" data-categoria = "3" value="acima de R$ 4.800.001,00"> acima de R$ 4.800.001,00
 						</span>
 
 					</div>
 					<div class="elemento-escondido" id="conteudo_2">
-						<strong>Indique o nível de concorrência</strong>
+						<strong>Indique em qual região geográfica sua empresa está localizada</strong>
 						<br/>
 						<br/>
 
-						<span class="row linha-resposta-vertical" id="concorrência">
-							
-								<input type="radio" value="Nenhuma concorrência"> Nenhuma concorrência
-								<br/><input type="radio" value="Pouca concorrência"> Pouca concorrência 
-								<br/><input type="radio" value="Média concorrência"> Média concorrência
-								<br/><input type="radio" value="Muita concorrência"> Muita concorrência
-													
+						<span class="row linha-resposta-vertical" id="regiao-empresa">
+
+								<input type="radio" data-categoria = "1" value="Centro-Oeste"> Centro-Oeste
+								<br/><input type="radio" data-categoria = "2" value="Nordeste"> Nordeste
+								<br/><input type="radio" data-categoria = "3" value="Norte"> Norte
+								<br/><input type="radio" data-categoria = "4" value="Sul"> Sul
+								<br/><input type="radio" data-categoria = "5" value="Sudeste"> Sudeste
+
 						</span>
 
 					</div>
-					
+
 					<div class="elemento-escondido" id="conteudo_3">
-						<strong>Indique, aproximadamente, quanto varia em média as suas vendas mensais em um período dos últimos meses</strong>
+						<strong>Indique em qual segmento sua Empresa atua</strong>
 						<br/>
 						<br/>
-						<span class="linha-resposta-vertical" id="incertezas-ambientas">
+						<span class="linha-resposta-vertical" id="segmento-empresa">
 							<section class="col-md-6">
-								<input type="radio" value="até 10%"> até 10%
-								<br/><input type="radio" value="entre 11% e 30%"> entre 11% e 30%
-								<br/><input type="radio" value = "mais de 30%"> mais de 30%
+								<input type="radio" data-categoria = "1" value="Prestação de serviços"> Prestação de serviços
+								<br/><input type="radio" data-categoria = "2" value="Comércio"> Comércio
+								<br/><input type="radio" data-categoria = "3" value = "Industria"> Industria
+								<br/><input type="radio" data-categoria = "4" value = "Todas as alternativas"> Todas as alternativas
 							</section>
 
 						</span>
 					</div>
-					
-				</div>
-				<div class="questionario row elemento-escondido col-md-12">
-				<p>Em relação aos seguintes aspectos, indique o grau de importância para sua organização. (Assinale de 1 - nada importante a 10 - muito importante) 
-				<strong>(Assinale de 1 a 10)</strong></p>	
-				<table class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th class="text-center">Nota</th>
-							</tr>	
-						</thead>
-						<tbody id="conteudo_4">
-							<%for(var i=0; i<4; i++){%>
-								
-									<tr class="linha-resposta objetivo">
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
-										
-										<%var descricao = viewModel.objetivos[i].obj_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:11px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>	
-						
-						</tbody>
-						<tbody class="elemento-escondido" id="conteudo_5">
-							<%for(var i=4; i<8; i++){%>
-								
-									<tr class="linha-resposta objetivo">
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
-										<%var descricao = viewModel.objetivos[i].obj_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:11px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>						
-						
-						</tbody>
 
-						<tbody class="elemento-escondido" id="conteudo_6">
-							<%for(var i=8; i<viewModel.objetivos.length; i++){%>
-								
-									<tr class="linha-resposta objetivo">
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.objetivos[i].obj_longo_prazo%>" class="longo-prazo"/>
-										<%var descricao = viewModel.objetivos[i].obj_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:11px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>		
-						</tbody>
+					<div class="elemento-escondido" id="conteudo_4">
+						<strong>Sabendo-se que a margem de contribuição é o total dos custos variáveis necessários para a produção de um determinado produto, como as matérias primas, materiais secundários, e outros custos que variam com base no volume de produção, nos informe o percentual da margem de contribuição no custo total de seu produto vendido</strong>
+						<br/>
+						<br/>
+						<span class="linha-resposta-vertical" id="contribuicao-percentual">
+							<section class="col-md-6">
+								<input type="radio" data-categoria = "0" value="até 12%"> até 12%
+								<br/><input type="radio" data-categoria = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-categoria = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-categoria = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-categoria = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-categoria = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-categoria = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-categoria = "7" value = "acima de 84%"> acima de 84%
+							</section>
 
-						<tbody class="elemento-escondido" id="conteudo_7">
-							<%for(var i=0; i<4; i++){%>
-									<tr class="linha-resposta indicador">
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
-										<%var descricao = viewModel.indicadores[i].ind_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:8px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>	
-							
-						</tbody>
+						</span>
+					</div>
 
-						<tbody class="elemento-escondido" id="conteudo_8">
-							<%for(var i=4; i<8; i++){%>
-									<tr class="linha-resposta indicador">
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
-										<%var descricao = viewModel.indicadores[i].ind_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:11px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>	
-						</tbody> 
+					<div class="elemento-escondido" id="conteudo_5">
+						<strong>Considerando que o ponto de equilíbrio é o volume mínimo que sua Empresa pode vender para não obter prejuízo ou lucro no ano, nos informe qual percentual de seu faturamento é necessário para alcançar o ponto de equilíbrio</strong>
+						<br/>
+						<br/>
+						<span class="linha-resposta-vertical" id="faturamento-percentual">
+							<section class="col-md-6">
+								<input type="radio" data-categoria = "0" value="até 12%"> até 12%
+								<br/><input type="radio" data-categoria = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-categoria = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-categoria = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-categoria = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-categoria = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-categoria = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-categoria = "7" value = "acima de 84%"> acima de 84%
+							</section>
 
-						<tbody class="elemento-escondido" id="conteudo_9">
-							<%for(var i=8; i<viewModel.indicadores.length; i++){%>
-									<tr class="linha-resposta indicador">
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_id%>" class="id"/>
-										<input type="hidden" value="<%=viewModel.indicadores[i].ind_longo_prazo%>" class="longo-prazo"/>
-										<%var descricao = viewModel.indicadores[i].ind_desc%>
-										<%if(descricao.length > 47){%>
-											<td style="font-size:11px"><%=descricao%></td>
-										<%}else{%>
-											<td><%=descricao%></td>
-										<%}%>
-										<td>
-											<%for(var j=1; j <=10;j++){%>
-												<label class="checkbox-inline">
-													<input type="radio" value="<%=j%>"><%=j%>
-												</label>
-											<%}%>
-										</td>
-									</tr>
-								
-							<%}%>	
-						</tbody>
-							
-					</table>
-					
+						</span>
+					</div>
+
+					<div class="elemento-escondido" id="conteudo_6">
+						<strong>A margem de segurança seria o volume de produção projetado a maior do volume apurado pelo ponto de equilíbrio, ou seja, a diferença positiva entre volume projetado para venda e volume necessário para atingir o ponto de equilíbrio. Sendo assim, nos informe qual o percentual de sua margem de contribuição</strong>
+						<br/>
+						<br/>
+						<span class="linha-resposta-vertical" id="margem-percentual">
+							<section class="col-md-6">
+								<input type="radio" value="0"> até 12%
+								<br/><input type="radio" value = "1"> de 12,01% a 24%
+								<br/><input type="radio" value = "2"> de 24,01% a 36%
+								<br/><input type="radio" value = "3"> de 36,01% a 48%
+								<br/><input type="radio" value = "4"> de 48,01% a 60%
+								<br/><input type="radio" value = "5"> de 60,01% a 72%
+								<br/><input type="radio" value = "6"> de 72,01% a 84%
+								<br/><input type="radio" value = "7"> acima de 84%
+							</section>
+
+						</span>
+					</div>
+
+					<div class="elemento-escondido" id="conteudo_7">
+						<strong>A diversificação de clientes é fator importante para a definição da margem de segurança operacional da Empresa, sendo assim, nos informe a representatividade dos 5 principais clientes de sua Empresa em relação ao faturamento total</strong>
+						<br/>
+						<br/>
+						<span class="linha-resposta-vertical" id="representatividade-percentual">
+							<section class="col-md-6">
+								<input type="radio" value="0"> até 12%
+								<br/><input type="radio" value = "1"> de 12,01% a 24%
+								<br/><input type="radio" value = "2"> de 24,01% a 36%
+								<br/><input type="radio" value = "3"> de 36,01% a 48%
+								<br/><input type="radio" value = "4"> de 48,01% a 60%
+								<br/><input type="radio" value = "5"> de 60,01% a 72%
+								<br/><input type="radio" value = "6"> de 72,01% a 84%
+								<br/><input type="radio" value = "7"> acima de 84%
+							</section>
+
+						</span>
+					</div>
+
+					<div class="elemento-escondido" id="conteudo_8">
+						<strong>Deixe seu contato:</strong>
+						<br/>
+						<br/>
+						<span class="linha-resposta-vertical" id="contato-usuario">
+							<section class="col-md-6">
+                     <div class="form-group">
+                        <label class="sr-only" for="login">Nome</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                            <input id="nome" type="text" name="name" class="form-control input" placeholder="Digite seu nome" required>
+                        </div>
+										</div>
+
+                     <div class="form-group">
+                        <label class="sr-only" for="login">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <input id="email" type="email" name="email" class="form-control input" placeholder="Digite seu email" required>
+                        </div>
+										</div>
+
+                     <div class="form-group">
+                        <label class="sr-only" for="login">Empresa</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-briefcase"></span>
+                            </div>
+                            <input id="empresa" type="text" name="name" class="form-control input" placeholder="Digite o nome de sua empresa" required>
+                        </div>
+										</div>
+							</section>
+
+						</span>
+					</div>
+
 				</div>
 
-				<div class="elemento-escondido ferramentas">
-					<br/>
-					<table class="table table-striped table-bordered" id="tabela_ferramenta">
-					<thead>
-						<tr>
-							<td>Item</td>
-							<td>Utilização</td>
-						</tr>	
-					</thead>	
-					
-					</table>
-				</div>
-
-				<div class="elemento-escondido" id="conteudo_13">
+				<div class="elemento-escondido" id="conteudo_9">
 						<div class="row">
 							<div class="col-md-12">
 									<p style="text-align: justify">Muito obrigado por participar de nossa pesquisa!.</p>
@@ -288,13 +233,7 @@
 
 						<div class="row">
 							<div class="col-md-4 botoes">
-								<a id="modalResultadoCurto" class="btn btn-default" href="#">Curto prazo</a>
-							</div>
-							<div class="col-md-4 botoes">
-								<a id="modalFerramenta" class="btn btn-default" href="#">Avaliação das ferramentas</a>
-							</div>
-							<div class="col-md-4 botoes">
-								<a id="modalResultadoLongo" class="btn btn-default" href="#">Longo prazo</a>
+								<a id="modalFerramenta" class="btn btn-default" href="#">Download dos resultados</a>
 							</div>
 						</div>
 				</div>
@@ -313,7 +252,7 @@
 							<div class="elemento-escondido col-md-12">
 								<button style="float:right;" class="btn btn-default" id="botaoFim">Finalizar</button>
 							</div>
-							
+
 						</div>
 				</div>
 			</div>
@@ -328,7 +267,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div id="containerLongo" class="modal-body">
-							
+
 					</div>
 					<div class="modal-footer">
 						<span id="texto-feedback-longo"></span>
@@ -343,7 +282,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div id="containerCurto" class="modal-body">
-							
+
 					</div>
 					<div class="modal-footer">
 						<span id="texto-feedback-curto"></span>
@@ -358,7 +297,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>	
+					</div>
 					<div class="modal-body">
 						<div id="tabela-pagina-1">
 							<span class="text-muted"></span>
@@ -367,7 +306,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						
+
 					</div>
 				</div>
 			</div>
@@ -388,8 +327,8 @@
 				</div>
 			</div>
 		</div>
-			
-	
+
+
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/js/bootbox.min.js"></script>
