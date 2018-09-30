@@ -15,36 +15,7 @@ module.exports = function (app) {
             return;
         }
 
-        try {
-            var connection = new app.infra.ConnectionFactory();
-            var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
-            var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
-            var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
-            var viewModel = new Object();
-            objetivoDAO.listar(function (err, listaObjetivos) {
-                if (err) {
-                    console.log("Ocorreu um erro: " + err);
-                    req.session.destroy();
-                    res.redirect("/controladoria/login");
-                    return;
-                }
-                viewModel.objetivos = listaObjetivos;
-                indicadorDAO.listar(function (err, listaIndicadores) {
-                    if (err) {
-                        console.log("Ocorreu um erro: " + err);
-                        req.session.destroy();
-                        res.redirect("/controladoria/login");
-                        return;
-                    }
-                    viewModel.indicadores = listaIndicadores;
-                    res.render("home/index", { viewModel: viewModel });
-                })
-
-            })
-        } catch (e) {
-            console.log("Erro ao obter dados do banco para listagem da pagina inicial: " + e);
-            req.session.destroy();
-        }
+        res.render("home/index");
     });
 
 
@@ -55,98 +26,65 @@ module.exports = function (app) {
         var dados_respondente = obtemDados(objeto);
 
         var connection = new app.infra.ConnectionFactory();
-        var objetivoDAO = new app.persistencia.ObjetivoDAO(connection);
-        var indicadorDAO = new app.persistencia.IndicadorDAO(connection);
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
 
-        var arrayInsertObjetivos = new Array();
-        var arrayInsertIndicadores = new Array();
+        var arrayInsertRespostas = new Array();
 
+        function inserirDados(objeto) {
+            delete objeto.nome
+            delete objeto.email
+            delete objeto.empresa
 
-        var listaObjetivos = objeto.listaObjetivos;
-        for (var i = 0; i < listaObjetivos.length; i++) {
-            var objetivo = listaObjetivos[i];
-            arrayInsertObjetivos.push([objetivo.nota, null, objetivo.id]);
-        }
+            objeto.data_acesso = new Date();
 
-        var listaIndicadores = objeto.listaIndicadores;
-        for (var i = 0; i < listaIndicadores.length; i++) {
-            var indicador = listaIndicadores[i];
-            arrayInsertIndicadores.push([indicador.nota, null, indicador.id]);
-        }
-
-        objetivoDAO.inserir(arrayInsertObjetivos, function (erro, resultado) {
-            if (erro) {
-                res.status(500).json(erro);
-                console.log("Erro: " + erro);
-                return;
-            }
-            console.log(`Resultado 1: ${resultado}`)
-            indicadorDAO.inserir(arrayInsertIndicadores, function (erro, resultado) {
+            usuarioDAO.inserirDadosUsuario(objeto, function (erro, resultado) {
                 if (erro) {
                     res.status(500).json(erro);
                     console.log("Erro: " + erro);
                     return;
                 }
-                console.log(`Resultado 2: ${resultado}`)
-                res.status(200).json(objeto);
-            })
+                res.status(200).json(objeto)
+                console.log('Resultado: ' + JSON.stringify(resultado));
+                connection.end();
+                return;
+            });
+        }
+        if (objeto.nome == '') objeto.nome = 'Aninomo'
+        if (objeto.email == '') objeto.email = 'Aninomo'
+        if (objeto.empresa == '') objeto.empresa = 'Aninomo'
 
-        });
-
-
-
-    });
-
-    app.get("/controladoria/ferramenta/:flag", function (req, res) {
-
-        var flag = req.params.flag === "true" ? 1 : 0;
-
-        var connection = new app.infra.ConnectionFactory();
-        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
-
-        ferramentaDAO.listar(flag, function (erro, resultado) {
-            if (erro) {
+        usuarioDAO.buscarPorEmail(objeto, function (error, resultado) {
+            if (error) {
                 res.status(500).json(erro);
                 console.log("Erro: " + erro);
                 return;
             }
-            res.status(200).json(resultado);
-        })
-    })
-
-    app.post("/controladoria/ferramenta", function (req, res) {
-        var objeto = req.body
-        var obj = new Object();
-
-        var flag = objeto.flag === true ? 1 : 0;
-        var connection = new app.infra.ConnectionFactory();
-        var ferramentaDAO = new app.persistencia.FerramentaDAO(connection);
-
-        var arrayInsertFerramentas = new Array();
-
-        var ferramentas = objeto.arrayFerramentas;
-        for (var i = 0; i < ferramentas.length; i++) {
-            var ferramenta = ferramentas[i];
-            arrayInsertFerramentas.push([ferramenta.nota, ferramenta.id]);
-        }
-        ferramentaDAO.inserir(arrayInsertFerramentas, function (erro, resultado) {
-            if (erro) {
-                res.status(500).json("Erro ao inserir ferramentas: " + erro);
-                connection.end();
-                return;
-            }
-            console.log(`Resultado da inserção das ferramentas no banco: ${JSON.stringify(resultado)}`);
-            ferramentaDAO.listarFerramentasBaixoUso(resultado.insertId, flag, function (erro, resultado) {
-                if (erro) {
-                    res.status(500).json("Erro ao inserir ferramentas: " + erro);
-                    connection.end();
-                    return;
+            if (!resultado[0]) {
+                var usuario = {
+                    nome: objeto.nome,
+                    email: objeto.email,
+                    perfil: "USUARIO",
+                    empresa: objeto.empresa,
+                    data_cadastro: new Date(),
+                    ultimo_acesso: new Date(),
                 }
-                res.status(200).json(resultado);
-            })
+                usuarioDAO.inserir(usuario, function (erro, resultado) {
+                    if (erro) {
+                        res.status(500).json(erro);
+                        console.log("Erro: " + erro);
+                        return;
+                    }
+                    objeto.id_usuario = resultado.insertId
+                    inserirDados(objeto)
+                });
+            } else {
+                objeto.id_usuario = resultado[0].id
+                usuarioDAO.atualizaAcesso(objeto);
+                inserirDados(objeto)
+            }
         })
-    })
+    });
+
 
     app.get("/controladoria/logoff", function (req, res) {
         req.session.destroy();

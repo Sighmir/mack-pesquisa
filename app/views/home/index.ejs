@@ -111,14 +111,14 @@
 						<br/>
 						<span class="linha-resposta-vertical" id="contribuicao-percentual">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "0" value="até 12%"> até 12%
-								<br/><input type="radio" data-categoria = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
-								<br/><input type="radio" data-categoria = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
-								<br/><input type="radio" data-categoria = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
-								<br/><input type="radio" data-categoria = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
-								<br/><input type="radio" data-categoria = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
-								<br/><input type="radio" data-categoria = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
-								<br/><input type="radio" data-categoria = "7" value = "acima de 84%"> acima de 84%
+								<input type="radio" data-categoria = "0" value="0"> até 12%
+								<br/><input type="radio" data-categoria = "1" value = "1"> de 12,01% a 24%
+								<br/><input type="radio" data-categoria = "2" value = "2"> de 24,01% a 36%
+								<br/><input type="radio" data-categoria = "3" value = "3"> de 36,01% a 48%
+								<br/><input type="radio" data-categoria = "4" value = "4"> de 48,01% a 60%
+								<br/><input type="radio" data-categoria = "5" value = "5"> de 60,01% a 72%
+								<br/><input type="radio" data-categoria = "6" value = "6"> de 72,01% a 84%
+								<br/><input type="radio" data-categoria = "7" value = "7"> acima de 84%
 							</section>
 
 						</span>
@@ -130,14 +130,14 @@
 						<br/>
 						<span class="linha-resposta-vertical" id="faturamento-percentual">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "0" value="até 12%"> até 12%
-								<br/><input type="radio" data-categoria = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
-								<br/><input type="radio" data-categoria = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
-								<br/><input type="radio" data-categoria = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
-								<br/><input type="radio" data-categoria = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
-								<br/><input type="radio" data-categoria = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
-								<br/><input type="radio" data-categoria = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
-								<br/><input type="radio" data-categoria = "7" value = "acima de 84%"> acima de 84%
+								<input type="radio" data-categoria = "0" value="0"> até 12%
+								<br/><input type="radio" data-categoria = "1" value = "1"> de 12,01% a 24%
+								<br/><input type="radio" data-categoria = "2" value = "2"> de 24,01% a 36%
+								<br/><input type="radio" data-categoria = "3" value = "3"> de 36,01% a 48%
+								<br/><input type="radio" data-categoria = "4" value = "4"> de 48,01% a 60%
+								<br/><input type="radio" data-categoria = "5" value = "5"> de 60,01% a 72%
+								<br/><input type="radio" data-categoria = "6" value = "6"> de 72,01% a 84%
+								<br/><input type="radio" data-categoria = "7" value = "7"> acima de 84%
 							</section>
 
 						</span>
@@ -182,7 +182,7 @@
 					</div>
 
 					<div class="elemento-escondido" id="conteudo_8">
-						<strong>Deixe seu contato:</strong>
+						<strong>Deixe seu contato (opcional):</strong>
 						<br/>
 						<br/>
 						<span class="linha-resposta-vertical" id="contato-usuario">
@@ -227,13 +227,13 @@
 						<div class="row">
 							<div class="col-md-12">
 									<p style="text-align: justify">Muito obrigado por participar de nossa pesquisa!.</p>
-									<p class="text-muted">Confira seus resultados - alinhamento de curto prazo (objetivos de curto prazo com indicadores monetários), alinhamento de longo prazo (objetivos de longo prazo com indicadores não monetários).</p>
+									<p id="textoResultado" class="text-muted"></p>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4 botoes">
-								<a id="modalFerramenta" class="btn btn-default" href="#">Download dos resultados</a>
+								<a id="modalResultado" class="btn btn-default" href="#">Visualizar resultados</a>
 							</div>
 						</div>
 				</div>
@@ -260,53 +260,17 @@
 	</div>
 
 
-		<div id="resultadoLongo" class="modal fade">
+		<div id="resultado" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<div id="containerLongo" class="modal-body">
+					<div id="container" class="modal-body">
 
 					</div>
 					<div class="modal-footer">
-						<span id="texto-feedback-longo"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="resultadoCurto" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div id="containerCurto" class="modal-body">
-
-					</div>
-					<div class="modal-footer">
-						<span id="texto-feedback-curto"></span>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div id="ferramenta" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div id="tabela-pagina-1">
-							<span class="text-muted"></span>
-							<ul id="lista-ferramentas" class="list-group">
-							</ul>
-						</div>
-					</div>
-					<div class="modal-footer">
-
+						<span id="texto-feedback"></span>
 					</div>
 				</div>
 			</div>
@@ -335,6 +299,8 @@
 	<script type="text/javascript" src="/js/highcharts.js"></script>
 	<script type="text/javascript" src="/js/highcharts-more.js"></script>
 	<script type="text/javascript" src="/js/exporting.js"></script>
+	<script type="text/javascript" src="/js/jspdf.min.js"></script>
+	<script type="text/javascript" src="/js/canvg.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 	</body>

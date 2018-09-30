@@ -14,14 +14,15 @@ app.listen(porta, function(){
 function criaUsuarioAdmin(app){
 	var connection = new app.infra.ConnectionFactory();
     var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
-	
+
 	var usuario = {
 		nome: "Admin Controladoria",
 		email: "admin@controladoria.com",
 		senha: "controladoria@123",
-		perfil: "ADMIN"
+        perfil: "ADMIN",
+        empresa: "Mackenzie"
 	}
-	
+
 			try{
                 usuarioDAO.buscarPorEmail(usuario, function(error, resultado){
                     console.log("Entrou no buscar por Email");
@@ -43,11 +44,12 @@ function criaUsuarioAdmin(app){
 
                                usuario.senha = hash;
                                usuario.data_cadastro = new Date();
+                               usuario.ultimo_acesso = new Date();
                                usuarioDAO.inserir(usuario, function(erro, resultado){
                                    if(erro){
                                        console.log("Erro de banco: "+erro)
                                        var mensagemErro = "Erro ao realizar cadastro!";
-                                       
+
                                    }
                                    connection.end();
                                });
