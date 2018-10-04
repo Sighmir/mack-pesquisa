@@ -1,9 +1,9 @@
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app){
-    
+
     app.get("/controladoria/login", function(req, res){
-        
+
         var sessao = req.session;
         var erro = req.query.erro;
         if(sessao.email){
@@ -14,7 +14,7 @@ module.exports = function(app){
     })
 
     app.post("/controladoria/login", function(req,res){
-        
+
         var usuarioLogin = req.body;
         var connection = new app.infra.ConnectionFactory();
         var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
@@ -23,8 +23,8 @@ module.exports = function(app){
         req.assert("senha", "Digite uma senha válida!").notEmpty();
 
         var erros = req.validationErrors();
-        
-        
+
+
         if(!erros){
 
             usuarioDAO.buscarPorEmail(usuarioLogin, function(error, resultado){
@@ -42,16 +42,21 @@ module.exports = function(app){
                             req.session.email = usuarioLogin.email;
                             req.session.loggedTime = new Date();
                             req.session.save();
-                            if(resultado[0].perfil == "ADMIN"){
+                            if (resultado[0].perfil == "ADMIN") {
+                                var connection = new app.infra.ConnectionFactory();
+                                var usuarioDAO = new app.persistencia.UsuarioDAO(connection);
+                                usuarioDAO.atualizaAcesso(new Date(), usuarioLogin.email, () => {
+                                    connection.end();
+                                });
                                 res.redirect("/controladoria/admin/home");
                             }
-                            
+
                         }else{
                             var erro = "E-mail ou senha incorretos!";
                             res.render("login/login", {erro:erro});
-                            
+
                         }
-                    });   
+                    });
                  }else{
                     var erro = "E-mail não existe, por favor realize seu cadastro!";
                     res.render("login/login", {erro:erro});

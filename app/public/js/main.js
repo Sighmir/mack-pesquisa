@@ -367,8 +367,8 @@ function montarGrafico(xValue, yValue, id, texto) {
 						text: 'Exportar para PDF',
 						onclick: function () {
 							var doc = new jsPDF();
-							doc.setFontSize(35);
-							doc.text(15, 25, "Alinhamento da sua organização");
+							doc.setFontSize(30);
+							doc.text(12, 25, "DIAGNÓSTICO E RECOMENDAÇÕES");
 							var imageData = this.createCanvas();
 							doc.addImage(imageData, 'JPEG', 10, 45, 185, 125);
 							doc.setFontSize(10)

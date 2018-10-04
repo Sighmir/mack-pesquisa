@@ -28,6 +28,7 @@
     "express-session": "^1.15.4",
     "express-validator": "^3.2.1",
     "moment": "^2.18.1",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "xlsx": "^0.14.0"
   }
 }

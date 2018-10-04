@@ -3,19 +3,16 @@ function ExcelDAO(connection){
 }
 
 ExcelDAO.prototype.extrairDados = function(callback){
-    var query = "select uo.id_usr_obj as id, o.obj_desc as nome,  uo.nota as nota"
-    +" from usuario_objetivo uo"
-    +" inner join objetivo o on uo.id_obj = o.obj_id"
-    +" union all"
-    +" select ui.id_usr_ind as id,  i.ind_desc as nome, ui.nota as nota"
-    +" from usuario_indicador ui"
-    +" inner join indicador i on ui.id_ind = i.ind_id"
-    +" order by id";
-    this._connection.query(query,  callback);
-}
-
-ExcelDAO.prototype.mesclarIndicadores = function(id, callback){
-    this._connection.query("select * from usuario_indicador ui inner join indicador i on i.ind_id = ui.id_ind where ui.id_usr = ?", [id], callback) 
+    var query = ""
+    +"select d.id_dados_usuario as ID, u.id as UID, u.nome as Nome, u.email as Email, u.empresa as Empresa,"
+    +" d.faturamento_empresa as Faturamento, d.regiao_empresa as Região, d.segmento_empresa as Segmento,"
+    +" d.margem_contribuicao as 'Margem de Contribuição', d.percentual_equilibrio as 'Percentual de Equilibrio',"
+    +" d.margem_seguranca as 'Margem de Segurança', d.diversificacao_clientes as 'Diversificação de Clientes',"
+    +" d.data_acesso as 'Data de Acesso', u.data_cadastro as 'Data de Cadastro', u.ultimo_acesso as 'Ultimo Acesso'"
+    +" from usuario u"
+    +" inner join dados_usuario d on u.id = d.id_usuario"
+    +" order by ID";
+    this._connection.query(query, callback);
 }
 
 module.exports = function(){

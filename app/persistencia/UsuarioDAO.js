@@ -10,12 +10,16 @@ UsuarioDAO.prototype.buscarPorEmail = function(usuario, callback){
     this._connection.query("select * from usuario where email = ?",[usuario.email], callback);
 }
 
-UsuarioDAO.prototype.listar = function(callback){
+UsuarioDAO.prototype.listar = function (callback) {
     this._connection.query("select * from usuario", callback);
 }
 
-UsuarioDAO.prototype.atualizaAcesso = function(objeto, callback){
-    this._connection.query("update usuario set ultimo_acesso = ? where email = ?", [objeto.ultimo_acesso,objeto.email] , callback);
+UsuarioDAO.prototype.listarDados = function (callback) {
+    this._connection.query("select * from dados_usuario", callback);
+}
+
+UsuarioDAO.prototype.atualizaAcesso = function (ultimo_acesso, email, callback){
+    this._connection.query("update usuario set ultimo_acesso = ? where email = ?", [ultimo_acesso,email] , callback);
 }
 
 UsuarioDAO.prototype.inserirDadosUsuario = function(dados_usuario, callback){

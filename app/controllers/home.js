@@ -79,7 +79,7 @@ module.exports = function (app) {
                 });
             } else {
                 objeto.id_usuario = resultado[0].id
-                usuarioDAO.atualizaAcesso(objeto);
+                usuarioDAO.atualizaAcesso(new Date(), objeto.email);
                 inserirDados(objeto)
             }
         })
