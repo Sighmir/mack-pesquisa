@@ -6,6 +6,8 @@ CREATE TABLE `dados_usuario` (
   `faturamento_empresa` varchar(100) NOT NULL,
   `regiao_empresa` varchar(100) NOT NULL,
   `segmento_empresa` varchar(100) NOT NULL,
+  `conhecimento_ferramentas` varchar(100) NOT NULL,
+  `grau_volatilidade` varchar(100) NOT NULL,
   `margem_contribuicao` varchar(50) NOT NULL,
   `percentual_equilibrio` varchar(50) NOT NULL,
   `margem_seguranca` varchar(50) NOT NULL,
