@@ -251,9 +251,9 @@ function verificaQuadrantes(objeto, dialog) {
 
 	let quadrante = 0;
 	if (grauDeDiversificacao > 3.5 && margemDeSeguranca > 3.5) quadrante = 1;
-	else if (grauDeDiversificacao > 3.5 && margemDeSeguranca < 3.5) quadrante = 2;
+	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca > 3.5) quadrante = 2;
 	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca < 3.5) quadrante = 3;
-	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca > 3.5) quadrante = 4;
+	else if (grauDeDiversificacao > 3.5 && margemDeSeguranca < 3.5) quadrante = 4;
 
 	defineTexto(quadrante);
 	mostrarTelaFinal(dialog);
@@ -410,10 +410,10 @@ function defineTexto(quadrante){
 			recomendacao = 'Sua Empresa possui uma boa margem de segurança porém a diversificação de clientes está baixa. Nossa recomendação é para que realizem uma força tarefa com o objetivo de ampliar a diversificação de clientes, pulverizando desta forma suas receitas de modo que a perda de um cliente chave não tenha um impacto muito representativo no resultado de sua Empresa.'
 			break;
 		case 3:
-			recomendacao = 'Sua Empresa possui uma diversificação de clientes relevante, porém verificamos que a margem de segurança utilizada para as projeções gerenciais está baixa, nossa recomendamos é para que aumentem a margem de segurança, trazendo desta forma maior segurança no planejamento operacional de sua Empresa.'
-			break;
+		recomendacao = 'Verificamos que sua Empresa possui baixa margem de segurança e também uma baixa diversificação de clientes, sendo assim, nossa recomendação é para que sua Empresa realizem uma força tarefa com o objetivo de ampliar a diversificação de clientes, pulverizando desta forma suas receitas, já para a margem de segurança, recomendamos que a mesma seja maior, afim de trazer maior segurança no planejamento operacional de sua Empresa.'
+		break;
 		case 4:
-			recomendacao = 'Verificamos que sua Empresa possui baixa margem de segurança e também uma baixa diversificação de clientes, sendo assim, nossa recomendação é para que sua Empresa realizem uma força tarefa com o objetivo de ampliar a diversificação de clientes, pulverizando desta forma suas receitas, já para a margem de segurança, recomendamos que a mesma seja maior, afim de trazer maior segurança no planejamento operacional de sua Empresa.'
+		recomendacao = 'Sua Empresa possui uma diversificação de clientes relevante, porém verificamos que a margem de segurança utilizada para as projeções gerenciais está baixa, nossa recomendamos é para que aumentem a margem de segurança, trazendo desta forma maior segurança no planejamento operacional de sua Empresa.'
 			break;
 	}
 	if (conhecimentoFerramentas == 0) {
