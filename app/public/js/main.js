@@ -1,6 +1,6 @@
 var indice = 0;
 
-var tabela_dos_setes =['até 12%', 'de 12,01% a 24%','de 24,01% a 36%','de 36,01% a 48%','de 48,01% a 60%','de 60,01% a 72%','de 72,01% a 84%','acima de 84%']
+var tabela7 =['até 12%', 'de 12,01% a 24%','de 24,01% a 36%','de 36,01% a 48%','de 48,01% a 60%','de 60,01% a 72%','de 72,01% a 84%','acima de 84%']
 var grauDeDiversificacao
 var margemDeSeguranca
 var conhecimentoFerramentas
@@ -177,6 +177,10 @@ function obtemValorDadosRespondente(id) {
 	return $("#" + id).find("input:checked").val()
 }
 
+function obtemCategoriaDadosRespondente(id) {
+	return $("#" + id).find("input:checked").data('category')
+}
+
 function validarCampos() {
 	var valid = true;
 	$(".linha-resposta:visible").each(function (index, value) {
@@ -242,18 +246,18 @@ function enquadrar(objeto) {
 
 
 function verificaQuadrantes(objeto, dialog) {
-
-	grauDeDiversificacao = Number(objeto.diversificacao_clientes);
-	margemDeSeguranca = Number(objeto.margem_seguranca);
-
-	conhecimentoFerramentas = Number(objeto.conhecimento_ferramentas);
-	grauDeVolatilidade = Number(objeto.grau_volatilidade);
-
 	let quadrante = 0;
-	if (grauDeDiversificacao > 3.5 && margemDeSeguranca > 3.5) quadrante = 1;
-	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca > 3.5) quadrante = 2;
-	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca < 3.5) quadrante = 3;
-	else if (grauDeDiversificacao > 3.5 && margemDeSeguranca < 3.5) quadrante = 4;
+
+	grauDeDiversificacao = Number(obtemCategoriaDadosRespondente("representatividade-percentual"));
+	margemDeSeguranca = Number(obtemCategoriaDadosRespondente("margem-percentual"));
+
+	conhecimentoFerramentas = Number(obtemCategoriaDadosRespondente("conhecimento-ferramentas"));
+	grauDeVolatilidade = Number(obtemCategoriaDadosRespondente("grau-volatilidade"));
+
+	if (grauDeDiversificacao > 3.5 && margemDeSeguranca > 3.5) quadrante = 1; // boa margem e boa diversificacao
+	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca > 3.5) quadrante = 2; // boa margem e baixa diversificacao
+	else if (grauDeDiversificacao < 3.5 && margemDeSeguranca < 3.5) quadrante = 3; // baixa margem e baixa diversificacao
+	else if (grauDeDiversificacao > 3.5 && margemDeSeguranca < 3.5) quadrante = 4; // baixa margem e boa diversificacao
 
 	defineTexto(quadrante);
 	mostrarTelaFinal(dialog);
@@ -384,12 +388,24 @@ function montarGrafico(xValue, yValue, id, texto) {
 							var doc = new jsPDF();
 							doc.setFontSize(30);
 							doc.text(12, 25, "DIAGNÓSTICO E RECOMENDAÇÕES");
+							var text = $("#textoResultado").html().replace(/<br>/g, '\n').replace(/\n.*<table(.*\n)*.*table>\n/g, '').split('\n\n\n')
 							var imageData = this.createCanvas();
-							doc.addImage(imageData, 'JPEG', 10, 45, 185, 125);
-							doc.setFontSize(10)
-							var splitText = doc.splitTextToSize($("#textoResultado").html().replace(/<br>/g, '\n'), 190);
-							doc.text(10, 185, splitText);
-							doc.save('chart.pdf');
+							doc.addImage(imageData, 'JPEG', 10, 40, 185, 125);
+							doc.setFontSize(11)
+							var splitText = doc.splitTextToSize(text[0], 190);
+							doc.text(10, 175, splitText);
+							if (text.length == 2) {
+								var image = new Image();
+								image.src = '/img/tabela.jpg';
+								image.onload = () => {
+									doc.addImage(image, 'JPEG', 60, 200, 85, 50);
+									splitText = doc.splitTextToSize(text[1], 190);
+									doc.text(10, 260, splitText);
+									doc.save('chart.pdf');
+								}
+							} else {
+								doc.save('chart.pdf');
+							}
 						},
 						separator: false
 					}]
@@ -401,34 +417,87 @@ function montarGrafico(xValue, yValue, id, texto) {
 }
 
 function defineTexto(quadrante){
-	recomendacao = ''
-	switch(quadrante) {
-		case 1:
-			recomendacao = 'Parabéns, verificamos que sua Empresa possui boa margem de segurança em relação ao ponto de equilíbrio e também possui uma boa diversificação de clientes, possuindo desta forma maior segurança nas projeções financeiras e em seu planejamento.'
+	recomendacao = {}
+	switch (quadrante) {
+		case 1: // boa margem e boa diversificacao
+			recomendacao = 'Parabéns, verificamos que sua Empresa possui boa margem de segurança em relação ao ponto de equilíbrio e também possui uma boa diversificação de clientes, o que resulta em maior segurança nas projeções financeiras e em seu planejamento conforme recomendado pela Literatura sobre o assunto.'
 			break;
-		case 2:
-			recomendacao = 'Sua Empresa possui uma boa margem de segurança porém a diversificação de clientes está baixa. Nossa recomendação é para que realizem uma força tarefa com o objetivo de ampliar a diversificação de clientes, pulverizando desta forma suas receitas de modo que a perda de um cliente chave não tenha um impacto muito representativo no resultado de sua Empresa.'
+		case 2: // boa margem e baixa diversificacao
+			recomendacao = 'Sua Empresa possui boa margem de segurança, porém a diversificação de clientes está baixa, ou seja, sua empresa está com o faturamento muito concentrado em poucos clientes. A Literatura recomenda que quanto menor a diversificação de clientes, maior deve ser a margem de segurança. Em sendo assim, a recomendação é aumentar a diversificação, ou seja, aumentar a participação do número de clientes no faturamento total para que se tenha uma maior segurança operacional em sua Empresa, conforme exemplo a seguir:'
+			recomendacao = recomendacao + `<br><br>
+			<table style="border-collapse: collapse; margin-left: auto; margin-right: auto;">
+				<tr style="border: 1px solid black; text-align: left; padding: 8px;">
+					<th style="padding-left: 5px;">Antes da diversificação em percentual</th>
+					<th></th>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 1</td>
+					<td style="padding-right: 5px; text-align: right;">25%</td>
+				<tr/>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 2</td>
+					<td style="padding-right: 5px; text-align: right;">20%</td>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 3</td>
+					<td style="padding-right: 5px; text-align: right;">15%</td>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px; white-space:pre;">Demais clientes (todos com menos de 19% cada)     </td>
+					<td style="padding-right: 5px; text-align: right;">40%</td>
+				</tr>
+				<tr style="border: 1px solid black; text-align: left; padding: 8px;">
+					<th style="padding-left: 5px;">Após diversificação em percentual</th>
+					<th></th>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 1</td>
+					<td style="padding-right: 5px; text-align: right;">15%</td>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 2</td>
+					<td style="padding-right: 5px; text-align: right;">12%</td>
+				</tr>
+				<tr style="border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Cliente 3</td>
+					<td style="padding-right: 5px; text-align: right;">5%</td>
+				</tr>
+				<tr style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; text-align: left; padding: 8px;">
+					<td style="padding-left: 5px;">Demais clientes (todos com menos de 5% cada)</td>
+					<td style="padding-right: 5px; text-align: right;">70%</td>
+				</tr>
+			</table>`
 			break;
-		case 3:
-		recomendacao = 'Verificamos que sua Empresa possui baixa margem de segurança e também uma baixa diversificação de clientes, sendo assim, nossa recomendação é para que sua Empresa realizem uma força tarefa com o objetivo de ampliar a diversificação de clientes, pulverizando desta forma suas receitas, já para a margem de segurança, recomendamos que a mesma seja maior, afim de trazer maior segurança no planejamento operacional de sua Empresa.'
+		case 3: // baixa margem e baixa diversificacao
+		recomendacao = 'Verificamos que sua Empresa possui baixa margem de segurança e baixa diversificação de clientes. A literatura recomenda que para uma maior segurança nas projeções gerenciais e menor exposição a riscos de incorrer em prejuízos, deve haver uma relação inversa entre diversificação de clientes e margem de segurança, ou seja, quanto menor a diversificação de clientes, maior deve ser a margem de segurança, e quanto menor a margem de segurança maior deve ser a diversificação de clientes. Atualmente sua empresa encontra-se muito vulnerável e deve concentrar seus esforços em corrigir essa situação, seja aumentando a diversificação (aumentar o número de clientes) , seja aumentando a margem de segurança (aumento de preços ou redução).'
 		break;
-		case 4:
-		recomendacao = 'Sua Empresa possui uma diversificação de clientes relevante, porém verificamos que a margem de segurança utilizada para as projeções gerenciais está baixa, nossa recomendamos é para que aumentem a margem de segurança, trazendo desta forma maior segurança no planejamento operacional de sua Empresa.'
+		case 4: // baixa margem e boa diversificacao
+			recomendacao = 'Sua Empresa possui uma diversificação de clientes alta, porém verificamos que a margem de segurança está baixa, a literatura recomenda que para uma maior segurança no planejamento de sua Empresa é necessária uma margem de segurança mais representativa em seu faturamento. Os esforços de sua força de vendas devem ser canalizados para esse objetivo.'
 			break;
 	}
 	if (conhecimentoFerramentas == 0) {
-		recomendacao = recomendacao + '<br><br>Notamos também que em sua resposta relacionada ao nível do seu conhecimento sobre as ferramentas gerenciais tratadas nesta ferramenta que seriam sobre a margem de segurança e ponto de equilíbrio é de nenhum conhecimento, sendo assim, recomendamos que você busque o conhecimento destas ferramentas gerencias e passe a utiliza-las em suas análises gerenciais, pois elas são os pilares inicias para bom planejamento.'
+		recomendacao = recomendacao + '<br><br>Notamos também que em sua resposta relacionada ao nível do seu conhecimento sobre as ferramentas gerenciais tratadas ao longo do questionário, ou seja, margem de segurança e ponto de equilíbrio, é de nenhum conhecimento. Sendo assim, recomenda-se uma leitura na literatura sobre as ferramentas gerenciais em questão.'
 	} else if (conhecimentoFerramentas == 1) {
-		recomendacao = recomendacao + '<br><br>Notamos também que em sua resposta relacionada ao nível do seu conhecimento sobre as ferramentas gerenciais tratadas nesta ferramenta que seriam sobre a margem de segurança e ponto de equilíbrio é de que possui conhecimento porém não utiliza tais ferramentas, sendo assim, recomendamos que você verifique se tais ferramentas podem lhe auxiliar em suas projeções gerenciais.'
+		recomendacao = recomendacao + '<br><br>Notamos também que em sua resposta relacionada ao nível do seu conhecimento sobre as ferramentas gerenciais tratadas ao longo do questionário, ou seja, margem de segurança e ponto de equilíbrio é de que possui conhecimento, porém não utiliza tais ferramentas. Por se tratar de ferramentas importantes conforme informado na Literatura, recomenda-se a utilização destas ferramentas junto a sua Empresa.'
+	} else if (conhecimentoFerramentas == 2) {
+		recomendacao = recomendacao + '<br><br>Notamos também que em sua resposta relacionada ao nível do seu conhecimento sobre as ferramentas gerenciais tratadas ao longo do questionário, ou seja, margem de segurança e ponto de equilíbrio é de que possui conhecimento e utiliza estas ferramentas. Parabéns, continue utilizando.'
 	}
-	if (grauDeVolatilidade == 1 && margemDeSeguranca<2) {
-		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento é em torno de 25%, e que sua margem de segurança informada é '+tabela_dos_setes[margemDeSeguranca]+', alertamos que para que se tenha uma maior segurança nas projeções gerenciais é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
-	} else if (grauDeVolatilidade == 2 && margemDeSeguranca<4) {
-		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento é em torno de 25% a 50%, e que sua margem de segurança informada é '+tabela_dos_setes[margemDeSeguranca]+', alertamos que para que se tenha uma maior segurança nas projeções gerenciais é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
+	if (grauDeVolatilidade == 0) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, a volatilidade de seu faturamento é estável, isso é bom. Tente não se afastar dessa situação.'
+	} else if (grauDeVolatilidade == 1 && margemDeSeguranca > 2) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, a volatilidade de seu faturamento está em torno de 25%, e que sua margem de segurança informada é maior que a volatilidade de seu faturamento. Isso é bom, procure manter sempre uma margem de segurança maior que a volatilidade.'
+	} else if (grauDeVolatilidade == 1 && margemDeSeguranca < 2) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento está em torno de 25%, e que sua margem de segurança informada é de '+tabela7[margemDeSeguranca]+', e, portanto, abaixo dos 25%.  A literatura recomenda que para ter uma maior segurança nas projeções gerenciais e menor risco operacional é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
+	} else if (grauDeVolatilidade == 2 && margemDeSeguranca > 4) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, a volatilidade de seu faturamento está em torno de 50%, e que sua margem de segurança informada é maior que a volatilidade de seu faturamento. Isso é bom, procure manter sempre uma margem de segurança maior que a volatilidade.'
+	} else if (grauDeVolatilidade == 2 && margemDeSeguranca < 4) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento está entre 25% a 50%, e que sua margem de segurança informada é '+tabela7[margemDeSeguranca]+', e, portanto, abaixo da volatilidade.   A literatura recomenda que para ter uma maior segurança nas projeções gerenciais e menor risco operacional é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
+	} else if (grauDeVolatilidade == 3 && margemDeSeguranca > 4) {
+		recomendacao = recomendacao + '<br><br>Adicionalmente, a volatilidade de seu faturamento é acima de 50%, e que sua margem de segurança informada é maior que a volatilidade de seu faturamento. Isso é bom, procure manter sempre uma margem de segurança maior que a volatilidade.'
 	} else if (grauDeVolatilidade == 3 && margemDeSeguranca < 4) {
-		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento acima de 50%, e que sua margem de segurança informada é '+tabela_dos_setes[margemDeSeguranca]+', alertamos que para que se tenha uma maior segurança nas projeções gerenciais é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
+		recomendacao = recomendacao + '<br><br>Adicionalmente, notamos que a volatilidade de seu faturamento acima de 50%, e que sua margem de segurança informada é '+tabela7[margemDeSeguranca]+', e, portanto, abaixo da volatilidade. A Literatura recomenda que para ter uma maior segurança nas projeções gerenciais e menor risco operacional é importante que a margem de segurança projetada seja superior ao índice de volatilidade das receitas mensais apuradas.'
 	} else if (grauDeVolatilidade == 4) {
-		recomendacao = recomendacao + '<br><br>Alertamos que a volatilidade de suas receitas devem ser levadas em consideração no momento da definição de sua margem de segurança, sendo assim, recomendamos que verifique o faturamento mensal dos últimos meses, e veja se existe variação nos totais de receita auferida entre os meses, uma vez possuindo picos ou quedas de receita relevante, leia-se variações, tais percentuais devem ser levados em consideração para a definição de sua margem de segurança.'
+		recomendacao = recomendacao + '<br><br>Estudos e a Literatura demonstram que o risco operacional de sua Empresa está também relacionado a variação de suas receitas e margem de segurança, pois as variações de receita devem ser levadas em consideração no momento da definição de sua margem de segurança.'
 	}
 	$("#textoResultado").html(recomendacao);
 }

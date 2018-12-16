@@ -62,14 +62,14 @@
 					</div>
 				<div class="dados-respondente col-md-12 elemento-escondido">
 					<div  id="conteudo_1">
-						<strong>Afim de enquadrar sua empresa entre micro empresa (ME), Empresa de pequeno porte (EPP), ou Empresa de Grande porte, com base na Lei complementar 155 de 2016, nos informe em qual faturamento sua Empresa se enquadra</strong>
+						<strong>Afim de enquadrar sua empresa entre microempresa (ME), Empresa de pequeno porte (EPP), ou Empresa de Grande porte, com base na Lei complementar 155 de 2016, informe em qual alternativa de faturamento sua Empresa se enquadra</strong>
 						<br/>
 						<br/>
 
 						<span class="linha-resposta-vertical" id="faturamento-empresa">
-							<input type="radio" data-categoria = "1" value="até R$ 360.000,00"> até R$ 360.000,00
-							<br/><input type="radio" data-categoria = "2" value="entre R$ 360.0001,00 a R$ 4.800.000,00"> entre R$ 360.0001,00 a R$ 4.800.000,00
-							<br/><input type="radio" data-categoria = "3" value="acima de R$ 4.800.001,00"> acima de R$ 4.800.001,00
+							<input type="radio" data-category = "1" value="até R$ 360.000,00"> até R$ 360.000,00
+							<br/><input type="radio" data-category = "2" value="entre R$ 360.0001,00 a R$ 4.800.000,00"> entre R$ 360.0001,00 a R$ 4.800.000,00
+							<br/><input type="radio" data-category = "3" value="acima de R$ 4.800.001,00"> acima de R$ 4.800.001,00
 						</span>
 
 					</div>
@@ -80,11 +80,11 @@
 
 						<span class="row linha-resposta-vertical" id="regiao-empresa">
 
-								<input type="radio" data-categoria = "1" value="Centro-Oeste"> Centro-Oeste
-								<br/><input type="radio" data-categoria = "2" value="Nordeste"> Nordeste
-								<br/><input type="radio" data-categoria = "3" value="Norte"> Norte
-								<br/><input type="radio" data-categoria = "4" value="Sul"> Sul
-								<br/><input type="radio" data-categoria = "5" value="Sudeste"> Sudeste
+								<input type="radio" data-category = "1" value="Centro-Oeste"> Centro-Oeste
+								<br/><input type="radio" data-category = "2" value="Nordeste"> Nordeste
+								<br/><input type="radio" data-category = "3" value="Norte"> Norte
+								<br/><input type="radio" data-category = "4" value="Sul"> Sul
+								<br/><input type="radio" data-category = "5" value="Sudeste"> Sudeste
 
 						</span>
 
@@ -96,10 +96,10 @@
 						<br/>
 						<span class="linha-resposta-vertical" id="segmento-empresa">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "1" value="Prestação de serviços"> Prestação de serviços
-								<br/><input type="radio" data-categoria = "2" value="Comércio"> Comércio
-								<br/><input type="radio" data-categoria = "3" value = "Industria"> Industria
-								<br/><input type="radio" data-categoria = "4" value = "Todas as alternativas"> Todas as alternativas
+								<input type="radio" data-category = "1" value="Prestação de serviços"> Prestação de serviços
+								<br/><input type="radio" data-category = "2" value="Comércio"> Comércio
+								<br/><input type="radio" data-category = "3" value = "Industria"> Industria
+								<br/><input type="radio" data-category = "4" value = "Todas as alternativas"> Todas as alternativas
 							</section>
 
 						</span>
@@ -111,9 +111,9 @@
 						<br/>
 						<span class="linha-resposta-vertical" id="conhecimento-ferramentas">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "0" value="0"> Nenhum conhecimento
-								<br/><input type="radio" data-categoria = "1" value = "1"> Tenho conhecimento mas nunca utilizei
-								<br/><input type="radio" data-categoria = "2" value = "2"> Tenho conhecimento e utilizo estas ferramentas
+								<input type="radio" data-category = "0" value="Nenhum conhecimento"> Nenhum conhecimento
+								<br/><input type="radio" data-category = "1" value = "Tenho conhecimento mas nunca utilizei"> Tenho conhecimento mas nunca utilizei
+								<br/><input type="radio" data-category = "2" value = "Tenho conhecimento e utilizo estas ferramentas"> Tenho conhecimento e utilizo estas ferramentas
 							</section>
 
 						</span>
@@ -123,89 +123,214 @@
 						<strong>Analisando o faturamento de sua Empresa ao longo do ano, saberia nos informar o grau de volatilidade ao longo dos meses, ou seja, o percentual de variação entre um mês e outro que geralmente ocorre?</strong>
 						<br/>
 						<br/>
+						<strong>O cálculo de variação de seu faturamento pode ser realizado conforme exemplo:</strong>
+						<br/>
+						<span  style="border:1px black solid; display: inline-block; width: 600px;">
+							<section class="col-md-9">
+								Maior faturamento do período analisado: 100.000,00<br/>
+								Menor faturamento do período analisado: 75.000,00<br/>
+								Calculo da volatilidade: 100.000,00 – 75.000,00<br/>
+								Logo o cálculo do percentual seria: 25.000,00 / 100.000,00 = 0,25<br/>
+							</section>
+							<section class="col-md-2" style="float: right;">
+								100.000<br/>
+								75.000<br/>
+								25.000<br/>
+								<strong>25%</strong><br/>
+							</section>
+						</span>
+						<br/>
+						<br/>
 						<span class="linha-resposta-vertical" id="grau-volatilidade">
 							<section class="col-md-7">
-								<input type="radio" data-categoria = "0" value="0"> Não possui volatilidade, o faturamento é estável
-								<br/><input type="radio" data-categoria = "1" value = "1"> A variação da receita entre um mês e outro é até 25%
-								<br/><input type="radio" data-categoria = "2" value = "2"> A variação da receita entre um mês e outro está entre 25% a 50%
-								<br/><input type="radio" data-categoria = "3" value = "3"> A variação da receita entre um mês é acima de 50%
-								<br/><input type="radio" data-categoria = "4" value = "4"> Não sei calcular
+								<input type="radio" data-category = "0" value="Não possui volatilidade, o faturamento é estável"> Não possui volatilidade, o faturamento é estável
+								<br/><input type="radio" data-category = "1" value = "A variação da receita entre um mês e outro é até 25%"> A variação da receita entre um mês e outro é até 25%
+								<br/><input type="radio" data-category = "2" value = "A variação da receita entre um mês e outro está entre 25% a 50%"> A variação da receita entre um mês e outro está entre 25% a 50%
+								<br/><input type="radio" data-category = "3" value = "A variação da receita entre um mês é acima de 50%"> A variação da receita entre um mês é acima de 50%
+								<br/><input type="radio" data-category = "4" value = "Não sei calcular"> Não sei calcular
 							</section>
 
 						</span>
 					</div>
 
 					<div class="elemento-escondido" id="conteudo_6">
-						<strong>Sabendo-se que a margem de contribuição é o total dos custos variáveis necessários para a produção de um determinado produto, como as matérias primas, materiais secundários, e outros custos que variam com base no volume de produção, nos informe o percentual da margem de contribuição no custo total de seu produto vendido</strong>
+						<strong>Sabendo-se que a margem de contribuição é a diferença entre o preço de venda e o total dos custos variáveis necessários para a produção dos produtos a serem vendidos, tais como matérias primas, materiais secundários, e demais custos que variam com base no volume de produção.</strong>
 						<br/>
+						<br/>
+						<strong>O cálculo de variação da margem de contribuição pode ser realizado conforme exemplo:</strong>
+						<br/>
+						<span  style="border:1px black solid; display: inline-block; width: 600px;">
+							<section class="col-md-9">
+								Faturamento do período<br/>
+								(-) Custos Variáveis <strong>(1)</strong><br/>
+								<strong>(=) Margem de Contribuição</strong><br/>
+								<br/>
+								Margem de Contribuição em % = 400.000/1.000.000 <br/>
+								<br/>
+								<strong>(1) Custos Variáveis</strong><br/>
+								Consumo de Matéria Prima<br/>
+								Mão de Obra Direta<br/>
+								Materiais diversos aplicados<br/>
+								<strong>Total</strong><br/>
+							</section>
+							<section class="col-md-2" style="float: right;">
+								<span style="white-space:pre;">     1.000.000 </span>
+								<u style="white-space:pre;">     (600.000) </u><br/>
+								<strong style="white-space:pre;">       400.000 </strong><br/>
+								<br/>
+								<u style="white-space:pre;">           40%   </u><br/>
+								<br/>
+								<br/>
+								<span style="white-space:pre;">       350.000 </span>
+								<span style="white-space:pre;">       200.000 </span>
+								<u style="white-space:pre;">        50.000   </u><br/>
+								<strong style="white-space:pre;">       600.000 </strong><br/>
+							</section>
+						</span>
+						<br/>
+						<br/>
+						<strong>Com base no exemplo demonstrado acima, informe o percentual da sua margem de contribuição no custo total de seu faturamento:</strong><br/>
 						<br/>
 						<span class="linha-resposta-vertical" id="contribuicao-percentual">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "0" value="0"> até 12%
-								<br/><input type="radio" data-categoria = "1" value = "1"> de 12,01% a 24%
-								<br/><input type="radio" data-categoria = "2" value = "2"> de 24,01% a 36%
-								<br/><input type="radio" data-categoria = "3" value = "3"> de 36,01% a 48%
-								<br/><input type="radio" data-categoria = "4" value = "4"> de 48,01% a 60%
-								<br/><input type="radio" data-categoria = "5" value = "5"> de 60,01% a 72%
-								<br/><input type="radio" data-categoria = "6" value = "6"> de 72,01% a 84%
-								<br/><input type="radio" data-categoria = "7" value = "7"> acima de 84%
+								<input type="radio" data-category = "0" value="até 12%"> até 12%
+								<br/><input type="radio" data-category = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-category = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-category = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-category = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-category = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-category = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-category = "7" value = "acima de 84%"> acima de 84%
 							</section>
 
 						</span>
 					</div>
 
 					<div class="elemento-escondido" id="conteudo_7">
-						<strong>Considerando que o ponto de equilíbrio é o volume mínimo que sua Empresa pode vender para não obter prejuízo ou lucro no ano, nos informe qual percentual de seu faturamento é necessário para alcançar o ponto de equilíbrio</strong>
+						<strong>Considerando que o ponto de equilíbrio é o faturamento mínimo que sua Empresa precisa obter para não fechar o período com prejuízo ou lucro no ano, informe em qual percentual do seu faturamento está o seu ponto de equilíbrio. O cálculo do percentual pode ser realizado conforme exemplo:</strong>
 						<br/>
+						<br/>
+						<strong>O cálculo de variação da margem de contribuição pode ser realizado conforme exemplo:</strong>
+						<br/>
+						<span  style="border:1px black solid; display: inline-block; width: 600px;">
+							<section class="col-md-9">
+								Faturamento do período<br/>
+								Total de despesas e impostos do período<br/>
+								<br/>
+								Faturamento mínimo para não apurar prejuízos<br/>
+								<br/>
+								O percentual do ponto de equilíbrio = 200.000/1.000.000 = 0,2<br/>
+							</section>
+							<section class="col-md-2" style="float: right;">
+								<span style="white-space:pre;">     1.000.000 </span>
+								<span style="white-space:pre;">       200.000 </span>
+								<br/>
+								<br/>
+								<span style="white-space:pre;">       200.000 </span>
+								<u style="white-space:pre;">                      </u><br/>
+								<strong style="white-space:pre;">       20% </strong><br/>
+							</section>
+						</span>
+						<br/>
+						<br/>
+						<strong>Com base no exemplo demonstrado acima, informe o percentual do ponto de equilíbrio de seu faturamento:</strong><br/>
 						<br/>
 						<span class="linha-resposta-vertical" id="faturamento-percentual">
 							<section class="col-md-6">
-								<input type="radio" data-categoria = "0" value="0"> até 12%
-								<br/><input type="radio" data-categoria = "1" value = "1"> de 12,01% a 24%
-								<br/><input type="radio" data-categoria = "2" value = "2"> de 24,01% a 36%
-								<br/><input type="radio" data-categoria = "3" value = "3"> de 36,01% a 48%
-								<br/><input type="radio" data-categoria = "4" value = "4"> de 48,01% a 60%
-								<br/><input type="radio" data-categoria = "5" value = "5"> de 60,01% a 72%
-								<br/><input type="radio" data-categoria = "6" value = "6"> de 72,01% a 84%
-								<br/><input type="radio" data-categoria = "7" value = "7"> acima de 84%
+								<input type="radio" data-category = "0" value="até 12%"> até 12%
+								<br/><input type="radio" data-category = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-category = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-category = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-category = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-category = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-category = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-category = "7" value = "acima de 84%"> acima de 84%
 							</section>
 
 						</span>
 					</div>
 
 					<div class="elemento-escondido" id="conteudo_8">
-						<strong>A margem de segurança seria o volume de produção projetado a maior do volume apurado pelo ponto de equilíbrio, ou seja, a diferença positiva entre volume projetado para venda e volume necessário para atingir o ponto de equilíbrio. Sendo assim, nos informe qual o percentual de sua margem de segurança</strong>
+						<strong>Sabendo que a margem de segurança é o faturamento que ultrapassa o valor mínimo que sua Empresa necessita para honrar com todos os compromissos financeiros e começar a possuir lucros no período, informe qual o percentual de margem de segurança em relação ao seu faturamento total, em outras palavras, qual o percentual de seu faturamento você poderia perder que mesmo assim, não fecharia com prejuízo no período.</strong>
 						<br/>
+						<br/>
+						<strong>Exemplo de cálculo a seguir:</strong>
+						<br/>
+						<span  style="border:1px black solid; display: inline-block; width: 600px;">
+							<section class="col-md-9">
+								Faturamento do período<br/>
+								Total de despesas e impostos do período<br/>
+								<br/>
+								Faturamento mínimo para não apurar prejuízos<br/>
+								<br/>
+								O percentual do ponto de equilíbrio = 200.000/1.000.000 = 0,2<br/>
+								<br/>
+								Cálculo da margem de segurança = 1.000.000 - 200.000<br/>
+								Percentual da margem de segurança = 800.000/1.000.000 = 0,8<br/>
+							</section>
+							<section class="col-md-2" style="float: right;">
+								<span style="white-space:pre;">     1.000.000 </span>
+								<span style="white-space:pre;">       200.000 </span>
+								<br/>
+								<br/>
+								<span style="white-space:pre;">       200.000 </span>
+								<u style="white-space:pre;">                      </u><br/>
+								<u style="white-space:pre;">           20%   </u><br/>
+								<br/>
+								<u style="white-space:pre;">      800.000  </u><br/>
+								<strong style="white-space:pre;">       80% </strong><br/>
+							</section>
+						</span>
+						<br/>
+						<br/>
+						<strong>Com base no exemplo, informe o percentual da margem de segurança em seu faturamento:</strong><br/>
 						<br/>
 						<span class="linha-resposta-vertical" id="margem-percentual">
 							<section class="col-md-6">
-								<input type="radio" value="0"> até 12%
-								<br/><input type="radio" value = "1"> de 12,01% a 24%
-								<br/><input type="radio" value = "2"> de 24,01% a 36%
-								<br/><input type="radio" value = "3"> de 36,01% a 48%
-								<br/><input type="radio" value = "4"> de 48,01% a 60%
-								<br/><input type="radio" value = "5"> de 60,01% a 72%
-								<br/><input type="radio" value = "6"> de 72,01% a 84%
-								<br/><input type="radio" value = "7"> acima de 84%
+								<input type="radio" data-category = "0" value="até 12%"> até 12%
+								<br/><input type="radio" data-category = "1" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-category = "2" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-category = "3" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-category = "4" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-category = "5" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-category = "6" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-category = "7" value = "acima de 84%"> acima de 84%
 							</section>
 
 						</span>
 					</div>
 
 					<div class="elemento-escondido" id="conteudo_9">
-						<strong>A diversificação de clientes é fator importante para a definição da margem de segurança operacional da Empresa, sendo assim, nos informe a representatividade dos 5 principais clientes de sua Empresa em relação ao faturamento total</strong>
+						<strong>Informe a representatividade no seu faturamento total do faturamento dos 5 principais clientes de sua empresa, ou seja, dos clientes que possuem maior volume de compras, tanto em volume quanto em valores, exemplo de cálculo a seguir:</strong>
+						<br/>
+						<br/>
+						<span  style="border:1px black solid; display: inline-block; width: 600px;">
+							<section class="col-md-8">
+								Faturamento do período<br/>
+								Faturamento total dos 5 maiores clientes<br/>
+								<br/>
+								O percentual do ponto de equilíbrio = 600.000/1.000.000<br/>
+							</section>
+							<section class="col-md-3" style="float: right;">
+								<span style="white-space:pre;">     1.000.000,00 </span>
+								<span style="white-space:pre;">        600.000,00 </span>
+								<br/>
+								<br/>
+								<strong style="white-space:pre;">                      60% </strong><br/>
+							</section>
+						</span>
 						<br/>
 						<br/>
 						<span class="linha-resposta-vertical" id="representatividade-percentual">
 							<section class="col-md-6">
-								<input type="radio" value="7"> até 12%
-								<br/><input type="radio" value = "6"> de 12,01% a 24%
-								<br/><input type="radio" value = "5"> de 24,01% a 36%
-								<br/><input type="radio" value = "4"> de 36,01% a 48%
-								<br/><input type="radio" value = "3"> de 48,01% a 60%
-								<br/><input type="radio" value = "2"> de 60,01% a 72%
-								<br/><input type="radio" value = "1"> de 72,01% a 84%
-								<br/><input type="radio" value = "0"> acima de 84%
+								<input type="radio" data-category = "7" value="até 12%"> até 12%
+								<br/><input type="radio" data-category = "6" value = "de 12,01% a 24%"> de 12,01% a 24%
+								<br/><input type="radio" data-category = "5" value = "de 24,01% a 36%"> de 24,01% a 36%
+								<br/><input type="radio" data-category = "4" value = "de 36,01% a 48%"> de 36,01% a 48%
+								<br/><input type="radio" data-category = "3" value = "de 48,01% a 60%"> de 48,01% a 60%
+								<br/><input type="radio" data-category = "2" value = "de 60,01% a 72%"> de 60,01% a 72%
+								<br/><input type="radio" data-category = "1" value = "de 72,01% a 84%"> de 72,01% a 84%
+								<br/><input type="radio" data-category = "0" value = "acima de 84%"> acima de 84%
 							</section>
 
 						</span>
