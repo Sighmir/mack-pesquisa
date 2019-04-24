@@ -2,7 +2,7 @@ var addSubtractDate = require("add-subtract-date");
 var fs = require("fs");
 
 module.exports = function (app) {
-    app.get("/controladoria-2018", function (req, res) {
+    app.get("/", function (req, res) {
 
         var dataLogin = createDateAsUTC(new Date(req.session.loggedTime));
         var dataAtual = new Date();
@@ -19,7 +19,7 @@ module.exports = function (app) {
     });
 
 
-    app.post("/controladoria-2018", function (req, res) {
+    app.post("/dados", function (req, res) {
 
         var idUsuario;
         var objeto = req.body
@@ -86,12 +86,12 @@ module.exports = function (app) {
     });
 
 
-    app.get("/controladoria-2018/logoff", function (req, res) {
+    app.get("/logoff", function (req, res) {
         req.session.destroy();
         res.redirect("/controladoria-2018/login");
     });
 
-    app.get("/controladoria-2018/termo", function (req, res) {
+    app.get("/termo", function (req, res) {
         res.download("./app/termo/termo.pdf");
     })
 

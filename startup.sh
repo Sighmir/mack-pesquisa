@@ -75,6 +75,7 @@ EOF
   /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
   rm -f $tfile
   rm -f my.cnf
+  rm -f /etc/my.cnf.d/*
 fi
 
 

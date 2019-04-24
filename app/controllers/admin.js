@@ -1,7 +1,7 @@
 var addSubtractDate = require("add-subtract-date");
 var XLSX = require('xlsx');
 module.exports = function (app) {
-    app.get("/controladoria-2018/admin/home", function (req, res) {
+    app.get("/admin/home", function (req, res) {
 
         var dataLogin = createDateAsUTC(new Date(req.session.loggedTime));
         var dataAtual = new Date();
@@ -18,7 +18,7 @@ module.exports = function (app) {
     });
 
 
-    app.get("/controladoria-2018/admin/excel", function (req, res) {
+    app.get("/admin/excel", function (req, res) {
         var connection = new app.infra.ConnectionFactory();
         var excelDAO = new app.persistencia.ExcelDAO(connection);
 

@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app){
 
-    app.get("/controladoria-2018/login", function(req, res){
+    app.get("/login", function(req, res){
 
         var sessao = req.session;
         var erro = req.query.erro;
@@ -13,7 +13,7 @@ module.exports = function(app){
         }
     })
 
-    app.post("/controladoria-2018/login", function(req,res){
+    app.post("/login", function(req,res){
 
         var usuarioLogin = req.body;
         var connection = new app.infra.ConnectionFactory();

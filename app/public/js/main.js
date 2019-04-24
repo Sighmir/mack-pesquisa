@@ -228,7 +228,7 @@ function enquadrar(objeto) {
 		closeButton: false
 	});
 	$.ajax({
-		url: "/controladoria-2018",
+		url: "/controladoria-2018/dados",
 		method: "post",
 		dataType: "json",
 		data: objeto,
@@ -396,7 +396,7 @@ function montarGrafico(xValue, yValue, id, texto) {
 							doc.text(10, 175, splitText);
 							if (text.length == 2) {
 								var image = new Image();
-								image.src = '/img/tabela.jpg';
+								image.src = '/controladoria-2018/img/tabela.jpg';
 								image.onload = () => {
 									doc.addImage(image, 'JPEG', 60, 200, 85, 50);
 									splitText = doc.splitTextToSize(text[1], 190);
