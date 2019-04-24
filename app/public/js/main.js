@@ -228,7 +228,7 @@ function enquadrar(objeto) {
 		closeButton: false
 	});
 	$.ajax({
-		url: "/controladoria",
+		url: "/controladoria-2018",
 		method: "post",
 		dataType: "json",
 		data: objeto,

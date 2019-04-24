@@ -2,18 +2,18 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app){
 
-    app.get("/controladoria/login", function(req, res){
+    app.get("/controladoria-2018/login", function(req, res){
 
         var sessao = req.session;
         var erro = req.query.erro;
         if(sessao.email){
-            res.redirect("/controladoria/admin/home");
+            res.redirect("/controladoria-2018/admin/home");
         }else{
             res.render("login/login", {erro:erro});
         }
     })
 
-    app.post("/controladoria/login", function(req,res){
+    app.post("/controladoria-2018/login", function(req,res){
 
         var usuarioLogin = req.body;
         var connection = new app.infra.ConnectionFactory();
@@ -48,7 +48,7 @@ module.exports = function(app){
                                 usuarioDAO.atualizaAcesso(new Date(), usuarioLogin.email, () => {
                                     connection.end();
                                 });
-                                res.redirect("/controladoria/admin/home");
+                                res.redirect("/controladoria-2018/admin/home");
                             }
 
                         }else{

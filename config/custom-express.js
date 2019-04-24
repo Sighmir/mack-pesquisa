@@ -25,8 +25,8 @@ module.exports = function(){
     app.use(function(req, res, next){
         var sessao = req.session;
 
-        if(!sessao.email && req.url == "/controladoria/admin/home"){
-            res.redirect("/controladoria/login");
+        if(!sessao.email && req.url == "/controladoria-2018/admin/home"){
+            res.redirect("/controladoria-2018/login");
         }else{
             next();
         }
